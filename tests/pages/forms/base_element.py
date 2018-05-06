@@ -1,5 +1,6 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
 
 class BaseElement(object):
     locator = None
@@ -9,36 +10,37 @@ class BaseElement(object):
     def __init__(self, driver):
         self.driver = driver
 
-    def wait_for_presence(self):
-        self.element = WebDriverWait(self.driver, self.DEFAULT_WAIT_TIME, 0.1).until(
-            EC.presence_of_element_located(self.locator)
-        )
-        return self
+    # def wait_for_presence(self):
+    #     self.element = WebDriverWait(self.driver, self.DEFAULT_WAIT_TIME, 0.1).until(
+    #         EC.presence_of_element_located(self.locator)
+    #     )
+    #     return self
 
     def wait_for_visible(self):
-        self.element = WebDriverWait(self.driver, self.DEFAULT_WAIT_TIME, 0.1).until(
+        self.element = WebDriverWait(self.driver, self.DEFAULT_WAIT_TIME, 0.4).until(
             EC.visibility_of_element_located(self.locator)
         )
         return self
 
-    def wait_for_clickable(self):
-        self.element = WebDriverWait(self.driver, self.DEFAULT_WAIT_TIME, 0.1).until(
-            EC.element_to_be_clickable(self.locator)
-        )
-        return self
+    # def wait_for_alert(self):
+    #     self.element = WebDriverWait(self.driver, self.DEFAULT_WAIT_TIME, 0.1).until(
+    #         EC.alert_is_present()
+    #     )
+    #     return self
 
-    def wait_for_alert(self):
-        self.element = WebDriverWait(self.driver, self.DEFAULT_WAIT_TIME, 0.1).until(
-            EC.alert_is_present()
-        )
-        return self
+    # def exists(self):
+    #     try:
+    #         self.driver.find_element(self.locator)
+    #     except NoSuchElementException as e:
+    #         return False
+    #     return True
 
-    def is_exists(self):
-        try:
-            self.driver.find_element(self.locator)
-        except Exception as e:
-            return False
-        return True
+    # def check_exists_by_xpath(xpath):
+    #     try:
+    #         webdriver.find_element_by_xpath(xpath)
+    #     except NoSuchElementException:
+    #         return False
+    #     return True
 
     def get(self):
         return self.element

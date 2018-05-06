@@ -13,17 +13,13 @@ class AuthPage(BasePage):
 
         login_form = AuthForm(self.driver)
 
-        login_field = login_form.login_input().wait_for_clickable().get()
-        login_field.click()
-        login_field.clear()
+        login_field = login_form.login_input().wait_for_visible().get()
         login_field.send_keys(login)
 
-        password_field = login_form.password_input().wait_for_clickable().get()
-        password_field.click()
-        password_field.clear()
+        password_field = login_form.password_input().wait_for_visible().get()
         password_field.send_keys(password)
 
-        login_form.submit_button().wait_for_clickable().get().click()
+        login_form.submit_button().wait_for_visible().get().click()
 
 
 

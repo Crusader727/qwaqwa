@@ -8,4 +8,4 @@ class MainPage(BasePage):
 
         main_form = MainForm(self.driver)
 
-        main_form.message_button().wait_for_clickable().get().click()
+        main_form.message_button().wait_for_visible().get().click()
