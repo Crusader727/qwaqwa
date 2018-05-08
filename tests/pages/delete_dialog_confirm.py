@@ -10,4 +10,4 @@ class DeleteDialogConfirmPage(BasePage):
 
         delete_dialog_confirm_form = DeleteDialogConfirmForm(self.driver)
 
-        delete_dialog_confirm_form.confirm_button().wait_for_visible().get().click()
+        delete_dialog_confirm_form.get_confirm_button().click()

@@ -1,52 +1,25 @@
-from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
 class BaseElement(object):
-    locator = None
-    element = None
-    DEFAULT_WAIT_TIME = 30
-
     def __init__(self, driver):
         self.driver = driver
 
-    # def wait_for_presence(self):
-    #     self.element = WebDriverWait(self.driver, self.DEFAULT_WAIT_TIME, 0.1).until(
-    #         EC.presence_of_element_located(self.locator)
-    #     )
-    #     return self
+    def get_button_by_xpath(self, xpath):
+        return WebDriverWait(self.driver, 30, 1).until(
+            EC.element_to_be_clickable((By.XPATH, xpath)))
+    def get_field_by_xpath(self, xpath):
+        return WebDriverWait(self.driver, 30, 1).until(
+            EC.visibility_of_element_located((By.XPATH, xpath)))
+        
+        
+    # def get_button_by_xpath_visible(self, xpath):
+    #     return WebDriverWait(self.driver, 30, 10).until(
+    #         EC.visibility_of_element_located((By.XPATH, xpath)))
 
-    def wait_for_visible(self):
-        self.element = WebDriverWait(self.driver, self.DEFAULT_WAIT_TIME, 0.4).until(
-            EC.visibility_of_element_located(self.locator)
-        )
-        return self
-
-    # def wait_for_alert(self):
-    #     self.element = WebDriverWait(self.driver, self.DEFAULT_WAIT_TIME, 0.1).until(
-    #         EC.alert_is_present()
-    #     )
-    #     return self
-
-    # def exists(self):
-    #     try:
-    #         self.driver.find_element(self.locator)
-    #     except NoSuchElementException as e:
-    #         return False
-    #     return True
-
-    # def check_exists_by_xpath(xpath):
-    #     try:
-    #         webdriver.find_element_by_xpath(xpath)
-    #     except NoSuchElementException:
-    #         return False
-    #     return True
-
-    def get(self):
-        return self.element
-
-    def __getattr__(self, item):
-        def f():
-            self.locator = self.__getattribute__(item.upper())
-            return self
-        return f
+    # def get_button_by_xpath_presence(self, xpath):
+    #     return WebDriverWait(self.driver, 30, 10).until(
+    #         EC.presence_of_element_located((By.XPATH, xpath)))
+        
+        

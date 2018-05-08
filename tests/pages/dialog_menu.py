@@ -8,4 +8,4 @@ class DialogMenuPage(BasePage):
 
         dialog_menu_form = DialogMenuForm(self.driver)
 
-        dialog_menu_form.delete_dialog().wait_for_visible().get().click()
+        dialog_menu_form.get_delete_dialog_button().click()
