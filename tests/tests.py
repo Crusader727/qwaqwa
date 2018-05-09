@@ -20,6 +20,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 class Tests(unittest.TestCase):
 
     CURRENT_DIALOG_URL = ""
+       
 
     def setUp(self):
         browser = os.environ.get('BROWSER', 'CHROME')
@@ -29,6 +30,8 @@ class Tests(unittest.TestCase):
             desired_capabilities=getattr(DesiredCapabilities, browser).copy()
         )
 
+        self.dialog_page = DialogPage(self.driver)
+
         auth_page = AuthPage(self.driver)
         auth_page.sign_in("technopark3","testQA1")
         main_page = MainPage(self.driver)
@@ -36,20 +39,30 @@ class Tests(unittest.TestCase):
 
     def tearDown(self):
         self.driver.get(self.CURRENT_DIALOG_URL)
-        dialog_page = DialogPage(self.driver)
-        if(dialog_page.no_messages_text_exists() == False):
+       
+        if(self.dialog_page.no_messages_text_exists() == False):
             self.delete_dialog()
         self.driver.quit()
         
-    def test_create_and_delete_dialog(self):
-        self.create_dialog()
-        dialog_page = DialogPage(self.driver)
-        self.assertEquals(dialog_page.send_message_button_exists(), True)
-        self.CURRENT_DIALOG_URL = self.driver.current_url
-        self.delete_dialog()
-        self.driver.get(self.CURRENT_DIALOG_URL)
-        self.assertEquals(dialog_page.no_messages_text_exists(), True)
+    # def test_create_and_delete_dialog(self):
+    #     self.create_dialog()
+    #     self.assertEquals(self.dialog_page.send_message_button_exists(), True)
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    #     self.delete_dialog()
+    #     self.driver.get(self.CURRENT_DIALOG_URL)
+    #     self.assertEquals(self.dialog_page.no_messages_text_exists(), True)
 
+    # def test_send_sticker(self):
+    #     self.create_dialog()
+    #     self.dialog_page.send_sticker()
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    #     self.assertEquals(self.dialog_page.message_with_ticker_exists(), True)
+    
+    def test_send_music(self):
+        self.create_dialog()
+        self.dialog_page.send_music()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        sleep(59)
 
     def create_dialog(self):
         message_page = MessagePage(self.driver)
@@ -57,8 +70,7 @@ class Tests(unittest.TestCase):
         message_page.choose_companion()
         
     def delete_dialog(self):
-        dialog_page = DialogPage(self.driver)
-        dialog_page.open_menu()
+        self.dialog_page.open_menu()
         dilog_menu_page = DialogMenuPage(self.driver)
         dilog_menu_page.delete_dialog()
         delete_dialog_confirm_page = DeleteDialogConfirmPage(self.driver)
