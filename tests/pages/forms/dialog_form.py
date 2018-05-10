@@ -9,8 +9,9 @@ class DialogForm(BaseElement):
     STICKER_BUTTON = '//span[@class="ic ic_smile smiles_w comments_smiles_trigger js-comments_smiles_trigger __new emoji-m"]'
     STICKER_LIST_BUTTON = '//a[@data-l="t,stickersTab"]'
     USMILE_STICKER = '//div[@data-code="#u9b43ee364as#"]'
-    ATTACH_BUTTON = '//div[@class="comments_attach_trigger_ic ic_staple"]'
+    ATTACH_BUTTON = 'div.comments_attach_trigger_ic.ic_staple'
     MESSAGE_WITH_STICKER = '//div[@class="msg_sticker js-msg_sticker"]'
+    SENT_MESSAGE = '//div[@class="msg_tx"]'
 
 
     def get_menu_button(self):
@@ -38,7 +39,10 @@ class DialogForm(BaseElement):
         return self.get_button_by_xpath(self.USMILE_STICKER)
     
     def get_attach_button(self):
-        return self.get_button_by_xpath(self.ATTACH_BUTTON)
+        return self.get_button_by_css_selector(self.ATTACH_BUTTON)
 
     def get_message_with_sticker(self):
         return self.existance_of_element_by_xpath(self.MESSAGE_WITH_STICKER)
+
+    def get_sent_message(self):
+        return self.existance_of_element_by_xpath(self.SENT_MESSAGE)

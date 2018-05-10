@@ -39,7 +39,6 @@ class Tests(unittest.TestCase):
 
     def tearDown(self):
         self.driver.get(self.CURRENT_DIALOG_URL)
-       
         if(self.dialog_page.no_messages_text_exists() == False):
             self.delete_dialog()
         self.driver.quit()
@@ -56,13 +55,31 @@ class Tests(unittest.TestCase):
     #     self.create_dialog()
     #     self.dialog_page.send_sticker()
     #     self.CURRENT_DIALOG_URL = self.driver.current_url
-    #     self.assertEquals(self.dialog_page.message_with_ticker_exists(), True)
+    #     self.assertEquals(self.dialog_page.message_with_sticker_exists(), True)
     
-    def test_send_music(self):
-        self.create_dialog()
-        self.dialog_page.send_music()
-        self.CURRENT_DIALOG_URL = self.driver.current_url
-        sleep(59)
+    # def test_send_music(self):
+    #     self.create_dialog()
+    #     self.dialog_page.send_music()
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    #     self.assertEquals(self.dialog_page.sent_message_exists(), True)
+
+    # def test_send_document(self):
+    #     self.create_dialog()
+    #     self.dialog_page.send_document()
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    #     self.assertEquals(self.dialog_page.sent_message_exists(), True)
+
+    # def test_send_photo(self):
+    #     self.create_dialog()
+    #     self.dialog_page.send_photo()
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    #     self.assertEquals(self.dialog_page.sent_message_exists(), True)
+
+    # def test_send_video(self):
+    #     self.create_dialog()
+    #     self.dialog_page.send_video()
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    #     self.assertEquals(self.dialog_page.sent_message_exists(), True)
 
     def create_dialog(self):
         message_page = MessagePage(self.driver)

@@ -8,11 +8,11 @@ class BaseElement(object):
         self.driver = driver
 
     def get_button_by_xpath(self, xpath):
-        return WebDriverWait(self.driver, 30, 0.1).until(
+        return WebDriverWait(self.driver, 30, 0.3).until(
             EC.element_to_be_clickable((By.XPATH, xpath)))
             
     def get_field_by_xpath(self, xpath):
-        return WebDriverWait(self.driver, 30, 0.1).until(
+        return WebDriverWait(self.driver, 30, 0.3).until(
             EC.visibility_of_element_located((By.XPATH, xpath)))
     
     def existance_of_element_by_xpath(self, xpath):
@@ -22,7 +22,17 @@ class BaseElement(object):
         except TimeoutException as e:
             return False
         return True
+
+    def get_button_by_css_selector(self, path):
+        return WebDriverWait(self.driver, 30, 0.3).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, path)))
         
-    # def get_elements_by_xpath(self, xpath):
-    #     return self.driver.find_elements_by_xpath(xpath)
+    def get_hidden_input_by_xpath(self, xpath):
+        return WebDriverWait(self.driver, 30, 0.3).until(
+            EC.presence_of_element_located((By.XPATH, xpath)))
+    
+    def existance_of_element_in_dom_by_xpath(self, xpath):
+        return WebDriverWait(self.driver, 90, 0.3).until(
+            EC.staleness_of(WebDriverWait(self.driver, 30, 0.3).until(
+            EC.presence_of_element_located((By.XPATH, xpath)))))
         
