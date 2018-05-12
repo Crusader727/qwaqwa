@@ -17,5 +17,13 @@ class MessagePage(BasePage):
         self.companion_form.get_companion_button().click()
         self.companion_form.get_create_dialog_button().click()
 
+    def choose_companion_forward_message(self):
+        self.companion_form.get_forward_companion_button().click()
+        self.companion_form.get_create_dialog_button().click()
+
     def get_existance_of_search_result(self):
         return self.message_form.get_search_result()
+    
+    #112Nick
+    def get_found_message_text(self):
+        return self.message_form.get_found_message_text()

@@ -10,7 +10,7 @@ from pages.main import MainPage
 from pages.message import MessagePage
 from pages.dialog import DialogPage
 from pages.dialog_menu import DialogMenuPage
-from pages.delete_dialog_confirm import DeleteDialogConfirmPage
+from pages.confirm import ConfirmPage
 from time import sleep
 
 from selenium.webdriver import DesiredCapabilities, Remote
@@ -39,9 +39,32 @@ class Tests(unittest.TestCase):
 
     def tearDown(self):
         self.driver.get(self.CURRENT_DIALOG_URL)
-        if(self.dialog_page.no_messages_text_exists() == False):
-            self.delete_dialog()
+        if(self.CURRENT_DIALOG_URL[23] == 'c'):
+            self.leave_group_chat()
+        else:
+            if(self.dialog_page.no_messages_text_exists() == False):
+                self.delete_dialog()
         self.driver.quit()
+    
+    def leave_group_chat(self):                      
+        self.dialog_page.open_menu()
+        dilog_menu_page = DialogMenuPage(self.driver)
+        dilog_menu_page.leave_chat()
+        confirm_page = ConfirmPage(self.driver)
+        confirm_page.confirm()
+    
+    def create_dialog(self):
+        self.message_page.create_dialog()
+        self.message_page.choose_companion()
+        self.dialog_page.wait_for_loader()
+        
+    def delete_dialog(self):
+        self.dialog_page.open_menu()
+        dilog_menu_page = DialogMenuPage(self.driver)
+        dilog_menu_page.delete_dialog()
+        confirm_page = ConfirmPage(self.driver)
+        confirm_page.confirm()
+
         
     # def test_create_and_delete_dialog(self):
     #     self.create_dialog()
@@ -97,20 +120,7 @@ class Tests(unittest.TestCase):
     #     self.assertEquals(self.main_page.get_new_message_text(), MESSAGE_TEXT)
     #     self.driver.delete_all_cookies()
     #     self.auth_page.sign_in("technopark3","testQA1")
-
-
-    def create_dialog(self):
-        self.message_page.create_dialog()
-        self.message_page.choose_companion()
-        self.dialog_page.wait_for_loader()
-        
-    def delete_dialog(self):
-        self.dialog_page.open_menu()
-        dilog_menu_page = DialogMenuPage(self.driver)
-        dilog_menu_page.delete_dialog()
-        delete_dialog_confirm_page = DeleteDialogConfirmPage(self.driver)
-        delete_dialog_confirm_page.delete_dialog()
-
+   
     #112Nick
 
     # def test_send_message(self):      
@@ -148,3 +158,29 @@ class Tests(unittest.TestCase):
     #     self.CURRENT_DIALOG_URL = self.driver.current_url
     #     self.driver.refresh()
     #     self.assertTrue(self.dialog_page.get_exsistance_of_answered_message(), "test_answer_message failed")
+
+    # def test_forward_message(self):
+    #     MESSAGE_TEXT = 'TestNumber1'      
+    #     self.create_dialog()
+    #     self.dialog_page.send_message(MESSAGE_TEXT)
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    #     self.dialog_page.forward_message()
+    #     self.message_page.choose_companion_forward_message()
+    #     self.assertTrue(self.dialog_page.get_exsistance_of_forwarded_message(), "test_forward_message failed")
+
+    # def test_find_message(self):           
+    #     self.create_dialog()  
+    #     MESSAGE_TEXT = 'TestNumber1'  
+    #     self.dialog_page.send_message(MESSAGE_TEXT)
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    #     self.dialog_page.find_message(MESSAGE_TEXT)
+    #     self.assertEquals(MESSAGE_TEXT, self.message_page.get_found_message_text())
+
+    def test_add_user_to_group_chat(self):
+        self.create_dialog()
+        dialog_page = DialogPage(self.driver)
+        dialog_page.add_user_to_chat()
+        self.assertTrue(self.dialog_page.get_exsistance_of_created_group_dialog(), "test_add_user_to_group_chat failed")
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+
+    

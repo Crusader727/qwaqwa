@@ -3,6 +3,7 @@ from base_page import BasePage
 from forms.dialog_form import DialogForm
 from forms.attach_form import AttachForm
 from forms.message_form import MessageForm
+from forms.dialog_menu_form import DialogMenuForm
 from delete_message_confirm import DeleteMessageConfirmPage
 
 from selenium.webdriver.common.action_chains import ActionChains
@@ -14,6 +15,7 @@ class DialogPage(BasePage):
         self.dialog_form = DialogForm(self.driver)
         self.attach_form = AttachForm(self.driver)
         self.message_form = MessageForm(self.driver)
+        self.dialog_menu_form = DialogMenuForm(self.driver)
 
     def open_menu(self): 
         self.dialog_form.get_menu_button().click()
@@ -93,6 +95,26 @@ class DialogPage(BasePage):
         ActionChains(self.driver).move_to_element(answer_message_button).perform()
         answer_message_button.click()  
         self.send_message(answer_text)
+
+    def forward_message(self):
+        forward_message_button = self.dialog_form.get_forward_message()
+        ActionChains(self.driver).move_to_element(forward_message_button).perform()
+        forward_message_button.click()  
+        
     
     def get_exsistance_of_answered_message(self):
         return self.dialog_form.get_answered_message()
+
+    def get_exsistance_of_forwarded_message(self):
+        return self.dialog_form.get_forward_message_title()
+
+    def find_message(self, msg):
+        self.message_form.get_find_dialog_input().send_keys(msg)
+    
+    def add_user_to_chat(self):
+        self.dialog_form.get_add_companion_button().click()
+        self.dialog_menu_form.get_companion_button().click()
+        self.dialog_menu_form.get_add_companion_confirm_button().click()
+
+    def get_exsistance_of_created_group_dialog(self):
+        return self.dialog_form.get_group_chat_created_title()
