@@ -2,6 +2,7 @@ import os
 from base_page import BasePage
 from forms.dialog_form import DialogForm
 from forms.attach_form import AttachForm
+from forms.message_form import MessageForm
 
 class DialogPage(BasePage):
     
@@ -9,6 +10,7 @@ class DialogPage(BasePage):
         super(DialogPage, self).__init__(driver)
         self.dialog_form = DialogForm(self.driver)
         self.attach_form = AttachForm(self.driver)
+        self.message_form = MessageForm(self.driver)
 
     def open_menu(self): 
         self.dialog_form.get_menu_button().click()
@@ -52,4 +54,15 @@ class DialogPage(BasePage):
         self.attach_form.get_video_input().send_keys(os.getcwd()+"/tests/static/sabaton.mp4")
         if(self.attach_form.get_loader()):
             self.dialog_form.get_send_message_button().click()
-       
+
+    def wait_for_loader(self):
+        self.dialog_form.wait_dialog_loader()
+
+    def find_dialog(self):
+        name = self.dialog_form.get_companion_name()
+        self.message_form.get_find_dialog_input().send_keys(name)
+        return name
+
+    def send_message(self, msg):
+        self.dialog_form.get_message_input().send_keys(msg)
+        self.dialog_form.get_send_message_button().click()

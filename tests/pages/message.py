@@ -5,13 +5,17 @@ from time import sleep
 
 class MessagePage(BasePage):
 
-    def create_dialog(self):
+    def __init__(self, driver):
+        super(MessagePage, self).__init__(driver)
+        self.message_form = MessageForm(self.driver)
+        self.companion_form = CompanionForm(self.driver)
 
-        message_form = MessageForm(self.driver)
-        message_form.get_create_dialog_button().click()
+    def create_dialog(self):
+       self.message_form.get_create_dialog_button().click()
     
     def choose_companion(self):
-        companion_form = CompanionForm(self.driver)
+        self.companion_form.get_companion_button().click()
+        self.companion_form.get_create_dialog_button().click()
 
-        companion_form.get_companion_button().click()
-        companion_form.get_create_dialog_button().click()
+    def get_existance_of_search_result(self):
+        return self.message_form.get_search_result()

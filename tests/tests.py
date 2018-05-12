@@ -31,11 +31,11 @@ class Tests(unittest.TestCase):
         )
 
         self.dialog_page = DialogPage(self.driver)
-
-        auth_page = AuthPage(self.driver)
-        auth_page.sign_in("technopark3","testQA1")
-        main_page = MainPage(self.driver)
-        main_page.open_messages()
+        self.message_page = MessagePage(self.driver)
+        self.auth_page = AuthPage(self.driver)
+        self.auth_page.sign_in("technopark3","testQA1")
+        self.main_page = MainPage(self.driver)
+        self.main_page.open_messages()
 
     def tearDown(self):
         self.driver.get(self.CURRENT_DIALOG_URL)
@@ -81,10 +81,29 @@ class Tests(unittest.TestCase):
     #     self.CURRENT_DIALOG_URL = self.driver.current_url
     #     self.assertEquals(self.dialog_page.sent_message_exists(), True)
 
+    # def test_find_dialog(self):
+    #     self.create_dialog()
+    #     self.dialog_page.find_dialog()
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    #     self.assertTrue(self.message_page.get_existance_of_search_result(), "test_find_dialog failed")
+
+    def test_send_message_to_blocked_user(self):
+        msg = "awdseq123"
+        self.create_dialog()
+        self.dialog_page.send_message(msg)
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        self.driver.delete_all_cookies()
+        self.auth_page.sign_in("technopark2","testQA1")
+        self.assertEquals(self.main_page.get_new_message_text(), msg)
+        self.driver.delete_all_cookies()
+        self.auth_page.sign_in("technopark3","testQA1")
+
+    #     self.assertTrue(self.message_page.get_existance_of_search_result(), "test_find_dialog failed")
+
     def create_dialog(self):
-        message_page = MessagePage(self.driver)
-        message_page.create_dialog()
-        message_page.choose_companion()
+        self.message_page.create_dialog()
+        self.message_page.choose_companion()
+        self.dialog_page.wait_for_loader()
         
     def delete_dialog(self):
         self.dialog_page.open_menu()

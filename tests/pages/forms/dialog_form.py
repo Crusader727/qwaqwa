@@ -13,6 +13,12 @@ class DialogForm(BaseElement):
     MESSAGE_WITH_STICKER = '//div[@class="msg_sticker js-msg_sticker"]'
     SENT_MESSAGE = '//div[@class="msg_tx"]'
 
+    DIALOG_LOADER = '//div[contains(@class, "chat_loader")]'
+
+    COMPANION_NAME = '//span[contains(@data-l,"menu_opponent_name")]'
+
+    MESSAGE_INPUT = '//div[@name="st.txt"]'
+
 
     def get_menu_button(self):
         return self.get_button_by_xpath(self.MENU_BUTTON)
@@ -46,3 +52,13 @@ class DialogForm(BaseElement):
 
     def get_sent_message(self):
         return self.existance_of_element_by_xpath(self.SENT_MESSAGE)
+    
+    def wait_dialog_loader(self):
+        self.existance_of_element_by_xpath(self.DIALOG_LOADER)
+        self.invisibility_of_element_by_xpath(self.DIALOG_LOADER)
+
+    def get_companion_name(self):
+        return self.get_field_by_xpath(self.COMPANION_NAME).get_attribute('innerHTML')
+
+    def get_message_input(self):
+        return self.get_field_by_xpath(self.MESSAGE_INPUT)
