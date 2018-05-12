@@ -32,7 +32,7 @@ class BaseElement(object):
             EC.presence_of_element_located((By.XPATH, xpath)))
     
     def existance_of_element_in_dom_by_xpath(self, xpath):
-        return WebDriverWait(self.driver, 90, 0.3).until(
+        return WebDriverWait(self.driver, 30, 0.3).until(
             EC.staleness_of(WebDriverWait(self.driver, 30, 0.3).until(
             EC.presence_of_element_located((By.XPATH, xpath)))))
         

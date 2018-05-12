@@ -202,4 +202,24 @@ class Tests(unittest.TestCase):
     #     self.driver.get("https://ok.ru/messages")
     #     self.assertTrue(self.message_page.get_existance_of_dialogs_empty(), "test_hide_group_chat failed") 
 
-    
+    # def test_pin_message(self):
+    #     MESSAGE_TEXT = 'TestNumber1'  
+    #     self.create_dialog()
+    #     self.dialog_page.add_user_to_chat()
+    #     self.dialog_page.wait_for_loader()
+    #     self.dialog_page.send_message(MESSAGE_TEXT)
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url        
+    #     self.dialog_page.pin_message()
+    #     self.assertTrue(self.dialog_page.exsistance_of_pinned_message(), "test_pin_message failed") 
+        
+    # def test_unpin_message(self):
+    #     MESSAGE_TEXT = 'TestNumber1'  
+    #     self.create_dialog()
+    #     self.dialog_page.add_user_to_chat()
+    #     self.dialog_page.wait_for_loader()
+    #     self.dialog_page.send_message(MESSAGE_TEXT)
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url        
+    #     self.dialog_page.pin_message()
+    #     self.dialog_page.unpin_message()
+    #     self.driver.refresh()
+    #     self.assertTrue(not self.dialog_page.exsistance_of_pinned_message(), "test_unpin_message failed") 

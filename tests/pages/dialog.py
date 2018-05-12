@@ -5,6 +5,7 @@ from forms.attach_form import AttachForm
 from forms.message_form import MessageForm
 from forms.dialog_menu_form import DialogMenuForm
 from delete_message_confirm import DeleteMessageConfirmPage
+from confirm import ConfirmPage
 
 from selenium.webdriver.common.action_chains import ActionChains
 
@@ -127,3 +128,18 @@ class DialogPage(BasePage):
 
     def get_exsistance_of_delte_companion(self):
         return self.dialog_form.get_group_chat_delete_title()
+    
+    def pin_message(self):
+        pin_message_button = self.dialog_form.get_pin_button()
+        ActionChains(self.driver).move_to_element(pin_message_button).perform()
+        pin_message_button.click()  
+        pin_message_confirm_page = ConfirmPage(self.driver)
+        pin_message_confirm_page.confirm()
+    
+    def exsistance_of_pinned_message(self):
+        return self.dialog_form.get_pinned_message()
+
+    def unpin_message(self):
+        self.dialog_form.get_unpin_button().click()
+        pin_message_confirm_page = ConfirmPage(self.driver)
+        pin_message_confirm_page.confirm()

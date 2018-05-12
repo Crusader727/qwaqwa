@@ -36,6 +36,9 @@ class DialogForm(BaseElement):
 
     GROUP_CHAT_REMOVED_TITLE = '//a[contains(@data-l,"removedUserFromSysMsg")]'
 
+    PINNED_MESSAGE = '//div[contains(@class, "chat_pinned_text")]'
+    UNPIN_MESSAGE_BUTTON = "//a[contains(@class,'chat_pinned_close')]"
+
     def get_menu_button(self):
         return self.get_button_by_xpath(self.MENU_BUTTON)
 
@@ -113,3 +116,12 @@ class DialogForm(BaseElement):
     
     def get_control_users_button(self):
         return self.get_button_by_xpath(self.CONTROL_USERS_BUTTON)
+    
+    def get_pin_button(self):
+        return self.get_hidden_input_by_xpath(self.PIN_MESSAGE_BUTTON)
+    
+    def get_pinned_message(self):
+        return self.existance_of_element_by_xpath(self.PINNED_MESSAGE)
+
+    def get_unpin_button(self):
+        return self.get_button_by_xpath(self.UNPIN_MESSAGE_BUTTON)
