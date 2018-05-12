@@ -3,6 +3,9 @@ from base_page import BasePage
 from forms.dialog_form import DialogForm
 from forms.attach_form import AttachForm
 from forms.message_form import MessageForm
+from delete_message_confirm import DeleteMessageConfirmPage
+
+from selenium.webdriver.common.action_chains import ActionChains
 
 class DialogPage(BasePage):
     
@@ -66,3 +69,30 @@ class DialogPage(BasePage):
     def send_message(self, msg):
         self.dialog_form.get_message_input().send_keys(msg)
         self.dialog_form.get_send_message_button().click()
+
+    #Nick112
+    
+    def edit_and_send_message(self, message_text):
+        edit_message_button = self.dialog_form.get_edit_message_button()
+        ActionChains(self.driver).move_to_element(edit_message_button).perform()
+        edit_message_button.click()   
+        self.send_message(message_text)
+    
+    def get_sent_message_text(self):
+        return self.dialog_form.get_sent_message_text()
+
+    def delete_message(self):  
+        delete_message_button = self.dialog_form.get_delete_message_button()
+        ActionChains(self.driver).move_to_element(delete_message_button).perform()
+        delete_message_button.click()  
+        delete_message_confirm_page = DeleteMessageConfirmPage(self.driver)
+        delete_message_confirm_page.delete_message()
+
+    def answer_message(self, answer_text):
+        answer_message_button = self.dialog_form.get_answer_message_button()
+        ActionChains(self.driver).move_to_element(answer_message_button).perform()
+        answer_message_button.click()  
+        self.send_message(answer_text)
+    
+    def get_exsistance_of_answered_message(self):
+        return self.dialog_form.get_answered_message()

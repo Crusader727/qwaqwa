@@ -87,18 +87,17 @@ class Tests(unittest.TestCase):
     #     self.CURRENT_DIALOG_URL = self.driver.current_url
     #     self.assertTrue(self.message_page.get_existance_of_search_result(), "test_find_dialog failed")
 
-    def test_send_message_to_blocked_user(self):
-        msg = "awdseq123"
-        self.create_dialog()
-        self.dialog_page.send_message(msg)
-        self.CURRENT_DIALOG_URL = self.driver.current_url
-        self.driver.delete_all_cookies()
-        self.auth_page.sign_in("technopark2","testQA1")
-        self.assertEquals(self.main_page.get_new_message_text(), msg)
-        self.driver.delete_all_cookies()
-        self.auth_page.sign_in("technopark3","testQA1")
+    # def test_send_message_to_blocked_user(self):
+    #     MESSAGE_TEXT = 'TestNumber1'
+    #     self.create_dialog()
+    #     self.dialog_page.send_message(MESSAGE_TEXT)
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    #     self.driver.delete_all_cookies()
+    #     self.auth_page.sign_in("technopark2","testQA1")
+    #     self.assertEquals(self.main_page.get_new_message_text(), MESSAGE_TEXT)
+    #     self.driver.delete_all_cookies()
+    #     self.auth_page.sign_in("technopark3","testQA1")
 
-    #     self.assertTrue(self.message_page.get_existance_of_search_result(), "test_find_dialog failed")
 
     def create_dialog(self):
         self.message_page.create_dialog()
@@ -111,3 +110,41 @@ class Tests(unittest.TestCase):
         dilog_menu_page.delete_dialog()
         delete_dialog_confirm_page = DeleteDialogConfirmPage(self.driver)
         delete_dialog_confirm_page.delete_dialog()
+
+    #112Nick
+
+    # def test_send_message(self):      
+    #     MESSAGE_TEXT = 'TestNumber1'  
+    #     self.create_dialog()
+    #     self.dialog_page.send_message(MESSAGE_TEXT)
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    #     self.assertTrue(self.dialog_page.sent_message_exists(), "test send message failed")
+
+    # def test_edit_message(self):              
+    #     MESSAGE_TEXT = 'TestNumber1'  
+    #     MESSAGE_EDITED_TEXT = ' IS_EDITED'      
+    #     self.create_dialog()
+    #     self.dialog_page.send_message(MESSAGE_TEXT)
+    #     self.dialog_page.edit_and_send_message(MESSAGE_EDITED_TEXT) 
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    #     self.driver.refresh()
+    #     self.assertEquals(self.dialog_page.get_sent_message_text(), MESSAGE_TEXT + MESSAGE_EDITED_TEXT)
+
+    # def test_delete_message(self):         
+    #     MESSAGE_TEXT = 'TestNumber1'          
+    #     self.create_dialog()
+    #     self.dialog_page.send_message(MESSAGE_TEXT)
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    #     self.dialog_page.delete_message()#
+    #     self.driver.refresh()
+    #     self.assertTrue(self.dialog_page.no_messages_text_exists(), "test_delete_message failed")
+
+    # def test_answer_message(self):
+    #     MESSAGE_TEXT = 'TestNumber1'  
+    #     MESSAGE_ANSWERED_TEXT = ' IS_ANSWERED'  
+    #     self.create_dialog()
+    #     self.dialog_page.send_message(MESSAGE_TEXT)
+    #     self.dialog_page.answer_message(MESSAGE_ANSWERED_TEXT)
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    #     self.driver.refresh()
+    #     self.assertTrue(self.dialog_page.get_exsistance_of_answered_message(), "test_answer_message failed")

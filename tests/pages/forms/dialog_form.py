@@ -13,12 +13,22 @@ class DialogForm(BaseElement):
     MESSAGE_WITH_STICKER = '//div[@class="msg_sticker js-msg_sticker"]'
     SENT_MESSAGE = '//div[@class="msg_tx"]'
 
+    SENT_MESSAGE_TEXT = '//div[@class="msg_tx"]/div[2]/div[1]/span[1]/span[1]'
+    
+    
+
     DIALOG_LOADER = '//div[contains(@class, "chat_loader")]'
 
     COMPANION_NAME = '//span[contains(@data-l,"menu_opponent_name")]'
 
     MESSAGE_INPUT = '//div[@name="st.txt"]'
 
+    DELETE_MESSAGE_BUTTON =  "//a[@data-l='t,deleteMsg']"
+    PIN_MESSAGE_BUTTON =  "//a[@data-l='t,pinMsg']"
+    EDIT_MESSAGE_BUTTON = "//a[@data-l='t,editMsg']"
+    ANSWER_MESSAGE_BUTTON = "//span[@data-l='t,replyToMsg']"
+    ANSWERED_MESSAGE = '//div[contains(@class,"msg_reply")]'
+    FORWARD_MESSAGE = "//span[@data-l='t,forward']"
 
     def get_menu_button(self):
         return self.get_button_by_xpath(self.MENU_BUTTON)
@@ -62,3 +72,21 @@ class DialogForm(BaseElement):
 
     def get_message_input(self):
         return self.get_field_by_xpath(self.MESSAGE_INPUT)
+
+    #Nick112
+
+    def get_edit_message_button(self):
+        return self.get_hidden_input_by_xpath(self.EDIT_MESSAGE_BUTTON)
+
+    def get_delete_message_button(self):
+        return self.get_hidden_input_by_xpath(self.DELETE_MESSAGE_BUTTON)
+    
+    def get_answer_message_button(self):
+        return self.get_hidden_input_by_xpath(self.ANSWER_MESSAGE_BUTTON)
+
+    def get_sent_message_text(self):
+        return self.get_button_by_xpath(self.SENT_MESSAGE_TEXT).get_attribute("innerHTML")
+
+    def get_answered_message(self):
+        return self.existance_of_element_by_xpath(self.ANSWERED_MESSAGE)
+    
