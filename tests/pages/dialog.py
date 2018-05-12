@@ -73,6 +73,17 @@ class DialogPage(BasePage):
         self.dialog_form.get_message_input().send_keys(msg)
         self.dialog_form.get_send_message_button().click()
 
+    def block_user(self):
+        self.open_menu()
+        self.dialog_menu_form.get_block_unblock_user_button().click()
+        block_confirm_page = ConfirmPage(self.driver)
+        block_confirm_page.confirm()
+    
+    def unblock_user(self):
+        self.open_menu()
+        self.dialog_menu_form.get_block_unblock_user_button().click()
+        self.open_menu()
+
     #Nick112
     
     def edit_and_send_message(self, message_text):
@@ -143,3 +154,4 @@ class DialogPage(BasePage):
         self.dialog_form.get_unpin_button().click()
         pin_message_confirm_page = ConfirmPage(self.driver)
         pin_message_confirm_page.confirm()
+ 

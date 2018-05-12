@@ -10,3 +10,6 @@ class MainForm(BaseElement):
 
     def get_new_message_text(self):
         return self.get_field_by_xpath(self.NEW_MESSAGE_TEXT_IN_NOTIFICATION).get_attribute("innerHTML")
+    
+    def get_existance_of_new_message(self):
+        return self.existance_of_element_by_xpath(self.NEW_MESSAGE_TEXT_IN_NOTIFICATION)

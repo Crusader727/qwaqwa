@@ -36,6 +36,7 @@ class Tests(unittest.TestCase):
         self.auth_page.sign_in("technopark3","testQA1")
         self.main_page = MainPage(self.driver)
         self.main_page.open_messages()
+        self.URL_OF_DIALOG_WITH_ME = "https://ok.ru/messages/575662066926"
 
     def tearDown(self):
         self.driver.get(self.CURRENT_DIALOG_URL)
@@ -120,7 +121,33 @@ class Tests(unittest.TestCase):
     #     self.assertEquals(self.main_page.get_new_message_text(), MESSAGE_TEXT)
     #     self.driver.delete_all_cookies()
     #     self.auth_page.sign_in("technopark3","testQA1")
+
+    # def test_send_message_to_unblocked_user(self):
+    #     MESSAGE_TEXT = 'TestNumber1'
+    #     self.create_dialog()
+    #     self.dialog_page.unblock_user()
+    #     self.dialog_page.send_message(MESSAGE_TEXT)
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    #     self.dialog_page.block_user()
+    #     self.driver.delete_all_cookies()
+    #     self.auth_page.sign_in("technopark2","testQA1")
+    #     self.assertEquals(self.main_page.get_new_message_text(), MESSAGE_TEXT)
+    #     self.driver.delete_all_cookies()
+    #     self.auth_page.sign_in("technopark3","testQA1")
    
+    # def test_get_message_from_blocked_user(self):
+    #     MESSAGE_TEXT = 'TestNumber1'
+    #     self.driver.delete_all_cookies()
+    #     self.auth_page.sign_in("technopark2","testQA1")
+    #     self.driver.get(self.URL_OF_DIALOG_WITH_ME)
+    #     self.dialog_page.send_message(MESSAGE_TEXT)
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    #     self.driver.delete_all_cookies()
+    #     self.auth_page.sign_in("technopark3","testQA1")
+    #     self.assertTrue(not self.main_page.get_existance_of_new_message(), "test_get_message_from_blocked_user failed")
+    #     self.driver.delete_all_cookies()
+    #     self.auth_page.sign_in("technopark2","testQA1")
+
     #112Nick
 
     # def test_send_message(self):      

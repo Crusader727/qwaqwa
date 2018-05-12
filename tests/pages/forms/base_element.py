@@ -38,7 +38,7 @@ class BaseElement(object):
         
     def invisibility_of_element_by_xpath(self, xpath):
         try:
-            WebDriverWait(self.driver, 30, 0.5).until(
+            WebDriverWait(self.driver, 10, 0.5).until(
             EC.invisibility_of_element_located((By.XPATH, xpath)))
         except TimeoutException as e:
             return False

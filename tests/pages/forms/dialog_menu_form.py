@@ -10,8 +10,13 @@ class DialogMenuForm(BaseElement):
     ADD_USER_CONFIRM_BUTTON = "//input[@value='Добавить']" 
     DELETE_USER_FROM_GROUP = '//span[contains(@data-l, "participant-remove")]'
 
+    BLOCK_UNBLOCK_USER_BUTTON = '//i[contains(@class, "ic_block")]'
+
     def get_delete_dialog_button(self):
         return self.get_button_by_xpath(self.DELETE_DIALOG_BUTTON)
+    
+    def get_block_unblock_user_button(self):        
+        return self.get_button_by_xpath(self.BLOCK_UNBLOCK_USER_BUTTON)
 
     #112Nick
     def get_leave_chat_button(self):

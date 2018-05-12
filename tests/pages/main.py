@@ -12,3 +12,6 @@ class MainPage(BasePage):
     def get_new_message_text(self):
         return self.main_form.get_new_message_text()
     
+    def get_existance_of_new_message(self):
+        return self.main_form.get_existance_of_new_message()
+    
