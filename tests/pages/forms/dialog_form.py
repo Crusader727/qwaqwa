@@ -31,8 +31,10 @@ class DialogForm(BaseElement):
     FORWARD_MESSAGE = "//span[@data-l='t,forward']"
     FORWARDED_MESSAGE_TITLE = '//div[contains(@class,"msg_forward_title")]'
     ADD_COMPANION_BUTTON = '//span[@class="inlineBlock ic ic_add-user"]'
-
+    CONTROL_USERS_BUTTON = '//span[@class="inlineBlock ic ic_ffriend"]'
     GROUP_CHAT_CREATED_TITLE = '//a[contains(@data-l,"user1FromSysMsg")]'
+
+    GROUP_CHAT_REMOVED_TITLE = '//a[contains(@data-l,"removedUserFromSysMsg")]'
 
     def get_menu_button(self):
         return self.get_button_by_xpath(self.MENU_BUTTON)
@@ -105,4 +107,9 @@ class DialogForm(BaseElement):
     
     def get_group_chat_created_title(self):
         return self.existance_of_element_by_xpath(self.GROUP_CHAT_CREATED_TITLE)
+
+    def get_group_chat_delete_title(self):
+        return self.existance_of_element_by_xpath(self.GROUP_CHAT_REMOVED_TITLE)
     
+    def get_control_users_button(self):
+        return self.get_button_by_xpath(self.CONTROL_USERS_BUTTON)

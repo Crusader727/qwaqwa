@@ -116,5 +116,14 @@ class DialogPage(BasePage):
         self.dialog_menu_form.get_companion_button().click()
         self.dialog_menu_form.get_add_companion_confirm_button().click()
 
+    def delete_user_from_chat(self):
+        self.dialog_form.get_control_users_button().click()
+        delete_companion_button = self.dialog_menu_form.get_delete_companion_button()
+        ActionChains(self.driver).move_to_element(delete_companion_button).perform()
+        delete_companion_button.click()
+
     def get_exsistance_of_created_group_dialog(self):
         return self.dialog_form.get_group_chat_created_title()
+
+    def get_exsistance_of_delte_companion(self):
+        return self.dialog_form.get_group_chat_delete_title()

@@ -176,11 +176,30 @@ class Tests(unittest.TestCase):
     #     self.dialog_page.find_message(MESSAGE_TEXT)
     #     self.assertEquals(MESSAGE_TEXT, self.message_page.get_found_message_text())
 
-    def test_add_user_to_group_chat(self):
-        self.create_dialog()
-        dialog_page = DialogPage(self.driver)
-        dialog_page.add_user_to_chat()
-        self.assertTrue(self.dialog_page.get_exsistance_of_created_group_dialog(), "test_add_user_to_group_chat failed")
-        self.CURRENT_DIALOG_URL = self.driver.current_url
+    # def test_add_user_to_group_chat(self):
+    #     self.create_dialog()
+    #     self.dialog_page.add_user_to_chat()
+    #     self.assertTrue(self.dialog_page.get_exsistance_of_created_group_dialog(), "test_add_user_to_group_chat failed")
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+
+    # def test_delete_user_from_group_chat(self):
+    #     self.create_dialog()
+    #     self.dialog_page.add_user_to_chat()
+    #     self.dialog_page.delete_user_from_chat() 
+    #     self.assertTrue(self.dialog_page.get_exsistance_of_delte_companion(), "test_delete_user_from_group_chat failed")
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+
+    # def test_hide_group_chat(self):
+    #     self.create_dialog()
+    #     self.dialog_page.add_user_to_chat()
+    #     self.dialog_page.wait_for_loader()
+    #     self.dialog_page.open_menu()
+    #     dilog_menu_page = DialogMenuPage(self.driver)
+    #     dilog_menu_page.hide_chat()
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url        
+    #     hide_chat_confirm_page = ConfirmPage(self.driver)
+    #     hide_chat_confirm_page.confirm()
+    #     self.driver.get("https://ok.ru/messages")
+    #     self.assertTrue(self.message_page.get_existance_of_dialogs_empty(), "test_hide_group_chat failed") 
 
     

@@ -27,3 +27,6 @@ class MessagePage(BasePage):
     #112Nick
     def get_found_message_text(self):
         return self.message_form.get_found_message_text()
+
+    def get_existance_of_dialogs_empty(self):
+        return self.message_form.get_dialogs_empty()
