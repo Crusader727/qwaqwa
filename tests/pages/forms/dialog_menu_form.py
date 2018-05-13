@@ -2,9 +2,9 @@
 from base_element import BaseElement
 
 class DialogMenuForm(BaseElement):
-    DELETE_DIALOG_BUTTON = '//i[@class="tico_img ic ic_remove"]'
-    LEAVE_CHAT_BUTTON = '//i[@class="tico_img ic ic_exit_arrow"]'
-    HIDE_CHAT_BUTTON = '//i[@class="tico_img ic ic_hide"]' 
+    DELETE_DIALOG_BUTTON = '//i[contains(@class, " ic_remove")]'
+    LEAVE_CHAT_BUTTON = '//i[contains(@class, " ic_exit_arrow")]'
+    HIDE_CHAT_BUTTON = '//i[contains(@class, " ic_hide")]' 
 
     COMPANION_BUTTON = "//div[@id='hook_Block_ConversationParticipantsAddMenuList']/div[1]/div[2]" 
     ADD_USER_CONFIRM_BUTTON = "//input[@value='Добавить']" 

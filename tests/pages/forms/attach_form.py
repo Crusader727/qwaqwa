@@ -1,12 +1,12 @@
 from base_element import BaseElement
 
 class AttachForm(BaseElement):
-    MUSIC_BUTTON = '//a[@data-l="t,musicLink"]'
-    DOCUMENT_INPUT = '//span[@data-l="t,file_upload_menu"]/input[1]'
-    VIDEO_BUTTON = '//a[@data-l="t,videoLink"]'
-    VIDEO_INPUT = '//span[@data-l="t,videoAttachUploadLink"]/input[1]'
-    PHOTO_INPUT = '//span[@data-l="t,photo_upload_menu"]/input[1]'
-    SONG = '//div[@class="track __selectable  soh-s"]'
+    MUSIC_BUTTON = '//a[contains(@data-l, "musicLink")]'
+    DOCUMENT_INPUT = '//span[contains(@data-l, "file_upload_menu")]/input[1]'
+    VIDEO_BUTTON = '//a[contains(@data-l, "videoLink")]'
+    VIDEO_INPUT = '//span[contains(@data-l, "videoAttachUploadLink")]/input[1]'
+    PHOTO_INPUT = '//span[contains(@data-l, "t,photo_upload_menu")]/input[1]'
+    SONG = '//div[contains(@class, "track __selectable  soh-s")]'
     SEND_SONG_BUTTON = '//input[@id="hook_FormButton_button_done"]'
 
     LOADER = '//div[@class="progress __bottom __slim"]'

@@ -4,34 +4,32 @@ from base_element import BaseElement
 class DialogForm(BaseElement):
     MENU_BUTTON = '//div[@data-additional-button="js-open-menu"]'
     SEND_MESSAGE_BUTTON = '//button[@title="Отправить"]'
-    NO_MESSAGES_TEXT = '//div[@class="stub-empty_t"]'
+    NO_MESSAGES_TEXT = '//div[contains(@class,"stub-empty_t")]'
     MESSAGE_INPUT = '//div[@name="st.txt"]'
-    STICKER_BUTTON = '//span[@class="ic ic_smile smiles_w comments_smiles_trigger js-comments_smiles_trigger __new emoji-m"]'
-    STICKER_LIST_BUTTON = '//a[@data-l="t,stickersTab"]'
+    STICKER_BUTTON = '//span[contains(@class, " emoji-m")]'
+    STICKER_LIST_BUTTON = '//a[contains(@data-l, "stickersTab")]'
     USMILE_STICKER = '//div[@data-code="#u9b43ee364as#"]'
-    ATTACH_BUTTON = 'div.comments_attach_trigger_ic.ic_staple'
-    MESSAGE_WITH_STICKER = '//div[@class="msg_sticker js-msg_sticker"]'
-    SENT_MESSAGE = '//div[@class="msg_tx"]'
+    ATTACH_BUTTON = "//div[contains(@class, 'comments_attach')]"
+    MESSAGE_WITH_STICKER = '//div[contains(@class, "msg_sticker ")]'
+    SENT_MESSAGE = '//div[contains(@class,"msg_tx")]'
 
-    SENT_MESSAGE_TEXT = '//div[@class="msg_tx"]/div[2]/div[1]/span[1]/span[1]'
-    
-    
+    SENT_MESSAGE_TEXT = '//div[contains(@class, "msg_tx")]/div[2]/div[1]/span[1]/span[1]'
 
     DIALOG_LOADER = '//div[contains(@class, "chat_loader")]'
 
     COMPANION_NAME = '//span[contains(@data-l,"menu_opponent_name")]'
 
-    MESSAGE_INPUT = '//div[@name="st.txt"]'
+    MESSAGE_INPUT = '//div[contains(@name, "st.txt")]'
 
-    DELETE_MESSAGE_BUTTON =  "//a[@data-l='t,deleteMsg']"
-    PIN_MESSAGE_BUTTON =  "//a[@data-l='t,pinMsg']"
-    EDIT_MESSAGE_BUTTON = "//a[@data-l='t,editMsg']"
-    ANSWER_MESSAGE_BUTTON = "//span[@data-l='t,replyToMsg']"
+    DELETE_MESSAGE_BUTTON =  "//a[contains(@data-l, 'deleteMsg')]"
+    PIN_MESSAGE_BUTTON =  "//a[contains(@data-l, 'pinMsg')]"
+    EDIT_MESSAGE_BUTTON = "//a[contains(@data-l, 'editMsg')]"
+    ANSWER_MESSAGE_BUTTON = "//span[contains(@data-l, 'replyToMsg')]"
     ANSWERED_MESSAGE = '//div[contains(@class,"msg_reply")]'
-    FORWARD_MESSAGE = "//span[@data-l='t,forward']"
+    FORWARD_MESSAGE = "//span[contains(@data-l, 't,forward')]"
     FORWARDED_MESSAGE_TITLE = '//div[contains(@class,"msg_forward_title")]'
-    ADD_COMPANION_BUTTON = '//span[@class="inlineBlock ic ic_add-user"]'
-    CONTROL_USERS_BUTTON = '//span[@class="inlineBlock ic ic_ffriend"]'
+    ADD_COMPANION_BUTTON = '//span[contains(@class, " ic_add-user")]'
+    CONTROL_USERS_BUTTON = '//span[contains(@class, " ic_ffriend")]'
     GROUP_CHAT_CREATED_TITLE = '//a[contains(@data-l,"user1FromSysMsg")]'
 
     GROUP_CHAT_REMOVED_TITLE = '//a[contains(@data-l,"removedUserFromSysMsg")]'
@@ -64,7 +62,7 @@ class DialogForm(BaseElement):
         return self.get_button_by_xpath(self.USMILE_STICKER)
     
     def get_attach_button(self):
-        return self.get_button_by_css_selector(self.ATTACH_BUTTON)
+        return self.get_button_by_xpath(self.ATTACH_BUTTON)
 
     def get_message_with_sticker(self):
         return self.existance_of_element_by_xpath(self.MESSAGE_WITH_STICKER)

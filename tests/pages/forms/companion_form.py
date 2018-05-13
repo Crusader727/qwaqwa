@@ -1,9 +1,9 @@
 from base_element import BaseElement
 
 class CompanionForm(BaseElement):
-    COMPANION_BUTTON = '//div[@data-l="t,participant-add"]'
-    FORWARD_COMPANION_BUTTON = '//div[@data-l="t,conv-select"]'
-    CREATE_DIALOG_BUTTON = '//input[@class="button-pro __small mr-2x js-submit"]'
+    COMPANION_BUTTON = '//div[contains(@data-l, "participant-add")]'
+    FORWARD_COMPANION_BUTTON = '//div[contains(@data-l, "conv-select")]'
+    CREATE_DIALOG_BUTTON = '//input[contains(@class, "button-pro __small ")]'
    
     def get_companion_button(self):
         return self.get_button_by_xpath(self.COMPANION_BUTTON)
