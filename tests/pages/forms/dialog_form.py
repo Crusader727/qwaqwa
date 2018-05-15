@@ -37,6 +37,7 @@ class DialogForm(BaseElement):
     PINNED_MESSAGE = '//div[contains(@class, "chat_pinned_text")]'
     UNPIN_MESSAGE_BUTTON = "//a[contains(@class,'chat_pinned_close')]"
 
+
     def get_menu_button(self):
         return self.get_button_by_xpath(self.MENU_BUTTON)
 

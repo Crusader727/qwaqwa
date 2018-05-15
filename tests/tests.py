@@ -27,6 +27,7 @@ class Tests(unittest.TestCase):
             desired_capabilities=getattr(DesiredCapabilities, browser).copy()
         )
 
+        self.NEW_TITLE = "New Title"
         self.MESSAGE_TEXT = "TestNumber1"
         self.BOT_1_LOGIN = "technopark3"
         self.BOT_2_LOGIN = "technopark2"
@@ -49,19 +50,19 @@ class Tests(unittest.TestCase):
         else:
             self.delete_dialog()
         self.driver.quit()
-    
-    def leave_group_chat(self):                      
+
+    def leave_group_chat(self):
         self.dialog_page.open_menu()
         dilog_menu_page = DialogMenuPage(self.driver)
         dilog_menu_page.leave_chat()
         confirm_page = ConfirmPage(self.driver)
         confirm_page.confirm()
-    
+
     def create_dialog(self):
         self.message_page.create_dialog()
         self.message_page.choose_companion()
         self.dialog_page.wait_for_loader()
-        
+
     def delete_dialog(self):
         self.dialog_page.open_menu()
         dilog_menu_page = DialogMenuPage(self.driver)
@@ -70,7 +71,7 @@ class Tests(unittest.TestCase):
         confirm_page.confirm()
 
     #Crusader727
-    
+
     def test_create_and_delete_dialog(self):
         self.create_dialog()
         self.assertTrue(self.dialog_page.send_message_button_exists(),  "test_create_and_delete_dialog failed")
@@ -84,7 +85,7 @@ class Tests(unittest.TestCase):
         self.dialog_page.send_sticker()
         self.CURRENT_DIALOG_URL = self.driver.current_url
         self.assertTrue(self.dialog_page.message_with_sticker_exists(), "test_send_sticker failed")
-    
+
     def test_send_music(self):
         self.create_dialog()
         self.dialog_page.send_music()
@@ -136,7 +137,7 @@ class Tests(unittest.TestCase):
         self.assertEquals(self.main_page.get_new_message_text(), self.MESSAGE_TEXT)
 
         self.auth_page.chage_account(self.BOT_1_LOGIN, self.PASSWORD)
-   
+
     def test_get_message_from_blocked_user(self):
         self.auth_page.chage_account(self.BOT_2_LOGIN, self.PASSWORD)
         self.driver.get(self.URL_OF_DIALOG_WITH_ME)
@@ -151,22 +152,22 @@ class Tests(unittest.TestCase):
 
     #112Nick
 
-    def test_send_message(self):      
+    def test_send_message(self):
         self.create_dialog()
         self.dialog_page.send_message(self.MESSAGE_TEXT)
         self.CURRENT_DIALOG_URL = self.driver.current_url
         self.assertTrue(self.dialog_page.sent_message_exists(), "test send message failed")
 
-    def test_edit_message(self):              
-        MESSAGE_EDITED_TEXT = ' IS_EDITED'      
+    def test_edit_message(self):
+        MESSAGE_EDITED_TEXT = ' IS_EDITED'
         self.create_dialog()
         self.dialog_page.send_message(self.MESSAGE_TEXT)
-        self.dialog_page.edit_and_send_message(MESSAGE_EDITED_TEXT) 
+        self.dialog_page.edit_and_send_message(MESSAGE_EDITED_TEXT)
         self.CURRENT_DIALOG_URL = self.driver.current_url
         self.driver.refresh()
         self.assertEquals(self.dialog_page.get_sent_message_text(), self.MESSAGE_TEXT + MESSAGE_EDITED_TEXT)
 
-    def test_delete_message(self):               
+    def test_delete_message(self):
         self.create_dialog()
         self.dialog_page.send_message(self.MESSAGE_TEXT)
         self.CURRENT_DIALOG_URL = self.driver.current_url
@@ -175,7 +176,7 @@ class Tests(unittest.TestCase):
         self.assertTrue(self.dialog_page.no_messages_text_exists(), "test_delete_message failed")
 
     def test_answer_message(self):
-        MESSAGE_ANSWERED_TEXT = ' IS_ANSWERED'  
+        MESSAGE_ANSWERED_TEXT = ' IS_ANSWERED'
         self.create_dialog()
         self.dialog_page.send_message(self.MESSAGE_TEXT)
         self.dialog_page.answer_message(MESSAGE_ANSWERED_TEXT)
@@ -183,7 +184,7 @@ class Tests(unittest.TestCase):
         self.driver.refresh()
         self.assertTrue(self.dialog_page.get_exsistance_of_answered_message(), "test_answer_message failed")
 
-    def test_forward_message(self):   
+    def test_forward_message(self):
         self.create_dialog()
         self.dialog_page.send_message(self.MESSAGE_TEXT)
         self.CURRENT_DIALOG_URL = self.driver.current_url
@@ -191,8 +192,8 @@ class Tests(unittest.TestCase):
         self.message_page.choose_companion_forward_message()
         self.assertTrue(self.dialog_page.get_exsistance_of_forwarded_message(), "test_forward_message failed")
 
-    def test_find_message(self):           
-        self.create_dialog()    
+    def test_find_message(self):
+        self.create_dialog()
         self.dialog_page.send_message(self.MESSAGE_TEXT)
         self.CURRENT_DIALOG_URL = self.driver.current_url
         self.dialog_page.find_message(self.MESSAGE_TEXT)
@@ -207,7 +208,7 @@ class Tests(unittest.TestCase):
     def test_delete_user_from_group_chat(self):
         self.create_dialog()
         self.dialog_page.add_user_to_chat()
-        self.dialog_page.delete_user_from_chat() 
+        self.dialog_page.delete_user_from_chat()
         self.assertTrue(self.dialog_page.get_exsistance_of_delte_companion(), "test_delete_user_from_group_chat failed")
         self.CURRENT_DIALOG_URL = self.driver.current_url
 
@@ -218,28 +219,42 @@ class Tests(unittest.TestCase):
         self.dialog_page.open_menu()
         dilog_menu_page = DialogMenuPage(self.driver)
         dilog_menu_page.hide_chat()
-        self.CURRENT_DIALOG_URL = self.driver.current_url        
+        self.CURRENT_DIALOG_URL = self.driver.current_url
         hide_chat_confirm_page = ConfirmPage(self.driver)
         hide_chat_confirm_page.confirm()
         self.driver.get(self.URL_OF_MESSAGES)
-        self.assertTrue(self.message_page.get_existance_of_dialogs_empty(), "test_hide_group_chat failed") 
+        self.assertTrue(self.message_page.get_existance_of_dialogs_empty(), "test_hide_group_chat failed")
 
     def test_pin_message(self):
         self.create_dialog()
         self.dialog_page.add_user_to_chat()
         self.dialog_page.wait_for_loader()
         self.dialog_page.send_message(self.MESSAGE_TEXT)
-        self.CURRENT_DIALOG_URL = self.driver.current_url        
+        self.CURRENT_DIALOG_URL = self.driver.current_url
         self.dialog_page.pin_message()
-        self.assertTrue(self.dialog_page.exsistance_of_pinned_message(), "test_pin_message failed") 
-        
-    def test_unpin_message(self):    
+        self.assertTrue(self.dialog_page.exsistance_of_pinned_message(), "test_pin_message failed")
+
+    def test_unpin_message(self):
         self.create_dialog()
         self.dialog_page.add_user_to_chat()
         self.dialog_page.wait_for_loader()
         self.dialog_page.send_message(self.MESSAGE_TEXT)
-        self.CURRENT_DIALOG_URL = self.driver.current_url        
+        self.CURRENT_DIALOG_URL = self.driver.current_url
         self.dialog_page.pin_message()
         self.dialog_page.unpin_message()
         self.driver.refresh()
-        self.assertTrue(not self.dialog_page.exsistance_of_pinned_message(), "test_unpin_message failed") 
+        self.assertTrue(not self.dialog_page.exsistance_of_pinned_message(), "test_unpin_message failed")
+
+    # # Trubnikov
+
+    def test_change_title_of_group_chat(self):
+        self.create_dialog()
+        self.dialog_page.add_user_to_chat()
+        self.dialog_page.wait_for_loader()
+        self.dialog_page.open_menu()
+        dialog_menu_page = DialogMenuPage(self.driver)
+        dialog_menu_page.change_title(self.NEW_TITLE)
+        title = dialog_menu_page.get_title()
+        self.assertEqual(self.NEW_TITLE, title)
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+

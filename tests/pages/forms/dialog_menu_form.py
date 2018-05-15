@@ -6,6 +6,9 @@ class DialogMenuForm(BaseElement):
     LEAVE_CHAT_BUTTON = '//i[contains(@class, " ic_exit_arrow")]'
     HIDE_CHAT_BUTTON = '//i[contains(@class, " ic_hide")]' 
 
+    CHAT_TITLE = '//div[contains(@class, "chat_column_hd_name")]'
+    TITLE_INPUT_FIELD = '//textarea[contains(@name, "st.chatName")]'
+
     COMPANION_BUTTON = "//div[@id='hook_Block_ConversationParticipantsAddMenuList']/div[1]/div[2]" 
     ADD_USER_CONFIRM_BUTTON = "//input[@value='Добавить']" 
     DELETE_USER_FROM_GROUP = '//span[contains(@data-l, "participant-remove")]'
@@ -33,4 +36,13 @@ class DialogMenuForm(BaseElement):
     
     def get_delete_companion_button(self):
         return self.get_hidden_input_by_xpath(self.DELETE_USER_FROM_GROUP)
-    
+
+    #Trubnikov
+    def get_clickable_chat_title(self):
+        return self.get_button_by_xpath(self.CHAT_TITLE)
+
+    def get_chat_title(self):
+        return self.get_field_by_xpath(self.CHAT_TITLE)
+
+    def get_input_title(self):
+        return self.get_button_by_xpath(self.TITLE_INPUT_FIELD)
