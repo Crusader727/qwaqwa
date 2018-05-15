@@ -10,7 +10,7 @@ from confirm import ConfirmPage
 from selenium.webdriver.common.action_chains import ActionChains
 
 class DialogPage(BasePage):
-    
+
     def __init__(self, driver):
         super(DialogPage, self).__init__(driver)
         self.dialog_form = DialogForm(self.driver)
@@ -154,4 +154,11 @@ class DialogPage(BasePage):
         self.dialog_form.get_unpin_button().click()
         pin_message_confirm_page = ConfirmPage(self.driver)
         pin_message_confirm_page.confirm()
- 
+
+    def existence_change_photo_notification(self):
+        return self.dialog_form.existence_changed_photo_notification()
+
+    def switch_do_not_disturbed(self):
+        self.open_menu()
+        self.dialog_menu_form.get_do_not_disturbed_button().click()
+        self.open_menu()

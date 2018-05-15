@@ -1,6 +1,7 @@
 from base_page import BasePage
 from forms.dialog_menu_form import DialogMenuForm
 from selenium.webdriver.common.keys import Keys
+from forms.attach_form import AttachForm
 
 class DialogMenuPage(BasePage):
 
@@ -26,5 +27,12 @@ class DialogMenuPage(BasePage):
 
     def get_title(self):
         return self.dialog_menu_form.get_chat_title().get_attribute("innerHTML")
+
+    def change_photo(self, photo_url):
+        self.dialog_menu_form.get_change_photo_button().click()
+        attach_form = AttachForm(self.driver)
+        attach_form.get_dialog_photo().send_keys(photo_url)
+        if (attach_form.existance_ready_photo_button()):
+            attach_form.get_ready_photo_button().click()
 
 

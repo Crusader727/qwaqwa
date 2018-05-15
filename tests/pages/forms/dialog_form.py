@@ -37,6 +37,7 @@ class DialogForm(BaseElement):
     PINNED_MESSAGE = '//div[contains(@class, "chat_pinned_text")]'
     UNPIN_MESSAGE_BUTTON = "//a[contains(@class,'chat_pinned_close')]"
 
+    CHANGED_PHOTO_NOTIFICATION = '//div[.="Вы изменили иконку чата"]'
 
     def get_menu_button(self):
         return self.get_button_by_xpath(self.MENU_BUTTON)
@@ -124,3 +125,6 @@ class DialogForm(BaseElement):
 
     def get_unpin_button(self):
         return self.get_button_by_xpath(self.UNPIN_MESSAGE_BUTTON)
+
+    def existence_changed_photo_notification(self):
+        return self.existance_of_element_by_xpath(self.CHANGED_PHOTO_NOTIFICATION)
