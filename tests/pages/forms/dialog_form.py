@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from base_element import BaseElement
 
+
 class DialogForm(BaseElement):
     MENU_BUTTON = '//div[@data-additional-button="js-open-menu"]'
     SEND_MESSAGE_BUTTON = '//button[@title="Отправить"]'
@@ -12,6 +13,15 @@ class DialogForm(BaseElement):
     ATTACH_BUTTON = "//div[contains(@class, 'comments_attach')]"
     MESSAGE_WITH_STICKER = '//div[contains(@class, "msg_sticker ")]'
     SENT_MESSAGE = '//div[contains(@class,"msg_tx")]'
+    SMILES_LIST_BUTTON = '//a[contains(@data-l, "smilesTab")]'
+    SMILE_GOVNA = '//img[contains(@class, "emoji_1f4a9")]'
+    POSTCARDS_LIST_BUTTON = '//a[contains(@data-l, "postcardsTab")]'
+    FIRST_POSTCARD_IN_LIST = '//div[contains(@class, "comments_smiles_lst")]/div[1]/div'
+    SENT_POSTCARD = '//div[contains(@data-module,"LiveSticker")]'
+    POSTCARD_SEARCH = '//input[contains(@id, "PostcardsSearch_field_query")]'
+    POSTCARD_SEARCH_TEXT = "HAPPY"
+    POSTCARD_SEARCH_LOADER = '//div[contains(@class, "search-input_process")]'
+
 
     SENT_MESSAGE_TEXT = '//div[contains(@class, "msg_tx")]/div[2]/div[1]/span[1]/span[1]'
 
@@ -126,5 +136,29 @@ class DialogForm(BaseElement):
     def get_unpin_button(self):
         return self.get_button_by_xpath(self.UNPIN_MESSAGE_BUTTON)
 
+    # Trubnikov
+
     def existence_changed_photo_notification(self):
         return self.existance_of_element_by_xpath(self.CHANGED_PHOTO_NOTIFICATION)
+
+    def get_smiles_list_button(self):
+        return self.get_button_by_xpath(self.SMILES_LIST_BUTTON)
+
+    def pick_chocolate_smile(self):
+        return self.get_button_by_xpath(self.SMILE_GOVNA)
+
+    def get_postcards_list_button(self):
+        return self.get_button_by_xpath(self.POSTCARDS_LIST_BUTTON)
+
+    def pick_first_postcard(self):
+        return self.get_button_by_xpath(self.FIRST_POSTCARD_IN_LIST).click()
+
+    def get_sent_postcard(self):
+        return self.existance_of_element_by_xpath(self.SENT_POSTCARD)
+
+    def search_postcards(self, request):
+        self.get_button_by_xpath(self.POSTCARD_SEARCH).send_keys(request)
+
+    def wait_search_loading(self):
+        self.existance_of_element_by_xpath(self.POSTCARD_SEARCH_LOADER)
+        self.invisibility_of_element_by_xpath(self.POSTCARD_SEARCH_LOADER)

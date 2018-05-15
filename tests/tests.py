@@ -3,7 +3,6 @@
 import os
 
 import unittest
-import urlparse
 
 from pages.auth import AuthPage
 from pages.main import MainPage
@@ -14,7 +13,6 @@ from pages.confirm import ConfirmPage
 from time import sleep
 
 from selenium.webdriver import DesiredCapabilities, Remote
-from selenium.webdriver.support.ui import WebDriverWait
 
 
 class Tests(unittest.TestCase):
@@ -42,6 +40,8 @@ class Tests(unittest.TestCase):
         self.main_page.open_messages()
         self.URL_OF_DIALOG_WITH_ME = "https://ok.ru/messages/575662066926"
         self.URL_OF_MESSAGES = "https://ok.ru/messages"
+
+        self.SEARCH_REQUEST = "happy birthday"
 
     def tearDown(self):
         self.driver.get(self.CURRENT_DIALOG_URL)
@@ -284,5 +284,21 @@ class Tests(unittest.TestCase):
     #     self.driver.get(self.CURRENT_DIALOG_URL)
     #     self.dialog_page.switch_do_not_disturbed()
     #     self.dialog_page.block_user()
+    #
+    # def test_send_smile(self):
+    #     self.create_dialog()
+    #     self.dialog_page.send_chocolate_smile()
+    #     self.assertTrue(self.dialog_page.sent_message_exists(), "test_send_smile failed")
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
 
+    def test_send_postcard(self):
+        self.create_dialog()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        self.dialog_page.send_postcard()
+        self.assertTrue(self.dialog_page.check_sending_postcard(), "test_send_postcard failed")
 
+    def test_postcards_search(self):
+        self.create_dialog()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        self.dialog_page.find_and_send_postcard(self.SEARCH_REQUEST)
+        self.assertTrue(self.dialog_page.check_sending_postcard(), "test_postcards_search failed")

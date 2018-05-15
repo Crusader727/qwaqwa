@@ -155,6 +155,8 @@ class DialogPage(BasePage):
         pin_message_confirm_page = ConfirmPage(self.driver)
         pin_message_confirm_page.confirm()
 
+    # Trubnikov
+
     def existence_change_photo_notification(self):
         return self.dialog_form.existence_changed_photo_notification()
 
@@ -162,3 +164,25 @@ class DialogPage(BasePage):
         self.open_menu()
         self.dialog_menu_form.get_do_not_disturbed_button().click()
         self.open_menu()
+
+    def send_chocolate_smile(self):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_smiles_list_button().click()
+        self.dialog_form.pick_chocolate_smile().click()
+        self.dialog_form.get_send_message_button().click()
+
+    def send_postcard(self):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_postcards_list_button().click()
+        self.dialog_form.pick_first_postcard()
+
+
+    def find_and_send_postcard(self, search_request):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_postcards_list_button().click()
+        self.dialog_form.search_postcards(search_request)
+        self.dialog_form.wait_search_loading()
+        self.dialog_form.pick_first_postcard()
+
+    def check_sending_postcard(self):
+        return self.dialog_form.get_sent_postcard()
