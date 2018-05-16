@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from time import sleep
 import os
 
 import unittest
@@ -10,7 +10,6 @@ from pages.message import MessagePage
 from pages.dialog import DialogPage
 from pages.dialog_menu import DialogMenuPage
 from pages.confirm import ConfirmPage
-from time import sleep
 
 from selenium.webdriver import DesiredCapabilities, Remote
 
@@ -81,6 +80,10 @@ class Tests(unittest.TestCase):
 
         self.auth_page.chage_account(self.BOT_1_LOGIN, self.PASSWORD)
         self.driver.get(self.CURRENT_DIALOG_URL)
+
+    #Во всех тестах где присутвует рефреш - есть два объяснения:
+    #  1 - Не динамичнось верстки(без рефреша элементы не меняются)
+    #  2 - Не найдены признаки подтверждаюшие действие(рефреш гарантирует 100% точность итоговых ассертов)
 
     #Crusader727
 
@@ -202,6 +205,7 @@ class Tests(unittest.TestCase):
         self.CURRENT_DIALOG_URL = self.driver.current_url
         self.dialog_page.forward_message()
         self.message_page.choose_companion_forward_message()
+        self.driver.refresh()
         self.assertTrue(self.dialog_page.get_exsistance_of_forwarded_message(), "test_forward_message failed")
 
     def test_find_message(self):
@@ -266,9 +270,12 @@ class Tests(unittest.TestCase):
         self.dialog_page.open_menu()
         dialog_menu_page = DialogMenuPage(self.driver)
         dialog_menu_page.change_title(self.NEW_TITLE)
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        self.driver.refresh()
+        self.dialog_page.open_menu()
         title = dialog_menu_page.get_title()
         self.assertEqual(self.NEW_TITLE, title)
-        self.CURRENT_DIALOG_URL = self.driver.current_url
+       
 
     def test_update_dialog_photo(self):
         self.create_dialog()
@@ -277,9 +284,9 @@ class Tests(unittest.TestCase):
         self.dialog_page.open_menu()
         dilog_menu_page = DialogMenuPage(self.driver)
         dilog_menu_page.change_photo(os.getcwd()+"/tests/static/sabaton.jpg")
-        self.assertTrue(self.dialog_page.existence_change_photo_notification(), "test_update_dialog_photo failed")
         self.CURRENT_DIALOG_URL = self.driver.current_url
-
+        self.assertTrue(self.dialog_page.existence_change_photo_notification(), "test_update_dialog_photo failed")
+        
     def test_not_disturbed(self):
         self.create_dialog()
         self.dialog_page.unblock_user()

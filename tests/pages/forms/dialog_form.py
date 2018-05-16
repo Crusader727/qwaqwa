@@ -49,8 +49,8 @@ class DialogForm(BaseElement):
     EDIT_MESSAGE_BUTTON = "//a[contains(@data-l, 'editMsg')]"
     ANSWER_MESSAGE_BUTTON = "//span[contains(@data-l, 'replyToMsg')]"
     REPORT_MESSAGE_BUTTON = "//a[contains(@data-l, 'reportSpamMsg')]"
-    ANSWERED_MESSAGE = '//div[contains(@class,"msg_reply")]'
-    FORWARD_MESSAGE = "//span[contains(@data-l, 't,forward')]"
+    ANSWERED_MESSAGE = '//div[contains(@data-l,"reply")]'
+    FORWARD_MESSAGE = "//span[contains(@data-l, 'forward')]"
     FORWARDED_MESSAGE_TITLE = '//div[contains(@class,"msg_forward_title")]'
     ADD_COMPANION_BUTTON = '//span[contains(@class, " ic_add-user")]'
     CONTROL_USERS_BUTTON = '//span[contains(@class, " ic_ffriend")]'
