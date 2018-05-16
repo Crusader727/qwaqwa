@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from base_element import BaseElement
 
+
 class DialogForm(BaseElement):
     MENU_BUTTON = '//div[@data-additional-button="js-open-menu"]'
     SEND_MESSAGE_BUTTON = '//button[@title="Отправить"]'
@@ -10,11 +11,33 @@ class DialogForm(BaseElement):
     STICKER_LIST_BUTTON = '//a[contains(@data-l, "stickersTab")]'
     USMILE_STICKER = '//div[@data-code="#u9b43ee364as#"]'
     ATTACH_BUTTON = "//div[contains(@class, 'comments_attach')]"
+    GAME_BUTTON = '//a[contains(@class, "comments_action_game_trigger")]'
     MESSAGE_WITH_STICKER = '//div[contains(@class, "msg_sticker ")]'
     SENT_MESSAGE = '//div[contains(@class,"msg_tx")]'
+    SMILES_LIST_BUTTON = '//a[contains(@data-l, "smilesTab")]'
+    SMILE_GOVNA = '//img[contains(@class, "emoji_1f4a9")]'
+    POSTCARDS_LIST_BUTTON = '//a[contains(@data-l, "postcardsTab")]'
+    FIRST_POSTCARD_IN_LIST = '//div[contains(@class, "comments_smiles_lst")]/div[1]/div'
+    SENT_POSTCARD = '//div[contains(@data-module,"LiveSticker")]'
+    POSTCARD_SEARCH = '//input[contains(@id, "PostcardsSearch_field_query")]'
+    POSTCARD_SEARCH_LOADER = '//div[contains(@class, "search-input_process")]'
+    USER_AVATAR = '//div[contains(@id, "hook_Block_MessageActionMenu")]/div[1]/div[1]/a/img'
+    AVATAR_LOADER = '//div[@class, "photo-layer_process"]'
+    BIG_AVATAR = '//div[contains(@id, "photo-layer_photo")]'
+
+    STICKERS_SET_INSTALL_BUTTON = '//a[contains(@data-l, "button_install")]'
+    STICKERS_SET_UNINSTALL_BUTTON = '//a[contains(@data-l, "button_uninstall")]'
+    OPEN_STICKERS_SET_LIST = '//a[contains(@data-l, "add")]'
+    CLOSE_STICKERS_SET_LIST = '//a[contains(@id, "nohook_modal_close")]'
+    MY_STICKERS_BUTTON = '//a[contains(@hrefattrs, "Installed")]'
+    FIND_MY_SET_TEMPLATE = '//div[contains(@data-set-id, "{ID}")]'
+    FIND_NEW_SET_TEMPLATE = '//a[contains(@hrefattrs, "set={ID}")]'
+    SINGLE_STICKER_SET = '//div[contains(@class,"sticker-set-single")]'
 
     SENT_MESSAGE_TEXT = '//div[contains(@class, "msg_tx")]/div[2]/div[1]/span[1]/span[1]'
-
+    GAME_LIST = '//div[contains(@id, "hook_Block_ChatGames")]'
+    ACTIVE_GAME_TEMPLATE = '//div[contains(@data-appid, "{AppID}")]'
+    PICK_GAME_TEMPLATE = '(//a[contains(@href, "appId={AppID}")])[2]'
     DIALOG_LOADER = '//div[contains(@class, "chat_loader")]'
 
     COMPANION_NAME = '//span[contains(@data-l,"menu_opponent_name")]'
@@ -25,6 +48,7 @@ class DialogForm(BaseElement):
     PIN_MESSAGE_BUTTON =  "//a[contains(@data-l, 'pinMsg')]"
     EDIT_MESSAGE_BUTTON = "//a[contains(@data-l, 'editMsg')]"
     ANSWER_MESSAGE_BUTTON = "//span[contains(@data-l, 'replyToMsg')]"
+    REPORT_MESSAGE_BUTTON = "//a[contains(@data-l, 'reportSpamMsg')]"
     ANSWERED_MESSAGE = '//div[contains(@class,"msg_reply")]'
     FORWARD_MESSAGE = "//span[contains(@data-l, 't,forward')]"
     FORWARDED_MESSAGE_TITLE = '//div[contains(@class,"msg_forward_title")]'
@@ -36,6 +60,9 @@ class DialogForm(BaseElement):
 
     PINNED_MESSAGE = '//div[contains(@class, "chat_pinned_text")]'
     UNPIN_MESSAGE_BUTTON = "//a[contains(@class,'chat_pinned_close')]"
+
+    CHANGED_PHOTO_NOTIFICATION = '//div[.="Вы изменили иконку чата"]'
+    REPORTED_MESSAGE = '//div[.="Сообщение расценено как спам и удалено."]'
 
     def get_menu_button(self):
         return self.get_button_by_xpath(self.MENU_BUTTON)
@@ -123,3 +150,84 @@ class DialogForm(BaseElement):
 
     def get_unpin_button(self):
         return self.get_button_by_xpath(self.UNPIN_MESSAGE_BUTTON)
+
+    # Trubnikov
+
+    def existence_changed_photo_notification(self):
+        return self.existance_of_element_by_xpath(self.CHANGED_PHOTO_NOTIFICATION)
+
+    def get_smiles_list_button(self):
+        return self.get_button_by_xpath(self.SMILES_LIST_BUTTON)
+
+    def pick_chocolate_smile(self):
+        return self.get_button_by_xpath(self.SMILE_GOVNA)
+
+    def get_postcards_list_button(self):
+        return self.get_button_by_xpath(self.POSTCARDS_LIST_BUTTON)
+
+    def pick_first_postcard(self):
+        return self.get_button_by_xpath(self.FIRST_POSTCARD_IN_LIST).click()
+
+    def get_sent_postcard(self):
+        return self.existance_of_element_by_xpath(self.SENT_POSTCARD)
+
+    def search_postcards(self, request):
+        self.get_button_by_xpath(self.POSTCARD_SEARCH).send_keys(request)
+
+    def wait_search_loading(self):
+        self.existance_of_element_by_xpath(self.POSTCARD_SEARCH_LOADER)
+        self.invisibility_of_element_by_xpath(self.POSTCARD_SEARCH_LOADER)
+
+    def get_more_stickers(self):
+        self.get_button_by_xpath(self.OPEN_STICKERS_SET_LIST).click()
+
+    def close_stickers_set_list(self):
+        self.get_button_by_xpath(self.CLOSE_STICKERS_SET_LIST).click()
+
+    def install_stickers_set(self, set_id):
+        if self.open_single_sticker_set(set_id):
+            self.get_button_by_xpath(self.STICKERS_SET_INSTALL_BUTTON).click()
+
+    def uninstall_stickers_set(self, set_id):
+        if self.open_single_sticker_set(set_id):
+            self.get_button_by_xpath(self.STICKERS_SET_UNINSTALL_BUTTON).click()
+
+    def open_my_stickers_set_list(self):
+        self.get_button_by_xpath(self.MY_STICKERS_BUTTON).click()
+
+    def open_single_sticker_set(self, set_id):
+        find_new_set = self.FIND_NEW_SET_TEMPLATE.replace("{ID}", set_id)
+        self.get_button_by_xpath(find_new_set).click()
+        return self.existance_of_element_by_xpath(self.SINGLE_STICKER_SET)
+
+    def find_my_stickers_set(self, set_id):
+        find_my_set = self.FIND_MY_SET_TEMPLATE.replace("{ID}", set_id)
+        return self.existance_of_element_by_xpath(find_my_set)
+
+    def open_avatar(self):
+        self.get_button_by_xpath(self.USER_AVATAR).click()
+        self.existance_of_element_by_xpath(self.AVATAR_LOADER)
+        self.invisibility_of_element_by_xpath(self.AVATAR_LOADER)
+
+    def existence_big_avatar(self):
+        return self.existance_of_element_by_xpath(self.BIG_AVATAR)
+
+    def get_report_message_button(self):
+        return self.get_hidden_input_by_xpath(self.REPORT_MESSAGE_BUTTON)
+
+    def existence_reported_message(self):
+        return self.existance_of_element_by_xpath(self.REPORTED_MESSAGE)
+
+    def get_game_button(self):
+        return self.get_button_by_xpath(self.GAME_BUTTON)
+
+    def wait_game_list(self):
+        self.existance_of_element_by_xpath(self.GAME_LIST)
+
+    def pick_game(self, app_id):
+        pick_game = self.PICK_GAME_TEMPLATE.replace("{AppID}", app_id)
+        self.get_button_by_xpath(pick_game).click()
+
+    def existence_game(self, app_id):
+        find_game = self.ACTIVE_GAME_TEMPLATE.replace("{AppID}", app_id)
+        return self.existance_of_element_by_xpath(find_game)

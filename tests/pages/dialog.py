@@ -4,13 +4,14 @@ from forms.dialog_form import DialogForm
 from forms.attach_form import AttachForm
 from forms.message_form import MessageForm
 from forms.dialog_menu_form import DialogMenuForm
+from message_confirm import MessageConfirmPage
 from delete_message_confirm import DeleteMessageConfirmPage
 from confirm import ConfirmPage
 
 from selenium.webdriver.common.action_chains import ActionChains
 
 class DialogPage(BasePage):
-    
+
     def __init__(self, driver):
         super(DialogPage, self).__init__(driver)
         self.dialog_form = DialogForm(self.driver)
@@ -154,4 +155,79 @@ class DialogPage(BasePage):
         self.dialog_form.get_unpin_button().click()
         pin_message_confirm_page = ConfirmPage(self.driver)
         pin_message_confirm_page.confirm()
- 
+
+    # Trubnikov
+
+    def existence_change_photo_notification(self):
+        return self.dialog_form.existence_changed_photo_notification()
+
+    def switch_do_not_disturbed(self):
+        self.open_menu()
+        self.dialog_menu_form.get_do_not_disturbed_button().click()
+        self.open_menu()
+
+    def send_chocolate_smile(self):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_smiles_list_button().click()
+        self.dialog_form.pick_chocolate_smile().click()
+        self.dialog_form.get_send_message_button().click()
+
+    def send_postcard(self):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_postcards_list_button().click()
+        self.dialog_form.pick_first_postcard()
+
+    def find_and_send_postcard(self, search_request):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_postcards_list_button().click()
+        self.dialog_form.search_postcards(search_request)
+        self.dialog_form.wait_search_loading()
+        self.dialog_form.pick_first_postcard()
+
+    def check_sending_postcard(self):
+        return self.dialog_form.get_sent_postcard()
+
+    def install_stickers_set(self, set_id):
+        self.open_stickers_set_list()
+        self.dialog_form.install_stickers_set(set_id)
+        self.dialog_form.close_stickers_set_list()
+
+    def check_stickers_set(self, set_id):
+        self.open_stickers_set_list()
+        self.dialog_form.open_my_stickers_set_list()
+        is_exist = self.dialog_form.find_my_stickers_set(set_id)
+        self.dialog_form.close_stickers_set_list()
+        return is_exist
+
+    def uninstall_stickers_set(self, set_id):
+        self.open_stickers_set_list()
+        self.dialog_form.uninstall_stickers_set(set_id)
+        self.dialog_form.close_stickers_set_list()
+
+    def open_stickers_set_list(self):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_sticker_list_button().click()
+        self.dialog_form.get_more_stickers()
+
+    def open_avatar(self):
+        self.dialog_form.open_avatar()
+
+    def existence_big_avatar(self):
+        return self.dialog_form.existence_big_avatar()
+
+    def report_message(self):
+        report_message_button = self.dialog_form.get_report_message_button()
+        ActionChains(self.driver).move_to_element(report_message_button).perform()
+        report_message_button.click()
+        MessageConfirmPage(self.driver).confirm_report()
+
+    def existence_reported_message(self):
+        return self.dialog_form.existence_reported_message()
+
+    def invite_game(self, app_id):
+        self.dialog_form.get_game_button().click()
+        self.dialog_form.wait_game_list()
+        self.dialog_form.pick_game(app_id)
+
+    def existence_game(self, app_id):
+        return self.dialog_form.existence_game(app_id)

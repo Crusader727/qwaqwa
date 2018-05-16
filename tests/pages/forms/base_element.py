@@ -15,12 +15,11 @@ class BaseElement(object):
     def get_field_by_xpath(self, xpath):
         return WebDriverWait(self.driver, 30, 0.3).until(
             EC.visibility_of_element_located((By.XPATH, xpath)))
-    
-   
+
     def get_hidden_input_by_xpath(self, xpath):
         return WebDriverWait(self.driver, 30, 0.3).until(
             EC.presence_of_element_located((By.XPATH, xpath)))
-    
+
     def existance_of_element_in_dom_by_xpath(self, xpath):
         try:
             return WebDriverWait(self.driver, 7, 0.3).until(
