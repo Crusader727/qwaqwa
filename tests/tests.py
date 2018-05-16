@@ -71,6 +71,16 @@ class Tests(unittest.TestCase):
         confirm_page = ConfirmPage(self.driver)
         confirm_page.confirm()
 
+    def send_self_message_from_other_acc(self):
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+
+        self.auth_page.chage_account(self.BOT_2_LOGIN, self.PASSWORD)
+        self.driver.get(self.URL_OF_DIALOG_WITH_ME)
+        self.dialog_page.send_message(self.MESSAGE_TEXT)
+
+        self.auth_page.chage_account(self.BOT_1_LOGIN, self.PASSWORD)
+        self.driver.get(self.CURRENT_DIALOG_URL)
+
     #Crusader727
 
     # def test_create_and_delete_dialog(self):
@@ -273,19 +283,13 @@ class Tests(unittest.TestCase):
     #     self.create_dialog()
     #     self.dialog_page.unblock_user()
     #     self.dialog_page.switch_do_not_disturbed()
-    #     self.CURRENT_DIALOG_URL = self.driver.current_url
     #
-    #     self.auth_page.chage_account(self.BOT_2_LOGIN, self.PASSWORD)
-    #     self.driver.get(self.URL_OF_DIALOG_WITH_ME)
-    #     self.dialog_page.send_message(self.MESSAGE_TEXT)
-    #
-    #     self.auth_page.chage_account(self.BOT_1_LOGIN, self.PASSWORD)
+    #     self.send_self_message_from_other_acc()
     #     self.assertFalse(self.main_page.get_existance_of_new_message(), "test_not_disturbed failed")
     #
-    #     self.driver.get(self.CURRENT_DIALOG_URL)
     #     self.dialog_page.switch_do_not_disturbed()
     #     self.dialog_page.block_user()
-    #
+
     # def test_send_smile(self):
     #     self.create_dialog()
     #     self.dialog_page.send_chocolate_smile()
@@ -312,9 +316,19 @@ class Tests(unittest.TestCase):
     #     self.assertTrue(self.dialog_page.check_stickers_set(set_id), "test_select_stickers_set failed")
     #     self.dialog_page.uninstall_stickers_set(set_id)
 
-    def test_open_original_photo(self):
+    # def test_open_avatar(self):
+    #     self.create_dialog()
+    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    #     self.dialog_page.open_menu()
+    #     self.dialog_page.open_avatar()
+    #     self.assertTrue(self.dialog_page.existence_big_avatar(), "test_open_original_photo failed")
+
+    def test_report_message(self):
         self.create_dialog()
-        self.CURRENT_DIALOG_URL = self.driver.current_url
-        self.dialog_page.open_menu()
-        self.dialog_page.open_original_photo()
-        self.assertTrue(self.dialog_page.existence_original_photo(), "test_open_original_photo failed")
+        self.dialog_page.unblock_user()
+
+        self.send_self_message_from_other_acc()
+        self.dialog_page.report_message()
+
+        self.assertTrue(self.dialog_page.existence_reported_message(), "test_report_message failed")
+        self.dialog_page.block_user()

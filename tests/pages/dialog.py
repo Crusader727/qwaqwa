@@ -4,6 +4,7 @@ from forms.dialog_form import DialogForm
 from forms.attach_form import AttachForm
 from forms.message_form import MessageForm
 from forms.dialog_menu_form import DialogMenuForm
+from message_confirm import MessageConfirmPage
 from delete_message_confirm import DeleteMessageConfirmPage
 from confirm import ConfirmPage
 
@@ -208,8 +209,17 @@ class DialogPage(BasePage):
         self.dialog_form.get_sticker_list_button().click()
         self.dialog_form.get_more_stickers()
 
-    def open_original_photo(self):
-        self.dialog_form.open_original_photo()
+    def open_avatar(self):
+        self.dialog_form.open_avatar()
 
-    def existence_original_photo(self):
-        return self.dialog_form.existence_original_photo()
+    def existence_big_avatar(self):
+        return self.dialog_form.existence_big_avatar()
+
+    def report_message(self):
+        report_message_button = self.dialog_form.get_report_message_button()
+        ActionChains(self.driver).move_to_element(report_message_button).perform()
+        report_message_button.click()
+        MessageConfirmPage(self.driver).confirm_report()
+
+    def existence_reported_message(self):
+        return self.dialog_form.existence_reported_message()

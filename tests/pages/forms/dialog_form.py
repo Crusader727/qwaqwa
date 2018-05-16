@@ -22,7 +22,7 @@ class DialogForm(BaseElement):
     POSTCARD_SEARCH_LOADER = '//div[contains(@class, "search-input_process")]'
     USER_AVATAR = '//div[contains(@id, "hook_Block_MessageActionMenu")]/div[1]/div[1]/a/img'
     AVATAR_LOADER = '//div[@class, "photo-layer_process"]'
-    ORIGINAL_AVATAR = '//div[contains(@id, "photo-layer_photo")]'
+    BIG_AVATAR = '//div[contains(@id, "photo-layer_photo")]'
 
     STICKERS_SET_INSTALL_BUTTON = '//a[contains(@data-l, "button_install")]'
     STICKERS_SET_UNINSTALL_BUTTON = '//a[contains(@data-l, "button_uninstall")]'
@@ -45,6 +45,7 @@ class DialogForm(BaseElement):
     PIN_MESSAGE_BUTTON =  "//a[contains(@data-l, 'pinMsg')]"
     EDIT_MESSAGE_BUTTON = "//a[contains(@data-l, 'editMsg')]"
     ANSWER_MESSAGE_BUTTON = "//span[contains(@data-l, 'replyToMsg')]"
+    REPORT_MESSAGE_BUTTON = "//a[contains(@data-l, 'reportSpamMsg')]"
     ANSWERED_MESSAGE = '//div[contains(@class,"msg_reply")]'
     FORWARD_MESSAGE = "//span[contains(@data-l, 't,forward')]"
     FORWARDED_MESSAGE_TITLE = '//div[contains(@class,"msg_forward_title")]'
@@ -58,6 +59,7 @@ class DialogForm(BaseElement):
     UNPIN_MESSAGE_BUTTON = "//a[contains(@class,'chat_pinned_close')]"
 
     CHANGED_PHOTO_NOTIFICATION = '//div[.="Вы изменили иконку чата"]'
+    REPORTED_MESSAGE = '//div[.="Сообщение расценено как спам и удалено."]'
 
     def get_menu_button(self):
         return self.get_button_by_xpath(self.MENU_BUTTON)
@@ -199,10 +201,16 @@ class DialogForm(BaseElement):
         find_my_set = self.FIND_MY_SET_TEMPLATE.replace("{ID}", set_id)
         return self.existance_of_element_by_xpath(find_my_set)
 
-    def open_original_photo(self):
+    def open_avatar(self):
         self.get_button_by_xpath(self.USER_AVATAR).click()
         self.existance_of_element_by_xpath(self.AVATAR_LOADER)
         self.invisibility_of_element_by_xpath(self.AVATAR_LOADER)
 
-    def existence_original_photo(self):
-        return self.existance_of_element_by_xpath(self.ORIGINAL_AVATAR)
+    def existence_big_avatar(self):
+        return self.existance_of_element_by_xpath(self.BIG_AVATAR)
+
+    def get_report_message_button(self):
+        return self.get_hidden_input_by_xpath(self.REPORT_MESSAGE_BUTTON)
+
+    def existence_reported_message(self):
+        return self.existance_of_element_by_xpath(self.REPORTED_MESSAGE)
