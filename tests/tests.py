@@ -42,6 +42,7 @@ class Tests(unittest.TestCase):
         self.URL_OF_MESSAGES = "https://ok.ru/messages"
 
         self.SEARCH_REQUEST = "happy birthday"
+        self.STICKERS_SET_ID = "42"
 
     def tearDown(self):
         self.driver.get(self.CURRENT_DIALOG_URL)
@@ -285,11 +286,11 @@ class Tests(unittest.TestCase):
     #     self.dialog_page.switch_do_not_disturbed()
     #     self.dialog_page.block_user()
     #
-    # def test_send_smile(self):
-    #     self.create_dialog()
-    #     self.dialog_page.send_chocolate_smile()
-    #     self.assertTrue(self.dialog_page.sent_message_exists(), "test_send_smile failed")
-    #     self.CURRENT_DIALOG_URL = self.driver.current_url
+    def test_send_smile(self):
+        self.create_dialog()
+        self.dialog_page.send_chocolate_smile()
+        self.assertTrue(self.dialog_page.sent_message_exists(), "test_send_smile failed")
+        self.CURRENT_DIALOG_URL = self.driver.current_url
 
     def test_send_postcard(self):
         self.create_dialog()
@@ -302,3 +303,11 @@ class Tests(unittest.TestCase):
         self.CURRENT_DIALOG_URL = self.driver.current_url
         self.dialog_page.find_and_send_postcard(self.SEARCH_REQUEST)
         self.assertTrue(self.dialog_page.check_sending_postcard(), "test_postcards_search failed")
+
+    def test_select_stickers_set(self):
+        self.create_dialog()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        set_id = self.STICKERS_SET_ID
+        self.dialog_page.install_stickers_set(set_id)
+        self.assertTrue(self.dialog_page.check_stickers_set(set_id), "test_select_stickers_set failed")
+        self.dialog_page.uninstall_stickers_set(set_id)

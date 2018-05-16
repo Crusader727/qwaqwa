@@ -19,9 +19,16 @@ class DialogForm(BaseElement):
     FIRST_POSTCARD_IN_LIST = '//div[contains(@class, "comments_smiles_lst")]/div[1]/div'
     SENT_POSTCARD = '//div[contains(@data-module,"LiveSticker")]'
     POSTCARD_SEARCH = '//input[contains(@id, "PostcardsSearch_field_query")]'
-    POSTCARD_SEARCH_TEXT = "HAPPY"
     POSTCARD_SEARCH_LOADER = '//div[contains(@class, "search-input_process")]'
 
+    STICKERS_SET_INSTALL_BUTTON = '//a[contains(@data-l, "button_install")]'
+    STICKERS_SET_UNINSTALL_BUTTON = '//a[contains(@data-l, "button_uninstall")]'
+    OPEN_STICKERS_SET_LIST = '//a[contains(@data-l, "add")]'
+    CLOSE_STICKERS_SET_LIST = '//a[contains(@id, "nohook_modal_close")]'
+    MY_STICKERS_BUTTON = '//a[contains(@hrefattrs, "Installed")]'
+    FIND_MY_SET_TEMPLATE = '//div[contains(@data-set-id, "{ID}")]'
+    FIND_NEW_SET_TEMPLATE = '//a[contains(@hrefattrs, "set={ID}")]'
+    SINGLE_STICKER_SET = '//div[contains(@class,"sticker-set-single")]'
 
     SENT_MESSAGE_TEXT = '//div[contains(@class, "msg_tx")]/div[2]/div[1]/span[1]/span[1]'
 
@@ -162,3 +169,30 @@ class DialogForm(BaseElement):
     def wait_search_loading(self):
         self.existance_of_element_by_xpath(self.POSTCARD_SEARCH_LOADER)
         self.invisibility_of_element_by_xpath(self.POSTCARD_SEARCH_LOADER)
+
+
+    def get_more_stickers(self):
+        self.get_button_by_xpath(self.OPEN_STICKERS_SET_LIST).click()
+
+    def close_stickers_set_list(self):
+        self.get_button_by_xpath(self.CLOSE_STICKERS_SET_LIST).click()
+
+    def install_stickers_set(self, set_id):
+        if self.open_single_sticker_set(set_id):
+            self.get_button_by_xpath(self.STICKERS_SET_INSTALL_BUTTON).click()
+
+    def uninstall_stickers_set(self, set_id):
+        if self.open_single_sticker_set(set_id):
+            self.get_button_by_xpath(self.STICKERS_SET_UNINSTALL_BUTTON).click()
+
+    def open_my_stickers_set_list(self):
+        self.get_button_by_xpath(self.MY_STICKERS_BUTTON).click()
+
+    def open_single_sticker_set(self, set_id):
+        find_new_set = self.FIND_NEW_SET_TEMPLATE.replace("{ID}", set_id)
+        self.get_button_by_xpath(find_new_set).click()
+        return self.existance_of_element_by_xpath(self.SINGLE_STICKER_SET)
+
+    def find_my_stickers_set(self, set_id):
+        find_my_set = self.FIND_MY_SET_TEMPLATE.replace("{ID}", set_id)
+        return self.existance_of_element_by_xpath(find_my_set)

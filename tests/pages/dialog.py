@@ -176,7 +176,6 @@ class DialogPage(BasePage):
         self.dialog_form.get_postcards_list_button().click()
         self.dialog_form.pick_first_postcard()
 
-
     def find_and_send_postcard(self, search_request):
         self.dialog_form.get_sticker_button().click()
         self.dialog_form.get_postcards_list_button().click()
@@ -186,3 +185,25 @@ class DialogPage(BasePage):
 
     def check_sending_postcard(self):
         return self.dialog_form.get_sent_postcard()
+
+    def install_stickers_set(self, set_id):
+        self.open_stickers_set_list()
+        self.dialog_form.install_stickers_set(set_id)
+        self.dialog_form.close_stickers_set_list()
+
+    def check_stickers_set(self, set_id):
+        self.open_stickers_set_list()
+        self.dialog_form.open_my_stickers_set_list()
+        is_exist = self.dialog_form.find_my_stickers_set(set_id)
+        self.dialog_form.close_stickers_set_list()
+        return is_exist
+
+    def uninstall_stickers_set(self, set_id):
+        self.open_stickers_set_list()
+        self.dialog_form.uninstall_stickers_set(set_id)
+        self.dialog_form.close_stickers_set_list()
+
+    def open_stickers_set_list(self):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_sticker_list_button().click()
+        self.dialog_form.get_more_stickers()
