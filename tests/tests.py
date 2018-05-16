@@ -43,6 +43,7 @@ class Tests(unittest.TestCase):
 
         self.SEARCH_REQUEST = "happy birthday"
         self.STICKERS_SET_ID = "42"
+        self.APPLICATION_ID = "1241398016"
 
     def tearDown(self):
         self.driver.get(self.CURRENT_DIALOG_URL)
@@ -323,12 +324,18 @@ class Tests(unittest.TestCase):
     #     self.dialog_page.open_avatar()
     #     self.assertTrue(self.dialog_page.existence_big_avatar(), "test_open_original_photo failed")
 
-    def test_report_message(self):
+    # def test_report_message(self):
+    #     self.create_dialog()
+    #     self.dialog_page.unblock_user()
+    #
+    #     self.send_self_message_from_other_acc()
+    #     self.dialog_page.report_message()
+    #
+    #     self.assertTrue(self.dialog_page.existence_reported_message(), "test_report_message failed")
+    #     self.dialog_page.block_user()
+
+    def test_game_invite(self):
         self.create_dialog()
-        self.dialog_page.unblock_user()
-
-        self.send_self_message_from_other_acc()
-        self.dialog_page.report_message()
-
-        self.assertTrue(self.dialog_page.existence_reported_message(), "test_report_message failed")
-        self.dialog_page.block_user()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        self.dialog_page.invite_game(self.APPLICATION_ID)
+        self.assertTrue(self.dialog_page.existence_game(self.APPLICATION_ID), "test_game_invite failed")

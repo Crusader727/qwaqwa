@@ -223,3 +223,11 @@ class DialogPage(BasePage):
 
     def existence_reported_message(self):
         return self.dialog_form.existence_reported_message()
+
+    def invite_game(self, app_id):
+        self.dialog_form.get_game_button().click()
+        self.dialog_form.wait_game_list()
+        self.dialog_form.pick_game(app_id)
+
+    def existence_game(self, app_id):
+        return self.dialog_form.existence_game(app_id)
