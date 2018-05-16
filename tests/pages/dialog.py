@@ -207,3 +207,9 @@ class DialogPage(BasePage):
         self.dialog_form.get_sticker_button().click()
         self.dialog_form.get_sticker_list_button().click()
         self.dialog_form.get_more_stickers()
+
+    def open_original_photo(self):
+        self.dialog_form.open_original_photo()
+
+    def existence_original_photo(self):
+        return self.dialog_form.existence_original_photo()

@@ -20,6 +20,9 @@ class DialogForm(BaseElement):
     SENT_POSTCARD = '//div[contains(@data-module,"LiveSticker")]'
     POSTCARD_SEARCH = '//input[contains(@id, "PostcardsSearch_field_query")]'
     POSTCARD_SEARCH_LOADER = '//div[contains(@class, "search-input_process")]'
+    USER_AVATAR = '//div[contains(@id, "hook_Block_MessageActionMenu")]/div[1]/div[1]/a/img'
+    AVATAR_LOADER = '//div[@class, "photo-layer_process"]'
+    ORIGINAL_AVATAR = '//div[contains(@id, "photo-layer_photo")]'
 
     STICKERS_SET_INSTALL_BUTTON = '//a[contains(@data-l, "button_install")]'
     STICKERS_SET_UNINSTALL_BUTTON = '//a[contains(@data-l, "button_uninstall")]'
@@ -170,7 +173,6 @@ class DialogForm(BaseElement):
         self.existance_of_element_by_xpath(self.POSTCARD_SEARCH_LOADER)
         self.invisibility_of_element_by_xpath(self.POSTCARD_SEARCH_LOADER)
 
-
     def get_more_stickers(self):
         self.get_button_by_xpath(self.OPEN_STICKERS_SET_LIST).click()
 
@@ -196,3 +198,11 @@ class DialogForm(BaseElement):
     def find_my_stickers_set(self, set_id):
         find_my_set = self.FIND_MY_SET_TEMPLATE.replace("{ID}", set_id)
         return self.existance_of_element_by_xpath(find_my_set)
+
+    def open_original_photo(self):
+        self.get_button_by_xpath(self.USER_AVATAR).click()
+        self.existance_of_element_by_xpath(self.AVATAR_LOADER)
+        self.invisibility_of_element_by_xpath(self.AVATAR_LOADER)
+
+    def existence_original_photo(self):
+        return self.existance_of_element_by_xpath(self.ORIGINAL_AVATAR)
