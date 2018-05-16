@@ -1,5 +1,6 @@
 from base_element import BaseElement
 
+
 class AttachForm(BaseElement):
     MUSIC_BUTTON = '//a[contains(@data-l, "musicLink")]'
     DOCUMENT_INPUT = '//span[contains(@data-l, "file_upload_menu")]/input[1]'
