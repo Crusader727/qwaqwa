@@ -8,8 +8,6 @@ from message_confirm import MessageConfirmPage
 from delete_message_confirm import DeleteMessageConfirmPage
 from confirm import ConfirmPage
 
-from time import sleep
-
 from selenium.webdriver.common.action_chains import ActionChains
 
 class DialogPage(BasePage):
@@ -296,5 +294,4 @@ class DialogPage(BasePage):
         self.dialog_form.get_send_message_button().click()
 
     def send_sticker_from_bar(self):
-        sleep(2)
         self.dialog_form.get_sticker_from_bar().click()
