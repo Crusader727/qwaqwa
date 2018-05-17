@@ -25,6 +25,26 @@ class DialogForm(BaseElement):
     AVATAR_LOADER = '//div[@class, "photo-layer_process"]'
     BIG_AVATAR = '//div[contains(@id, "photo-layer_photo")]'
 
+    VIDEO_CALL_BUTTON = '//a[contains(@class, "video-chat-buttons_i __only-icon")]'
+    VIDEO_CALL_WINDOW = '//div[contains(@id, "hook_Block_VideoChatCall")]'
+    SUPPORT_BUTTON = '//a[contains(@class, "ic ic_i_support")]'
+    SUPPORT_WINDOW = '//div[contains(@id, "hook_Block_HelpFeedbackForm")]'
+    STICKER_BAR_CLOSE = '//div[contains(@class, "hello-stickers __empty js-hello-stickers __closed")]'
+    STICKER_BAR_BUTTON = '//div[contains(@class, "hello-sticker-toggler js-hello-sticker-toggler")]'
+    PRESENT_CONTENT = '//div[contains(@class, "gift-front_cnt")]'
+    CLOSE_MONEY_BUTTON = '//a[contains(@class, "ic modal-new_close_ico")]'
+    MONEY_WINDOW = '//iframe[contains(@class, "modal-new_payment-frame")]'
+    MONEY_TRANSFERS_ICON = '//div[contains(@class,"nav-side")]/a[2]'
+    NAV_LOADER = '//div[contains(@id ,"navProgress")]'
+    PAYMENT_LOADER = '//div[contains(@class, "new_payment-preloader")]'
+    PROFILE_BUTTON = '//a[contains(@title, "Перейти на профиль")]'
+    PROFILE_CONTENT = '//div[@class="portlet user-main-page"]'
+    ANIMATION_SMILES = '//ul[@class="comments_smiles_nav_cnt"]/li[8]'
+    SUN_SMILE = '//img[contains(@alt, "#u298cbf40cbs#")]'
+    ANIMATION_SMILE_LOADER = '//li[contains(@class, "comments_smiles_nav_i __active")]'
+
+    STICKER_IN_BAR = '//img[contains(@class, "live-sticker_preview")]'
+
     STICKERS_SET_INSTALL_BUTTON = '//a[contains(@data-l, "button_install")]'
     STICKERS_SET_UNINSTALL_BUTTON = '//a[contains(@data-l, "button_uninstall")]'
     OPEN_STICKERS_SET_LIST = '//a[contains(@data-l, "add")]'
@@ -231,3 +251,63 @@ class DialogForm(BaseElement):
     def existence_game(self, app_id):
         find_game = self.ACTIVE_GAME_TEMPLATE.replace("{AppID}", app_id)
         return self.existance_of_element_by_xpath(find_game)
+
+    #AndersRichter
+
+    def get_video_call_button(self):
+        return self.get_button_by_xpath(self.VIDEO_CALL_BUTTON)
+
+    def get_video_call_window(self):
+        return self.get_button_by_xpath(self.VIDEO_CALL_WINDOW)
+
+    def get_support_button(self):
+        return self.get_button_by_xpath(self.SUPPORT_BUTTON)
+
+    def get_support_window(self):
+        return self.get_button_by_xpath(self.SUPPORT_WINDOW)
+
+    def get_sticker_bar_close(self):
+        return self.get_button_by_xpath(self.STICKER_BAR_CLOSE)
+
+    def get_sticker_bar_button(self):
+        return self.get_button_by_xpath(self.STICKER_BAR_BUTTON)
+
+    def get_present_page(self):
+        return self.get_button_by_xpath(self.PRESENT_CONTENT)
+
+    def wait_nav_loader(self):
+        self.existance_of_element_by_xpath(self.NAV_LOADER)
+        self.invisibility_of_element_by_xpath(self.NAV_LOADER)
+
+    def wait_payment_loader(self):
+        self.existance_of_element_by_xpath(self.PAYMENT_LOADER)
+        self.invisibility_of_element_by_xpath(self.PAYMENT_LOADER)
+
+    def wait_smile_loader(self):
+        self.existance_of_element_by_xpath(self.ANIMATION_SMILE_LOADER)
+        self.invisibility_of_element_by_xpath(self.ANIMATION_SMILE_LOADER)
+
+    def get_close_money_button(self):
+        return self.get_button_by_xpath(self.CLOSE_MONEY_BUTTON)
+
+    def get_money_window(self):
+        return self.get_button_by_xpath(self.MONEY_WINDOW)
+
+    def get_money_transfers_icon(self):
+        self.driver.switch_to_frame(self.get_field_by_xpath(self.MONEY_WINDOW))
+        return self.get_button_by_xpath(self.MONEY_TRANSFERS_ICON)
+
+    def get_profile_button(self):
+        return self.get_button_by_xpath(self.PROFILE_BUTTON)
+
+    def get_profile_page(self):
+        return self.get_button_by_xpath(self.PROFILE_CONTENT)
+
+    def pick_animation_list(self):
+        return self.get_button_by_xpath(self.ANIMATION_SMILES)
+
+    def pick_animation_smile(self):
+        return self.get_button_by_xpath(self.SUN_SMILE)
+
+    def get_sticker_from_bar(self):
+        return self.get_button_by_xpath(self.STICKER_IN_BAR)

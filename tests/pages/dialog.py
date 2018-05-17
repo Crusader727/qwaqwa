@@ -8,6 +8,8 @@ from message_confirm import MessageConfirmPage
 from delete_message_confirm import DeleteMessageConfirmPage
 from confirm import ConfirmPage
 
+from time import sleep
+
 from selenium.webdriver.common.action_chains import ActionChains
 
 class DialogPage(BasePage):
@@ -113,8 +115,7 @@ class DialogPage(BasePage):
         forward_message_button = self.dialog_form.get_forward_message()
         ActionChains(self.driver).move_to_element(forward_message_button).perform()
         forward_message_button.click()  
-        
-    
+
     def get_exsistance_of_answered_message(self):
         return self.dialog_form.get_answered_message()
 
@@ -231,3 +232,69 @@ class DialogPage(BasePage):
 
     def existence_game(self, app_id):
         return self.dialog_form.existence_game(app_id)
+
+    #AndersRichter
+
+    def begin_video_call(self):
+        self.dialog_form.get_video_call_button().click()
+
+    def video_call_exists(self):
+        return self.dialog_form.get_video_call_window()
+
+    def open_support(self):
+        return self.dialog_form.get_support_button().click()
+
+    def support_window_exists(self):
+        return self.dialog_form.get_support_window()
+
+    def hide_sticker_bar(self):
+        return self.dialog_form.get_sticker_bar_button().click()
+
+    def sticker_bar_exists(self):
+        return self.dialog_form.get_sticker_bar_close()
+
+    def go_to_present_page(self):
+        self.dialog_form.get_attach_button().click()
+        self.attach_form.get_present_button().click()
+
+    def present_page_exists(self):
+        return self.dialog_form.get_present_page()
+
+    def wait_for_nav_loader(self):
+        self.dialog_form.wait_nav_loader()
+
+    def wait_for_payment_loader(self):
+        self.dialog_form.wait_payment_loader()
+
+    def go_to_money_page(self):
+        self.dialog_form.get_attach_button().click()
+        self.attach_form.get_money_button().click()
+
+    def close_money_page(self):
+        self.dialog_form.get_close_money_button().click()
+
+    def money_page_exists(self):
+        return self.dialog_form.get_money_window()
+
+    def go_to_transfers_page(self):
+        self.dialog_form.get_money_transfers_icon().click()
+        self.driver.switch_to_default_content()
+
+    def go_to_profile(self):
+        self.open_menu()
+        self.dialog_menu_form.get_profile_button().click()
+
+    def profile_page_exists(self):
+        return self.dialog_form.get_profile_page()
+
+    def send_animation_smile(self):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_smiles_list_button().click()
+        self.dialog_form.pick_animation_list().click()
+        self.dialog_form.wait_smile_loader()
+        self.dialog_form.pick_animation_smile().click()
+        self.dialog_form.get_send_message_button().click()
+
+    def send_sticker_from_bar(self):
+        sleep(2)
+        self.dialog_form.get_sticker_from_bar().click()
