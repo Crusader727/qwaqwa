@@ -1,5 +1,8 @@
 # Команда Chunk + PanzerElite
+python 2.7, selenium, chrome, firefox
+
 ##(Тесты на Сообщения на OK.ru )
+Запуск: ./run_tests.py
 
 ###Участники:
 Оганесян Рубен
