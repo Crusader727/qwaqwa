@@ -11,6 +11,8 @@ class AttachForm(BaseElement):
     SONG = '//div[contains(@class, "track __selectable  soh-s")]'
     SEND_SONG_BUTTON = '//input[@id="hook_FormButton_button_done"]'
     DIALOG_PHOTO_INPUT = '//div[contains(@id, "ConversationAvatarDialog")]/span/input'
+    PRESENT_BUTTON = '//a[contains(@data-l, "presentLink")]'
+    MONEY_BUTTON = '//a[contains(@data-l, "sendMoneyLink")]'
 
     LOADER = '//div[@class="progress __bottom __slim"]'
     PHOTO_READY_BUTTON = '//div[@id="__plpcte_buttons"]/div/form/button[1]'
@@ -50,3 +52,9 @@ class AttachForm(BaseElement):
 
     def get_game_button(self):
         return self.get_field_by_xpath(self.GAME_BUTTON)
+
+    def get_present_button(self):
+        return self.get_field_by_xpath(self.PRESENT_BUTTON)
+
+    def get_money_button(self):
+        return self.get_field_by_xpath(self.MONEY_BUTTON)

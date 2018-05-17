@@ -23,6 +23,7 @@ class Tests(unittest.TestCase):
             command_executor='http://127.0.0.1:4444/wd/hub',
             desired_capabilities=getattr(DesiredCapabilities, browser).copy()
         )
+        self.driver.maximize_window()
 
         self.NEW_TITLE = "New Title"
         self.MESSAGE_TEXT = "TestNumber1"
@@ -41,7 +42,7 @@ class Tests(unittest.TestCase):
         self.URL_OF_MESSAGES = "https://ok.ru/messages"
 
         self.SEARCH_REQUEST = "happy birthday"
-        self.STICKERS_SET_ID = "42"
+        self.STICKERS_SET_ID = "2"
         self.APPLICATION_ID = "1241398016"
 
     def tearDown(self):
@@ -275,7 +276,7 @@ class Tests(unittest.TestCase):
         self.dialog_page.open_menu()
         title = dialog_menu_page.get_title()
         self.assertEqual(self.NEW_TITLE, title)
-       
+
 
     def test_update_dialog_photo(self):
         self.create_dialog()
@@ -286,7 +287,7 @@ class Tests(unittest.TestCase):
         dilog_menu_page.change_photo(os.getcwd()+"/tests/static/sabaton.jpg")
         self.CURRENT_DIALOG_URL = self.driver.current_url
         self.assertTrue(self.dialog_page.existence_change_photo_notification(), "test_update_dialog_photo failed")
-        
+
     def test_not_disturbed(self):
         self.create_dialog()
         self.dialog_page.unblock_user()
@@ -346,3 +347,75 @@ class Tests(unittest.TestCase):
         self.CURRENT_DIALOG_URL = self.driver.current_url
         self.dialog_page.invite_game(self.APPLICATION_ID)
         self.assertTrue(self.dialog_page.existence_game(self.APPLICATION_ID), "test_game_invite failed")
+
+    AndersRichter
+
+    def test_video_call(self):
+        self.create_dialog()
+        self.dialog_page.begin_video_call()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        self.assertTrue(self.dialog_page.video_call_exists(), "test_video_call failed")
+
+    def test_support_window(self):
+        self.create_dialog()
+        self.dialog_page.open_support()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        self.assertTrue(self.dialog_page.support_window_exists(), "test_support_window failed")
+
+    def test_sticker_bar(self):
+        self.create_dialog()
+        self.dialog_page.hide_sticker_bar()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        self.assertTrue(self.dialog_page.sticker_bar_exists(), "test_sticker_bar failed")
+
+    def test_present_page(self):
+        self.create_dialog()
+        self.dialog_page.go_to_present_page()
+        self.dialog_page.wait_for_nav_loader()
+        self.assertTrue(self.dialog_page.present_page_exists(), "test_present_page failed")
+        self.main_page.open_messages()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+
+    def test_money_page(self):
+        self.create_dialog()
+        self.dialog_page.go_to_money_page()
+        self.dialog_page.wait_for_payment_loader()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        self.assertTrue(self.dialog_page.money_page_exists(), "test_money_page failed")
+        self.dialog_page.close_money_page()
+
+    def test_money_transfers_page(self):
+        self.create_dialog()
+        self.dialog_page.go_to_money_page()
+        self.dialog_page.wait_for_payment_loader()
+        self.dialog_page.go_to_transfers_page()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        self.assertTrue(self.dialog_page.money_page_exists(), "test_money_transfers_page failed")
+        self.dialog_page.close_money_page()
+
+    def test_profile_from_dialog(self):
+        self.create_dialog()
+        self.dialog_page.go_to_profile()
+        self.dialog_page.wait_for_nav_loader()
+        self.assertTrue(self.dialog_page.profile_page_exists(), "profile_from_dialog failed")
+        self.main_page.open_messages()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+
+    def test_delete_sticker_pack(self):
+        self.create_dialog()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        self.dialog_page.install_stickers_set(self.STICKERS_SET_ID)
+        self.dialog_page.uninstall_stickers_set(self.STICKERS_SET_ID)
+        self.assertTrue(not self.dialog_page.check_stickers_set(self.STICKERS_SET_ID), "test_delete_sticker_pack failed")
+
+    def test_send_animation_smile(self):
+        self.create_dialog()
+        self.dialog_page.send_animation_smile()
+        self.assertTrue(self.dialog_page.sent_message_exists(), "test_send_animation_smile failed")
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+
+    def test_send_sticker_from_bar(self):
+        self.create_dialog()
+        self.dialog_page.send_sticker_from_bar()
+        self.assertTrue(self.dialog_page.message_with_sticker_exists(), "test_send_sticker_from_bar failed")
+        self.CURRENT_DIALOG_URL = self.driver.current_url

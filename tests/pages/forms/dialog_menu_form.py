@@ -17,6 +17,8 @@ class DialogMenuForm(BaseElement):
     BLOCK_UNBLOCK_USER_BUTTON = '//i[contains(@class, "ic_block")]'
     DO_NOT_DISTURBED_BUTTON = '//i[contains(@class, "ic_check")]'
 
+    PROFILE_BUTTON = '//i[contains(@class, "ic_profile")]'
+
     def get_delete_dialog_button(self):
         return self.get_button_by_xpath(self.DELETE_DIALOG_BUTTON)
     
@@ -54,3 +56,7 @@ class DialogMenuForm(BaseElement):
 
     def get_do_not_disturbed_button(self):
         return self.get_button_by_xpath(self.DO_NOT_DISTURBED_BUTTON)
+
+    #AndersRichter
+    def get_profile_button(self):
+        return self.get_button_by_xpath(self.PROFILE_BUTTON)
