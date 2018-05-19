@@ -84,6 +84,8 @@ class DialogForm(BaseElement):
     CHANGED_PHOTO_NOTIFICATION = '//div[.="Вы изменили иконку чата"]'
     REPORTED_MESSAGE = '//div[.="Сообщение расценено как спам и удалено."]'
 
+    WRONG_PHOTO_FORMAT = '//span[contains(@class,"ic12 ic12_warning attach-photo_err")]'
+
     def get_menu_button(self):
         return self.get_button_by_xpath(self.MENU_BUTTON)
 
@@ -127,6 +129,9 @@ class DialogForm(BaseElement):
 
     def get_message_input(self):
         return self.get_field_by_xpath(self.MESSAGE_INPUT)
+
+    def existance_wrong_photo_format_ic(self):
+        return self.existance_of_element_by_xpath(self.WRONG_PHOTO_FORMAT)
 
     # Nick112
 
@@ -317,3 +322,5 @@ class DialogForm(BaseElement):
 
     def get_sticker_from_bar(self):
         return self.get_button_by_xpath(self.STICKER_IN_BAR)
+
+    
