@@ -157,47 +157,6 @@ class Tests(unittest.TestCase):
 
     # # 112Nick
 
-    # def test_send_message(self):
-    #     self.dialog_page.send_message(self.MESSAGE_TEXT)
-    #     self.assertTrue(
-    #         self.dialog_page.sent_message_exists(),
-    #         "test send message failed")
-
-    # def test_edit_message(self):
-    #     MESSAGE_EDITED_TEXT = ' IS_EDITED'
-    #     self.dialog_page.send_message(self.MESSAGE_TEXT)
-    #     self.dialog_page.edit_and_send_message(MESSAGE_EDITED_TEXT)
-    #     self.driver.refresh()
-    #     self.assertEquals(
-    #         self.dialog_page.get_sent_message_text(),
-    #         self.MESSAGE_TEXT + MESSAGE_EDITED_TEXT)
-
-    # def test_delete_message(self):
-    #     self.dialog_page.send_message(self.MESSAGE_TEXT)
-    #     self.dialog_page.delete_message()
-    #     self.driver.refresh()
-    #     self.assertTrue(
-    #         self.dialog_page.no_messages_text_exists(),
-    #         "test_delete_message failed")
-
-    # def test_answer_message(self):
-    #     MESSAGE_ANSWERED_TEXT = ' IS_ANSWERED'
-    #     self.dialog_page.send_message(self.MESSAGE_TEXT)
-    #     self.dialog_page.answer_message(MESSAGE_ANSWERED_TEXT)
-    #     self.driver.refresh()
-    #     self.assertTrue(
-    #         self.dialog_page.get_exsistance_of_answered_message(),
-    #         "test_answer_message failed")
-
-    # def test_forward_message(self):
-    #     self.dialog_page.send_message(self.MESSAGE_TEXT)
-    #     self.dialog_page.forward_message()
-    #     self.message_page.choose_companion_forward_message()
-    #     self.driver.refresh()
-    #     self.assertTrue(
-    #         self.dialog_page.get_exsistance_of_forwarded_message(),
-    #         "test_forward_message failed")
-
     # def test_find_message(self):
     #     self.dialog_page.send_message(self.MESSAGE_TEXT)
     #     self.dialog_page.find_message(self.MESSAGE_TEXT)

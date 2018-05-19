@@ -164,6 +164,9 @@ class DialogPage(BasePage):
         pin_message_confirm_page = ConfirmPage(self.driver)
         pin_message_confirm_page.confirm()
 
+    def long_message_error_exists(self):
+        return self.dialog_form.get_long_message_error()
+
     # Trubnikov
 
     def existence_change_photo_notification(self):

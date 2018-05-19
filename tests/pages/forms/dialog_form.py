@@ -85,6 +85,8 @@ class DialogForm(BaseElement):
     REPORTED_MESSAGE = '//div[.="Сообщение расценено как спам и удалено."]'
 
     WRONG_PHOTO_FORMAT = '//span[contains(@class,"ic12 ic12_warning attach-photo_err")]'
+    LONG_MESSAGE_ERROR = '//div[contains(@class, "msg_error")]'
+    
 
     def get_menu_button(self):
         return self.get_button_by_xpath(self.MENU_BUTTON)
@@ -126,9 +128,6 @@ class DialogForm(BaseElement):
     def get_companion_name(self):
         return self.get_field_by_xpath(
             self.COMPANION_NAME).get_attribute('innerHTML')
-
-    def get_message_input(self):
-        return self.get_field_by_xpath(self.MESSAGE_INPUT)
 
     def existance_wrong_photo_format_ic(self):
         return self.existance_of_element_by_xpath(self.WRONG_PHOTO_FORMAT)
@@ -179,6 +178,9 @@ class DialogForm(BaseElement):
 
     def get_unpin_button(self):
         return self.get_button_by_xpath(self.UNPIN_MESSAGE_BUTTON)
+
+    def get_long_message_error(self):
+        return self.existance_of_element_by_xpath(self.LONG_MESSAGE_ERROR)
 
     # Trubnikov
 
