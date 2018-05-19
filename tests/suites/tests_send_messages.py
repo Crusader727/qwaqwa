@@ -27,6 +27,15 @@ class TestsSendMessages(unittest.TestCase):
         self.PASSWORD = os.environ['PASSWORD']
         self.CURRENT_DIALOG_URL = ""
 
+        self.USUAL_MESSAGE_TEXT = 'USUAL TEXT'
+        self.CHINESE_TEXT =  u'測試漢字'
+        self.EMPTY_MESSAGE_TEXT = ''
+        self.LONG_VALID_MESSAGE = '_123'*9
+        self.LONG_INVALID_MESSAGE ='_123'*10
+        self.MESSAGE_EDITED_TEXT = ' IS_EDITED'
+        self.MESSAGE_ANSWERED_TEXT = ' IS_ANSWERED'
+        
+
         self.dialog_page = DialogPage(self.driver)
         self.message_page = MessagePage(self.driver)
         self.auth_page = AuthPage(self.driver)
@@ -54,95 +63,77 @@ class TestsSendMessages(unittest.TestCase):
         confirm_page.confirm()
 
     def test_send_usual_message(self):
-        MESSAGE_TEXT = 'USUAL TEXT'
-        self.dialog_page.send_message(MESSAGE_TEXT)
+        self.dialog_page.send_message(self.USUAL_MESSAGE_TEXT)
         self.assertTrue(
             self.dialog_page.sent_message_exists(),
             "test send usual message failed")
 
     def test_send_empty_message(self):
-        EMPTY_TEXT = ''
-        self.dialog_page.send_message(EMPTY_TEXT)
+        self.dialog_page.send_message(self.EMPTY_MESSAGE_TEXT)
         self.assertFalse(
             self.dialog_page.sent_message_exists(),
             "test send empty message failed")
 
     def test_send_unicode_message(self):
-        CHINESE_TEXT = u'測試漢字'
-        self.dialog_page.send_message(CHINESE_TEXT)
+        self.dialog_page.send_message(self.CHINESE_TEXT)
         self.assertTrue(
             self.dialog_page.sent_message_exists(),
             "test send unicode message failed")
 
     def test_send_long_valid_message(self):
-        LOOP_TEXT = '_123'
-        LOOP_TEXT *= 512
-        self.dialog_page.send_message(LOOP_TEXT)
+        self.dialog_page.send_message(self.LONG_VALID_MESSAGE)
         self.assertTrue(
             self.dialog_page.sent_message_exists(),
             "test send long valid message failed")
 
     def test_send_long_invalid_message(self):
-        LOOP_TEXT = '_123'
-        LOOP_TEXT *= 1024
-        self.dialog_page.send_message(LOOP_TEXT)
+        self.dialog_page.send_message(self.LONG_INVALID_MESSAGE)
         self.assertTrue(
             self.dialog_page.long_message_error_exists(),  
             "test send long invalid message failed")
     
     def test_usual_edit_usual_message(self):
-        MESSAGE_TEXT = 'USUAL TEXT'
-        MESSAGE_EDITED_TEXT = ' IS_EDITED'
-        self.dialog_page.send_message(MESSAGE_TEXT)
-        self.dialog_page.edit_and_send_message(MESSAGE_EDITED_TEXT)
+        self.dialog_page.send_message(self.USUAL_MESSAGE_TEXT)
+        self.dialog_page.edit_and_send_message(self.MESSAGE_EDITED_TEXT)
         self.driver.refresh()
         self.assertEquals(
             self.dialog_page.get_sent_message_text(),
-            MESSAGE_TEXT + MESSAGE_EDITED_TEXT)
+            self.USUAL_MESSAGE_TEXT + self.MESSAGE_EDITED_TEXT)
 
     def test_empty_edit_unicode_message(self):
-        CHINESE_TEXT = u'測試漢字'        
-        EMPTY_MESSAGE_EDITED_TEXT = ''
-        self.dialog_page.send_message(CHINESE_TEXT)
-        self.dialog_page.edit_and_send_message(EMPTY_MESSAGE_EDITED_TEXT)
+        self.dialog_page.send_message(self.CHINESE_TEXT)
+        self.dialog_page.edit_and_send_message(self.EMPTY_MESSAGE_TEXT)
         self.driver.refresh()
         self.assertEquals(
             self.dialog_page.get_sent_message_text(),
-            CHINESE_TEXT + EMPTY_MESSAGE_EDITED_TEXT)
+            self.CHINESE_TEXT + self.EMPTY_MESSAGE_TEXT)
 
     def test_unicode_edit_unicode_message(self):
-        CHINESE_TEXT = u'測試漢字'                
-        UNICODE_MESSAGE_EDITED_TEXT = u' 測試漢字'
-        self.dialog_page.send_message(CHINESE_TEXT)
-        self.dialog_page.edit_and_send_message(UNICODE_MESSAGE_EDITED_TEXT)
+        self.dialog_page.send_message(self.CHINESE_TEXT)
+        self.dialog_page.edit_and_send_message(self.CHINESE_TEXT)
         self.driver.refresh()
         self.assertEquals(
             self.dialog_page.get_sent_message_text(),
-            CHINESE_TEXT + UNICODE_MESSAGE_EDITED_TEXT)
+            self.CHINESE_TEXT + self.CHINESE_TEXT)
 
     def test_usual_answer_unicode_message(self):
-        CHINESE_TEXT = u'測試漢字'                
-        MESSAGE_ANSWERED_TEXT = ' IS_ANSWERED'
-        self.dialog_page.send_message(CHINESE_TEXT)
-        self.dialog_page.answer_message(MESSAGE_ANSWERED_TEXT)
+        self.dialog_page.send_message(self.CHINESE_TEXT)
+        self.dialog_page.answer_message(self.MESSAGE_ANSWERED_TEXT)
         self.driver.refresh()
         self.assertTrue(
             self.dialog_page.get_exsistance_of_answered_message(),
             "test_usual_answer_message failed")
 
     def test_unicode_answer_usual_message(self):
-        MESSAGE_TEXT = 'USUAL TEXT'        
-        UNICODE_MESSAGE_ANSWERED_TEXT = u' 測試漢字'
-        self.dialog_page.send_message(MESSAGE_TEXT)
-        self.dialog_page.answer_message(UNICODE_MESSAGE_ANSWERED_TEXT)
+        self.dialog_page.send_message(self.USUAL_MESSAGE_TEXT)
+        self.dialog_page.answer_message(self.CHINESE_TEXT)
         self.driver.refresh()
         self.assertTrue(
             self.dialog_page.get_exsistance_of_answered_message(),
             "test_unicode_answer_message failed")
 
     def test_forward_usual_message(self):
-        MESSAGE_TEXT = 'USUAL TEXT'                
-        self.dialog_page.send_message(MESSAGE_TEXT)
+        self.dialog_page.send_message(self.USUAL_MESSAGE_TEXT)
         self.dialog_page.forward_message()
         self.message_page.choose_companion_forward_message()
         self.driver.refresh()
@@ -151,8 +142,7 @@ class TestsSendMessages(unittest.TestCase):
             "test_forward_message failed")
 
     def test_forward_unicode_message(self):
-        CHINESE_TEXT = u' 測試漢字'        
-        self.dialog_page.send_message(CHINESE_TEXT)
+        self.dialog_page.send_message(self.CHINESE_TEXT)
         self.dialog_page.forward_message()
         self.message_page.choose_companion_forward_message()
         self.driver.refresh()
@@ -172,8 +162,7 @@ class TestsSendMessages(unittest.TestCase):
     #         "test_forward_message failed")
 
     def test_delete_usual_message(self):
-        MESSAGE_TEXT = 'USUAL TEXT'                        
-        self.dialog_page.send_message(MESSAGE_TEXT)
+        self.dialog_page.send_message(self.USUAL_MESSAGE_TEXT)
         self.dialog_page.delete_message()
         self.driver.refresh()
         self.assertTrue(
