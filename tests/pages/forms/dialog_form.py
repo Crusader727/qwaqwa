@@ -9,7 +9,15 @@ class DialogForm(BaseElement):
     MESSAGE_INPUT = '//div[@name="st.txt"]'
     STICKER_BUTTON = '//span[contains(@class, " emoji-m")]'
     STICKER_LIST_BUTTON = '//a[contains(@data-l, "stickersTab")]'
-    USMILE_STICKER = '//div[@data-code="#u9b43ee364as#"]'
+
+    STICKERS    = {
+    'USMILE_STICKER': '//div[@data-code="#u9b43ee364as#"]',
+    'USMILE_STICKER_2': '//div[@data-code="#u9b4399ed9bs#"]',
+    'DOG_STICKER': '//div[@data-code="#uced34a1000s#"]',
+    'HEART_STICKER': '//div[@data-code="#ucdb3367600s#"]',
+    'FOX_STICKER': '//div[@data-code="#ucf1b357200s#"]'
+    }
+
     ATTACH_BUTTON = "//div[contains(@class, 'comments_attach')]"
     GAME_BUTTON = '//a[contains(@class, "comments_action_game_trigger")]'
     MESSAGE_WITH_STICKER = '//div[contains(@class, "msg_sticker ")]'
@@ -85,8 +93,8 @@ class DialogForm(BaseElement):
     REPORTED_MESSAGE = '//div[.="Сообщение расценено как спам и удалено."]'
 
     WRONG_PHOTO_FORMAT = '//span[contains(@class,"ic12 ic12_warning attach-photo_err")]'
+
     LONG_MESSAGE_ERROR = '//div[contains(@class, "msg_error")]'
-    
 
     def get_menu_button(self):
         return self.get_button_by_xpath(self.MENU_BUTTON)
@@ -109,8 +117,8 @@ class DialogForm(BaseElement):
     def get_sticker_list_button(self):
         return self.get_button_by_xpath(self.STICKER_LIST_BUTTON)
 
-    def get_unsmile_sticker(self):
-        return self.get_button_by_xpath(self.USMILE_STICKER)
+    def get_sticker(self, name):
+        return self.get_button_by_xpath(self.STICKERS[name])
 
     def get_attach_button(self):
         return self.get_button_by_xpath(self.ATTACH_BUTTON)
@@ -133,6 +141,8 @@ class DialogForm(BaseElement):
         return self.existance_of_element_by_xpath(self.WRONG_PHOTO_FORMAT)
 
     # Nick112
+    def get_long_message_error(self):
+        return self.existance_of_element_by_xpath(self.LONG_MESSAGE_ERROR)
 
     def get_edit_message_button(self):
         return self.get_hidden_input_by_xpath(self.EDIT_MESSAGE_BUTTON)
@@ -178,9 +188,6 @@ class DialogForm(BaseElement):
 
     def get_unpin_button(self):
         return self.get_button_by_xpath(self.UNPIN_MESSAGE_BUTTON)
-
-    def get_long_message_error(self):
-        return self.existance_of_element_by_xpath(self.LONG_MESSAGE_ERROR)
 
     # Trubnikov
 

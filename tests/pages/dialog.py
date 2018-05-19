@@ -29,10 +29,10 @@ class DialogPage(BasePage):
     def no_messages_text_exists(self):
         return self.dialog_form.get_no_messages_text_exists()
 
-    def send_sticker(self):
+    def send_sticker(self, name):
         self.dialog_form.get_sticker_button().click()
         self.dialog_form.get_sticker_list_button().click()
-        self.dialog_form.get_unsmile_sticker().click()
+        self.dialog_form.get_sticker(name).click()
 
     def message_with_sticker_exists(self):
         return self.dialog_form.get_message_with_sticker()
@@ -163,7 +163,7 @@ class DialogPage(BasePage):
         self.dialog_form.get_unpin_button().click()
         pin_message_confirm_page = ConfirmPage(self.driver)
         pin_message_confirm_page.confirm()
-
+    
     def long_message_error_exists(self):
         return self.dialog_form.get_long_message_error()
 

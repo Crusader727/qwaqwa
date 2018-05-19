@@ -30,8 +30,8 @@ class TestsSendMessages(unittest.TestCase):
         self.USUAL_MESSAGE_TEXT = 'USUAL TEXT'
         self.CHINESE_TEXT =  u'測試漢字'
         self.EMPTY_MESSAGE_TEXT = ''
-        self.LONG_VALID_MESSAGE = '_123'*9
-        self.LONG_INVALID_MESSAGE ='_123'*10
+        self.LONG_VALID_MESSAGE = '_123' * 512
+        self.LONG_INVALID_MESSAGE ='_123' * 1024
         self.MESSAGE_EDITED_TEXT = ' IS_EDITED'
         self.MESSAGE_ANSWERED_TEXT = ' IS_ANSWERED'
         
