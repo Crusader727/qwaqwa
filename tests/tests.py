@@ -113,55 +113,7 @@ class Tests(unittest.TestCase):
 
     # 112Nick
 
-    def test_add_user_to_group_chat(self):
-        self.dialog_page.add_user_to_chat()
-        self.assertTrue(
-            self.dialog_page.get_exsistance_of_created_group_dialog(),
-            "test_add_user_to_group_chat failed")
-
-    def test_delete_user_from_group_chat(self):
-        self.dialog_page.add_user_to_chat()
-        self.dialog_page.delete_user_from_chat()
-        self.assertTrue(
-            self.dialog_page.get_exsistance_of_delte_companion(),
-            "test_delete_user_from_group_chat failed")
-
-    def test_hide_group_chat(self):
-        self.dialog_page.add_user_to_chat()
-        self.dialog_page.wait_for_loader()
-        self.dialog_page.open_menu()
-        dilog_menu_page = DialogMenuPage(self.driver)
-        dilog_menu_page.hide_chat()
-
-        hide_chat_confirm_page = ConfirmPage(self.driver)
-        hide_chat_confirm_page.confirm()
-        self.driver.get(self.URL_OF_MESSAGES)
-        self.assertTrue(
-            self.message_page.get_existance_of_dialogs_empty(),
-            "test_hide_group_chat failed")
-
-    def test_pin_message(self):
-        self.dialog_page.add_user_to_chat()
-        self.dialog_page.wait_for_loader()
-        self.dialog_page.send_message(self.MESSAGE_TEXT)
-
-        self.dialog_page.pin_message()
-        self.assertTrue(
-            self.dialog_page.exsistance_of_pinned_message(),
-            "test_pin_message failed")
-
-    def test_unpin_message(self):
-        self.dialog_page.add_user_to_chat()
-        self.dialog_page.wait_for_loader()
-        self.dialog_page.send_message(self.MESSAGE_TEXT)
-
-        self.dialog_page.pin_message()
-        self.dialog_page.unpin_message()
-        self.driver.refresh()
-        self.assertFalse(
-            self.dialog_page.exsistance_of_pinned_message(),
-            "test_unpin_message failed")
-
+  
     # Trubnikov
 
     def test_change_title_of_group_chat(self):
