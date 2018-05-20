@@ -12,8 +12,6 @@ from tests.pages.confirm import ConfirmPage
 
 from selenium.webdriver import DesiredCapabilities, Remote
 
-from time import sleep
-
 
 class TestsGroupDialogs(unittest.TestCase):
 
@@ -185,3 +183,64 @@ class TestsGroupDialogs(unittest.TestCase):
         dialog_menu_page.change_title(self.NEW_ENG_TITLE)
         title = dialog_menu_page.get_title()
         self.assertEqual(self.NEW_ENG_TITLE, title)
+
+    # I know what it’s like to lose. To feel so desperately that you’re right,
+    # yet to fail nonetheless. Dread it, run from it, destiny arrives all the same. (c) Thanos
+
+    def test_set_dialog_photo_of_mad_titan(self):
+        self.dialog_page.wait_for_loader()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        self.dialog_page.open_menu()
+        dialog_menu_page = DialogMenuPage(self.driver)
+        dialog_menu_page.change_photo(os.getcwd() + "/tests/static/thanos.jpg")
+        self.assertTrue(
+            self.dialog_page.existence_change_photo_notification(),
+            "Failed to update photo of group dialog")
+
+    def test_update_dialog_photo_2(self):
+        self.dialog_page.wait_for_loader()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        self.dialog_page.open_menu()
+        dialog_menu_page = DialogMenuPage(self.driver)
+        dialog_menu_page.change_photo(os.getcwd() + "/tests/static/sabaton_high.jpg")
+        self.assertTrue(
+            self.dialog_page.existence_change_photo_notification(),
+            "Failed to update photo_2 of group dialog")
+
+    def test_update_dialog_photo_jpeg(self):
+        self.dialog_page.wait_for_loader()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        self.dialog_page.open_menu()
+        dialog_menu_page = DialogMenuPage(self.driver)
+        dialog_menu_page.change_photo(os.getcwd() + "/tests/static/sabaton_low.jpeg")
+        self.assertTrue(
+            self.dialog_page.existence_change_photo_notification(),
+            "Failed to update photo.jpeg of group dialog")
+
+    def test_update_dialog_photo_png(self):
+        self.dialog_page.wait_for_loader()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        self.dialog_page.open_menu()
+        dialog_menu_page = DialogMenuPage(self.driver)
+        dialog_menu_page.change_photo(os.getcwd() + "/tests/static/sabaton_png.png")
+        self.assertTrue(
+            self.dialog_page.existence_change_photo_notification(),
+            "Failed to update photo.png of group dialog")
+
+    def test_update_dialog_photo_invalid_format_1(self):
+        self.dialog_page.wait_for_loader()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        self.dialog_page.open_menu()
+        dialog_menu_page = DialogMenuPage(self.driver)
+        dialog_menu_page.change_photo(os.getcwd() + "/tests/static/awd.txt")
+        err_msg = dialog_menu_page.get_message_of_error_notification()
+        self.assertEquals(err_msg, u"Файл неверного типа.")
+
+    def test_update_dialog_photo_invalid_format_2(self):
+        self.dialog_page.wait_for_loader()
+        self.CURRENT_DIALOG_URL = self.driver.current_url
+        self.dialog_page.open_menu()
+        dialog_menu_page = DialogMenuPage(self.driver)
+        dialog_menu_page.change_photo(os.getcwd() + "/tests/static/sabaton_high.mp4")
+        err_msg = dialog_menu_page.get_message_of_error_notification()
+        self.assertEquals(err_msg, u"Файл неверного типа.")

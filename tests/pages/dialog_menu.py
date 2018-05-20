@@ -34,6 +34,9 @@ class DialogMenuPage(BasePage):
     def get_title(self):
         return self.dialog_menu_form.get_chat_title().get_attribute("innerHTML")
 
+    def get_message_of_error_notification(self):
+        return self.dialog_menu_form.get_error_notification().get_attribute("innerHTML")
+
     def change_photo(self, photo_url):
         self.dialog_menu_form.get_change_photo_button().click()
         attach_form = AttachForm(self.driver)

@@ -111,21 +111,7 @@ class Tests(unittest.TestCase):
 
     # 112Nick
 
-  
     # Trubnikov
-
-
-
-    def test_update_dialog_photo(self):
-        self.dialog_page.add_user_to_chat()
-        self.dialog_page.wait_for_loader()
-        self.dialog_page.open_menu()
-        dilog_menu_page = DialogMenuPage(self.driver)
-        dilog_menu_page.change_photo(os.getcwd() + "/tests/static/sabaton.jpg")
-
-        self.assertTrue(
-            self.dialog_page.existence_change_photo_notification(),
-            "test_update_dialog_photo failed")
 
     def test_not_disturbed(self):
         self.dialog_page.unblock_user()
