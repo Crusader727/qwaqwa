@@ -184,6 +184,20 @@ class DialogPage(BasePage):
         self.dialog_form.pick_chocolate_smile().click()
         self.dialog_form.get_send_message_button().click()
 
+    def send_whale_smile(self):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_smiles_list_button().click()
+        self.dialog_form.pick_whale_smile().click()
+        self.dialog_form.get_send_message_button().click()
+
+    def send_combo_wombo_smile(self):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_smiles_list_button().click()
+        self.dialog_form.pick_whale_smile().click()
+        self.dialog_form.pick_gas_smile().click()
+        self.dialog_form.pick_chocolate_smile().click()
+        self.dialog_form.get_send_message_button().click()
+
     def send_postcard(self):
         self.dialog_form.get_sticker_button().click()
         self.dialog_form.get_postcards_list_button().click()

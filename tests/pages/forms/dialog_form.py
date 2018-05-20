@@ -24,6 +24,8 @@ class DialogForm(BaseElement):
     SENT_MESSAGE = '//div[contains(@class,"msg_tx")]'
     SMILES_LIST_BUTTON = '//a[contains(@data-l, "smilesTab")]'
     SMILE_GOVNA = '//img[contains(@class, "emoji_1f4a9")]'
+    SMILE_WHALE = '//img[contains(@class, "emoji_1f40b")]'
+    SMILE_GAS = '//img[contains(@class, "emoji_1f4a8")]'
     POSTCARDS_LIST_BUTTON = '//a[contains(@data-l, "postcardsTab")]'
     FIRST_POSTCARD_IN_LIST = '//div[contains(@class, "comments_smiles_lst")]/div[1]/div'
     SENT_POSTCARD = '//div[contains(@data-module,"LiveSticker")]'
@@ -200,6 +202,12 @@ class DialogForm(BaseElement):
 
     def pick_chocolate_smile(self):
         return self.get_button_by_xpath(self.SMILE_GOVNA)
+
+    def pick_whale_smile(self):
+        return self.get_button_by_xpath(self.SMILE_WHALE)
+
+    def pick_gas_smile(self):
+        return self.get_button_by_xpath(self.SMILE_GAS)
 
     def get_postcards_list_button(self):
         return self.get_button_by_xpath(self.POSTCARDS_LIST_BUTTON)

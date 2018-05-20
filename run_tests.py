@@ -42,10 +42,10 @@ if __name__ == '__main__':
    
     # result = unittest.TextTestRunner().run(suite)
     # result1 = unittest.TextTestRunner().run(testsSendDocumentsSuite)
-    result2 = unittest.TextTestRunner().run(testsSendStickersSuite)
+    # result2 = unittest.TextTestRunner().run(testsSendStickersSuite)
     # result3 = unittest.TextTestRunner().run(twoAccauntsManagementSuite)
-    # result4 = unittest.TextTestRunner().run(testsSendMessagesSuite)
+    result4 = unittest.TextTestRunner().run(testsSendMessagesSuite)
     # result5 = unittest.TextTestRunner().run(testsFindDialogMsgSuite)
     # result6 = unittest.TextTestRunner().run(testsGroupDialogsSuite)
     
-    sys.exit(not result2.wasSuccessful())
+    sys.exit(not result4.wasSuccessful())

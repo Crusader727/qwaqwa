@@ -88,7 +88,7 @@ class TestsStickers(unittest.TestCase):
             "test_send_heart_sticker failed")
 
     # You have my respect, Stark. When I'm done, half of
-    # humanity will still be alive. I hope they remember you.
+    # humanity will still be alive. I hope they remember you. (c) Thanos
 
     def test_add_stickers_set(self):
         set_id = self.STICKERS_NEW_SET_ID

@@ -149,12 +149,6 @@ class Tests(unittest.TestCase):
         self.NEED_TO_BLOCK_USER = True
         self.dialog_page.switch_do_not_disturbed()
 
-    def test_send_smile(self):
-        self.dialog_page.send_chocolate_smile()
-        self.assertTrue(
-            self.dialog_page.sent_message_exists(),
-            "test_send_smile failed")
-
     def test_send_postcard(self):
         self.dialog_page.send_postcard()
         self.assertTrue(
@@ -166,8 +160,6 @@ class Tests(unittest.TestCase):
         self.assertTrue(
             self.dialog_page.check_sending_postcard(),
             "test_postcards_search failed")
-
-
 
     def test_open_avatar(self):
         self.dialog_page.open_menu()
