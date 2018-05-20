@@ -4,7 +4,7 @@ import sys
 import unittest
 from tests.tests import Tests
 from tests.suites.tests_send_document import TestsSendDocuments
-from tests.suites.test_send_stickers import TestsSendStickers
+from tests.suites.test_send_stickers import TestsStickers
 from tests.suites.two_accaunts_management import TwoAccauntsManagement
 from tests.suites.tests_send_messages import TestsSendMessages
 from tests.suites.tests_find_dialog_msg import TestsFindDialogMsg
@@ -20,7 +20,7 @@ if __name__ == '__main__':
     ))
 
     testsSendStickersSuite = unittest.TestSuite((
-        unittest.makeSuite(TestsSendStickers),
+        unittest.makeSuite(TestsStickers),
     ))
 
     twoAccauntsManagementSuite = unittest.TestSuite((
@@ -42,10 +42,10 @@ if __name__ == '__main__':
    
     # result = unittest.TextTestRunner().run(suite)
     # result1 = unittest.TextTestRunner().run(testsSendDocumentsSuite)
-    # result2 = unittest.TextTestRunner().run(testsSendStickersSuite)
+    result2 = unittest.TextTestRunner().run(testsSendStickersSuite)
     # result3 = unittest.TextTestRunner().run(twoAccauntsManagementSuite)
     # result4 = unittest.TextTestRunner().run(testsSendMessagesSuite)
     # result5 = unittest.TextTestRunner().run(testsFindDialogMsgSuite)
-    result6 = unittest.TextTestRunner().run(testsGroupDialogsSuite)
+    # result6 = unittest.TextTestRunner().run(testsGroupDialogsSuite)
     
-    sys.exit(not result6.wasSuccessful())
+    sys.exit(not result2.wasSuccessful())

@@ -41,7 +41,6 @@ class Tests(unittest.TestCase):
         self.URL_OF_MESSAGES = "https://ok.ru/messages"
 
         self.SEARCH_REQUEST = "happy birthday"
-        self.STICKERS_SET_ID = "2"
         self.APPLICATION_ID = "1241398016"
         self.NEED_TO_BLOCK_USER = False
         self.NEED_TO_CHANGE_ACC = False
@@ -168,13 +167,7 @@ class Tests(unittest.TestCase):
             self.dialog_page.check_sending_postcard(),
             "test_postcards_search failed")
 
-    def test_select_stickers_set(self):
-        set_id = self.STICKERS_SET_ID
-        self.dialog_page.install_stickers_set(set_id)
-        self.assertTrue(
-            self.dialog_page.check_stickers_set(set_id),
-            "test_select_stickers_set failed")
-        self.dialog_page.uninstall_stickers_set(set_id)
+
 
     def test_open_avatar(self):
         self.dialog_page.open_menu()
