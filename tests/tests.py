@@ -24,7 +24,6 @@ class Tests(unittest.TestCase):
         )
         self.driver.maximize_window()
 
-        self.NEW_TITLE = "New Title"
         self.MESSAGE_TEXT = "testNumber1"
         self.BOT_1_LOGIN = "technopark3"
         self.BOT_2_LOGIN = "technopark2"
@@ -88,7 +87,7 @@ class Tests(unittest.TestCase):
         self.driver.get(self.CURRENT_DIALOG_URL)
 
     # Во всех тестах где присутвует рефреш - есть два объяснения:
-    #  1 - Не динамичнось верстки(без рефреша элементы не меняются)
+    # 1 - Не динамичнось верстки(без рефреша элементы не меняются)
     # 2 - Не найдены признаки подтверждаюшие действие(рефреш гарантирует 100%
     # точность итоговых ассертов)
 
@@ -115,17 +114,7 @@ class Tests(unittest.TestCase):
   
     # Trubnikov
 
-    def test_change_title_of_group_chat(self):
-        self.dialog_page.add_user_to_chat()
-        self.dialog_page.wait_for_loader()
-        self.dialog_page.open_menu()
-        dialog_menu_page = DialogMenuPage(self.driver)
-        dialog_menu_page.change_title(self.NEW_TITLE)
 
-        self.driver.refresh()
-        self.dialog_page.open_menu()
-        title = dialog_menu_page.get_title()
-        self.assertEqual(self.NEW_TITLE, title)
 
     def test_update_dialog_photo(self):
         self.dialog_page.add_user_to_chat()
