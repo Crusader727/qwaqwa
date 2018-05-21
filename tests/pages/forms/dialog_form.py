@@ -9,13 +9,23 @@ class DialogForm(BaseElement):
     MESSAGE_INPUT = '//div[@name="st.txt"]'
     STICKER_BUTTON = '//span[contains(@class, " emoji-m")]'
     STICKER_LIST_BUTTON = '//a[contains(@data-l, "stickersTab")]'
-    USMILE_STICKER = '//div[@data-code="#u9b43ee364as#"]'
+
+    STICKERS = {
+        'USMILE_STICKER': '//div[@data-code="#u9b43ee364as#"]',
+        'USMILE_STICKER_2': '//div[@data-code="#u9b4399ed9bs#"]',
+        'DOG_STICKER': '//div[@data-code="#uced34a1000s#"]',
+        'HEART_STICKER': '//div[@data-code="#ucdb3367600s#"]',
+        'FOX_STICKER': '//div[@data-code="#ucf1b357200s#"]'
+    }
+
     ATTACH_BUTTON = "//div[contains(@class, 'comments_attach')]"
     GAME_BUTTON = '//a[contains(@class, "comments_action_game_trigger")]'
     MESSAGE_WITH_STICKER = '//div[contains(@class, "msg_sticker ")]'
     SENT_MESSAGE = '//div[contains(@class,"msg_tx")]'
     SMILES_LIST_BUTTON = '//a[contains(@data-l, "smilesTab")]'
     SMILE_GOVNA = '//img[contains(@class, "emoji_1f4a9")]'
+    SMILE_WHALE = '//img[contains(@class, "emoji_1f40b")]'
+    SMILE_GAS = '//img[contains(@class, "emoji_1f4a8")]'
     POSTCARDS_LIST_BUTTON = '//a[contains(@data-l, "postcardsTab")]'
     FIRST_POSTCARD_IN_LIST = '//div[contains(@class, "comments_smiles_lst")]/div[1]/div'
     SENT_POSTCARD = '//div[contains(@data-module,"LiveSticker")]'
@@ -54,7 +64,7 @@ class DialogForm(BaseElement):
     FIND_NEW_SET_TEMPLATE = '//a[contains(@hrefattrs, "set={ID}")]'
     SINGLE_STICKER_SET = '//div[contains(@class,"sticker-set-single")]'
 
-    SENT_MESSAGE_TEXT = '//div[contains(@class, "msg_tx")]/div[2]/div[1]/span[1]/span[1]'
+    SENT_MESSAGE_TEXT = '//span[contains(@class, "js-copy-text")]/span[1]'
     GAME_LIST = '//div[contains(@id, "hook_Block_ChatGames")]'
     ACTIVE_GAME_TEMPLATE = '//div[contains(@data-appid, "{AppID}")]'
     PICK_GAME_TEMPLATE = '(//a[contains(@href, "appId={AppID}")])[2]'
@@ -64,8 +74,8 @@ class DialogForm(BaseElement):
 
     MESSAGE_INPUT = '//div[contains(@name, "st.txt")]'
 
-    DELETE_MESSAGE_BUTTON =  "//a[contains(@data-l, 'deleteMsg')]"
-    PIN_MESSAGE_BUTTON =  "//a[contains(@data-l, 'pinMsg')]"
+    DELETE_MESSAGE_BUTTON = "//a[contains(@data-l, 'deleteMsg')]"
+    PIN_MESSAGE_BUTTON = "//a[contains(@data-l, 'pinMsg')]"
     EDIT_MESSAGE_BUTTON = "//a[contains(@data-l, 'editMsg')]"
     ANSWER_MESSAGE_BUTTON = "//span[contains(@data-l, 'replyToMsg')]"
     REPORT_MESSAGE_BUTTON = "//a[contains(@data-l, 'reportSpamMsg')]"
@@ -84,12 +94,16 @@ class DialogForm(BaseElement):
     CHANGED_PHOTO_NOTIFICATION = '//div[.="Вы изменили иконку чата"]'
     REPORTED_MESSAGE = '//div[.="Сообщение расценено как спам и удалено."]'
 
+    WRONG_PHOTO_FORMAT = '//span[contains(@class,"ic12 ic12_warning attach-photo_err")]'
+
+    LONG_MESSAGE_ERROR = '//div[contains(@class, "msg_error")]'
+
     def get_menu_button(self):
         return self.get_button_by_xpath(self.MENU_BUTTON)
 
     def get_send_message_button(self):
         return self.get_button_by_xpath(self.SEND_MESSAGE_BUTTON)
-    
+
     def get_send_message_button_exists(self):
         return self.existance_of_element_by_xpath(self.SEND_MESSAGE_BUTTON)
 
@@ -98,16 +112,16 @@ class DialogForm(BaseElement):
 
     def get_message_input(self):
         return self.get_field_by_xpath(self.MESSAGE_INPUT)
-    
+
     def get_sticker_button(self):
         return self.get_button_by_xpath(self.STICKER_BUTTON)
 
     def get_sticker_list_button(self):
         return self.get_button_by_xpath(self.STICKER_LIST_BUTTON)
 
-    def get_unsmile_sticker(self):
-        return self.get_button_by_xpath(self.USMILE_STICKER)
-    
+    def get_sticker(self, name):
+        return self.get_button_by_xpath(self.STICKERS[name])
+
     def get_attach_button(self):
         return self.get_button_by_xpath(self.ATTACH_BUTTON)
 
@@ -116,30 +130,34 @@ class DialogForm(BaseElement):
 
     def get_sent_message(self):
         return self.existance_of_element_by_xpath(self.SENT_MESSAGE)
-    
+
     def wait_dialog_loader(self):
         self.existance_of_element_by_xpath(self.DIALOG_LOADER)
         self.invisibility_of_element_by_xpath(self.DIALOG_LOADER)
 
     def get_companion_name(self):
-        return self.get_field_by_xpath(self.COMPANION_NAME).get_attribute('innerHTML')
+        return self.get_field_by_xpath(
+            self.COMPANION_NAME).get_attribute('innerHTML')
 
-    def get_message_input(self):
-        return self.get_field_by_xpath(self.MESSAGE_INPUT)
+    def existance_wrong_photo_format_ic(self):
+        return self.existance_of_element_by_xpath(self.WRONG_PHOTO_FORMAT)
 
-    #Nick112
+    # Nick112
+    def get_long_message_error(self):
+        return self.existance_of_element_by_xpath(self.LONG_MESSAGE_ERROR)
 
     def get_edit_message_button(self):
         return self.get_hidden_input_by_xpath(self.EDIT_MESSAGE_BUTTON)
 
     def get_delete_message_button(self):
         return self.get_hidden_input_by_xpath(self.DELETE_MESSAGE_BUTTON)
-    
+
     def get_answer_message_button(self):
         return self.get_hidden_input_by_xpath(self.ANSWER_MESSAGE_BUTTON)
 
     def get_sent_message_text(self):
-        return self.get_button_by_xpath(self.SENT_MESSAGE_TEXT).get_attribute("innerHTML")
+        return self.get_button_by_xpath(
+            self.SENT_MESSAGE_TEXT).get_attribute("innerHTML")
 
     def get_answered_message(self):
         return self.existance_of_element_by_xpath(self.ANSWERED_MESSAGE)
@@ -149,22 +167,24 @@ class DialogForm(BaseElement):
 
     def get_forward_message_title(self):
         return self.existance_of_element_by_xpath(self.FORWARDED_MESSAGE_TITLE)
-    
+
     def get_add_companion_button(self):
         return self.get_button_by_xpath(self.ADD_COMPANION_BUTTON)
-    
+
     def get_group_chat_created_title(self):
-        return self.existance_of_element_by_xpath(self.GROUP_CHAT_CREATED_TITLE)
+        return self.existance_of_element_by_xpath(
+            self.GROUP_CHAT_CREATED_TITLE)
 
     def get_group_chat_delete_title(self):
-        return self.existance_of_element_by_xpath(self.GROUP_CHAT_REMOVED_TITLE)
-    
+        return self.existance_of_element_by_xpath(
+            self.GROUP_CHAT_REMOVED_TITLE)
+
     def get_control_users_button(self):
         return self.get_button_by_xpath(self.CONTROL_USERS_BUTTON)
-    
+
     def get_pin_button(self):
         return self.get_hidden_input_by_xpath(self.PIN_MESSAGE_BUTTON)
-    
+
     def get_pinned_message(self):
         return self.existance_of_element_by_xpath(self.PINNED_MESSAGE)
 
@@ -174,13 +194,20 @@ class DialogForm(BaseElement):
     # Trubnikov
 
     def existence_changed_photo_notification(self):
-        return self.existance_of_element_by_xpath(self.CHANGED_PHOTO_NOTIFICATION)
+        return self.existance_of_element_by_xpath(
+            self.CHANGED_PHOTO_NOTIFICATION)
 
     def get_smiles_list_button(self):
         return self.get_button_by_xpath(self.SMILES_LIST_BUTTON)
 
     def pick_chocolate_smile(self):
         return self.get_button_by_xpath(self.SMILE_GOVNA)
+
+    def pick_whale_smile(self):
+        return self.get_button_by_xpath(self.SMILE_WHALE)
+
+    def pick_gas_smile(self):
+        return self.get_button_by_xpath(self.SMILE_GAS)
 
     def get_postcards_list_button(self):
         return self.get_button_by_xpath(self.POSTCARDS_LIST_BUTTON)
@@ -210,7 +237,8 @@ class DialogForm(BaseElement):
 
     def uninstall_stickers_set(self, set_id):
         if self.open_single_sticker_set(set_id):
-            self.get_button_by_xpath(self.STICKERS_SET_UNINSTALL_BUTTON).click()
+            self.get_button_by_xpath(
+                self.STICKERS_SET_UNINSTALL_BUTTON).click()
 
     def open_my_stickers_set_list(self):
         self.get_button_by_xpath(self.MY_STICKERS_BUTTON).click()
@@ -252,7 +280,7 @@ class DialogForm(BaseElement):
         find_game = self.ACTIVE_GAME_TEMPLATE.replace("{AppID}", app_id)
         return self.existance_of_element_by_xpath(find_game)
 
-    #AndersRichter
+    # AndersRichter
 
     def get_video_call_button(self):
         return self.get_button_by_xpath(self.VIDEO_CALL_BUTTON)
