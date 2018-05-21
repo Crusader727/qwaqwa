@@ -24,7 +24,6 @@ class Tests(unittest.TestCase):
         )
         self.driver.maximize_window()
 
-        self.NEW_TITLE = "New Title"
         self.MESSAGE_TEXT = "testNumber1"
         self.BOT_1_LOGIN = "technopark3"
         self.BOT_2_LOGIN = "technopark2"
@@ -41,7 +40,6 @@ class Tests(unittest.TestCase):
         self.URL_OF_MESSAGES = "https://ok.ru/messages"
 
         self.SEARCH_REQUEST = "happy birthday"
-        self.STICKERS_SET_ID = "2"
         self.APPLICATION_ID = "1241398016"
         self.NEED_TO_BLOCK_USER = False
         self.NEED_TO_CHANGE_ACC = False
@@ -89,7 +87,7 @@ class Tests(unittest.TestCase):
         self.driver.get(self.CURRENT_DIALOG_URL)
 
     # Во всех тестах где присутвует рефреш - есть два объяснения:
-    #  1 - Не динамичнось верстки(без рефреша элементы не меняются)
+    # 1 - Не динамичнось верстки(без рефреша элементы не меняются)
     # 2 - Не найдены признаки подтверждаюшие действие(рефреш гарантирует 100%
     # точность итоговых ассертов)
 
@@ -113,31 +111,7 @@ class Tests(unittest.TestCase):
 
     # 112Nick
 
-  
     # Trubnikov
-
-    def test_change_title_of_group_chat(self):
-        self.dialog_page.add_user_to_chat()
-        self.dialog_page.wait_for_loader()
-        self.dialog_page.open_menu()
-        dialog_menu_page = DialogMenuPage(self.driver)
-        dialog_menu_page.change_title(self.NEW_TITLE)
-
-        self.driver.refresh()
-        self.dialog_page.open_menu()
-        title = dialog_menu_page.get_title()
-        self.assertEqual(self.NEW_TITLE, title)
-
-    def test_update_dialog_photo(self):
-        self.dialog_page.add_user_to_chat()
-        self.dialog_page.wait_for_loader()
-        self.dialog_page.open_menu()
-        dilog_menu_page = DialogMenuPage(self.driver)
-        dilog_menu_page.change_photo(os.getcwd() + "/tests/static/sabaton.jpg")
-
-        self.assertTrue(
-            self.dialog_page.existence_change_photo_notification(),
-            "test_update_dialog_photo failed")
 
     def test_not_disturbed(self):
         self.dialog_page.unblock_user()
@@ -150,12 +124,6 @@ class Tests(unittest.TestCase):
         self.NEED_TO_BLOCK_USER = True
         self.dialog_page.switch_do_not_disturbed()
 
-    def test_send_smile(self):
-        self.dialog_page.send_chocolate_smile()
-        self.assertTrue(
-            self.dialog_page.sent_message_exists(),
-            "test_send_smile failed")
-
     def test_send_postcard(self):
         self.dialog_page.send_postcard()
         self.assertTrue(
@@ -167,14 +135,6 @@ class Tests(unittest.TestCase):
         self.assertTrue(
             self.dialog_page.check_sending_postcard(),
             "test_postcards_search failed")
-
-    def test_select_stickers_set(self):
-        set_id = self.STICKERS_SET_ID
-        self.dialog_page.install_stickers_set(set_id)
-        self.assertTrue(
-            self.dialog_page.check_stickers_set(set_id),
-            "test_select_stickers_set failed")
-        self.dialog_page.uninstall_stickers_set(set_id)
 
     def test_open_avatar(self):
         self.dialog_page.open_menu()

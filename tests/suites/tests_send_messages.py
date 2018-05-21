@@ -150,16 +150,16 @@ class TestsSendMessages(unittest.TestCase):
             self.dialog_page.get_exsistance_of_forwarded_message(),
             "test_forward_message failed")
 
-    # def test_forward_long_valid_message(self):
-    #     LOOP_TEXT = '_123'
-    #     LOOP_TEXT *= 512
-    #     self.dialog_page.send_message(LOOP_TEXT)
-    #     self.dialog_page.forward_message()
-    #     self.message_page.choose_companion_forward_message()
-    #     self.driver.refresh()
-    #     self.assertTrue(
-    #         self.dialog_page.get_exsistance_of_forwarded_message(),
-    #         "test_forward_message failed")
+    def test_forward_long_valid_message(self):
+        LOOP_TEXT = '_123'
+        LOOP_TEXT *= 512
+        self.dialog_page.send_message(LOOP_TEXT)
+        self.dialog_page.forward_message()
+        self.message_page.choose_companion_forward_message()
+        self.driver.refresh()
+        self.assertTrue(
+            self.dialog_page.get_exsistance_of_forwarded_message(),
+            "test_forward_message failed")
 
     def test_delete_usual_message(self):
         self.dialog_page.send_message(self.USUAL_MESSAGE_TEXT)
@@ -169,22 +169,40 @@ class TestsSendMessages(unittest.TestCase):
             self.dialog_page.no_messages_text_exists(),
             "test_delete_message failed")
 
-    # def test_delete_long_valid_message(self):
-    #     LOOP_TEXT = '_123'
-    #     LOOP_TEXT *= 512
-    #     self.dialog_page.send_message(LOOP_TEXT)
-    #     self.dialog_page.delete_message()
-    #     self.driver.refresh()
-    #     self.assertTrue(
-    #         self.dialog_page.no_messages_text_exists(),
-    #         "test_delete_message failed")
+    def test_delete_long_valid_message(self):
+        LOOP_TEXT = '_123'
+        LOOP_TEXT *= 512
+        self.dialog_page.send_message(LOOP_TEXT)
+        self.dialog_page.delete_message()
+        self.driver.refresh()
+        self.assertTrue(
+            self.dialog_page.no_messages_text_exists(),
+            "test_delete_message failed")
 
-    # def test_delete_long_invalid_message(self):
-    #     LOOP_TEXT = '_123'
-    #     LOOP_TEXT *= 1024
-    #     self.dialog_page.send_message(LOOP_TEXT)
-    #     self.dialog_page.delete_message()
-    #     self.driver.refresh()
-    #     self.assertTrue(
-    #         self.dialog_page.no_messages_text_exists(),
-    #         "test_delete_message failed")
+    def test_delete_long_invalid_message(self):
+        LOOP_TEXT = '_123'
+        LOOP_TEXT *= 1024
+        self.dialog_page.send_message(LOOP_TEXT)
+        self.dialog_page.delete_message()
+        self.driver.refresh()
+        self.assertTrue(
+            self.dialog_page.no_messages_text_exists(),
+            "test_delete_message failed")
+
+    def test_send_chocolate_smile(self):
+        self.dialog_page.send_chocolate_smile()
+        self.assertTrue(
+            self.dialog_page.sent_message_exists(),
+            "test_send_smile failed")
+
+    def test_send_whale_smile(self):
+        self.dialog_page.send_whale_smile()
+        self.assertTrue(
+            self.dialog_page.sent_message_exists(),
+            "test_send_whale_smile failed")
+
+    def test_send_many_smiles(self):
+        self.dialog_page.send_combo_wombo_smile()
+        self.assertTrue(
+            self.dialog_page.sent_message_exists(),
+            "test_send_many_smile failed")
