@@ -49,20 +49,26 @@ class DialogForm(BaseElement):
     PROFILE_BUTTON = '//a[contains(@title, "Перейти на профиль")]'
     PROFILE_CONTENT = '//div[@class="portlet user-main-page"]'
 
-    OK_SMILES = '//ul[@class="comments_smiles_nav_cnt"]/li[2]'
-    OK_SMILE = '//img[contains(@alt, ":-)")]'
-    PEOPLE_SMILES = '//ul[@class="comments_smiles_nav_cnt"]/li[3]'
-    PEOPLE_SMILE = '//img[contains(@alt, "😄")]'
-    NATURE_SMILES = '//ul[@class="comments_smiles_nav_cnt"]/li[4]'
-    NATURE_SMILE = '//img[contains(@alt, "🐶")]'
-    OBJECT_SMILES = '//ul[@class="comments_smiles_nav_cnt"]/li[5]'
-    OBJECT_SMILE = '//img[contains(@alt, "🎍")]'
-    PLACES_SMILES = '//ul[@class="comments_smiles_nav_cnt"]/li[6]'
-    PLACES_SMILE = '//img[contains(@alt, "🏠")]'
-    SYMBOLS_SMILES = '//ul[@class="comments_smiles_nav_cnt"]/li[7]'
-    SYMBOLS_SMILE = '//img[contains(@alt, "🔟")]'
-    ANIMATION_SMILES = '//ul[@class="comments_smiles_nav_cnt"]/li[8]'
-    ANIMATION_SMILE = '//img[contains(@alt, "#u298cbf40cbs#")]'
+    SMILES = {
+        'OK_SMILE': '//img[contains(@alt, ":-)")]',
+        'PEOPLE_SMILE': '//img[contains(@alt, "😄")]',
+        'NATURE_SMILE': '//img[contains(@alt, "🐶")]',
+        'OBJECT_SMILE': '//img[contains(@alt, "🎍")]',
+        'PLACES_SMILE': '//img[contains(@alt, "🏠")]',
+        'SYMBOLS_SMILE': '//img[contains(@alt, "🔟")]',
+        'ANIMATION_SMILE': '//img[contains(@alt, "#u298cbf40cbs#")]',
+    }
+
+    SMILES_LIST = {
+        'OK_SMILES': '//ul[@class="comments_smiles_nav_cnt"]/li[2]',
+        'PEOPLE_SMILES': '//ul[@class="comments_smiles_nav_cnt"]/li[3]',
+        'NATURE_SMILES': '//ul[@class="comments_smiles_nav_cnt"]/li[4]',
+        'OBJECT_SMILES': '//ul[@class="comments_smiles_nav_cnt"]/li[5]',
+        'PLACES_SMILES': '//ul[@class="comments_smiles_nav_cnt"]/li[6]',
+        'SYMBOLS_SMILES': '//ul[@class="comments_smiles_nav_cnt"]/li[7]',
+        'ANIMATION_SMILES': '//ul[@class="comments_smiles_nav_cnt"]/li[8]',
+    }
+
     SMILE_LOADER = '//li[contains(@class, "comments_smiles_nav_i __active")]'
 
     STICKER_IN_BAR1 = '//div[contains(@class, "ugrid __xl postcards_3 js-data-holder")]/div/div[1]/div/img'
@@ -341,47 +347,11 @@ class DialogForm(BaseElement):
     def get_profile_page(self):
         return self.get_button_by_xpath(self.PROFILE_CONTENT)
 
-    def pick_animation_list(self):
-        return self.get_button_by_xpath(self.ANIMATION_SMILES)
+    def get_smile(self, name):
+        return self.get_button_by_xpath(self.SMILES[name])
 
-    def pick_animation_smile(self):
-        return self.get_button_by_xpath(self.ANIMATION_SMILE)
-
-    def pick_OK_list(self):
-        return self.get_button_by_xpath(self.OK_SMILES)
-
-    def pick_OK_smile(self):
-        return self.get_button_by_xpath(self.OK_SMILE)
-
-    def pick_people_list(self):
-        return self.get_button_by_xpath(self.PEOPLE_SMILES)
-
-    def pick_people_smile(self):
-        return self.get_button_by_xpath(self.PEOPLE_SMILE)
-
-    def pick_nature_list(self):
-        return self.get_button_by_xpath(self.NATURE_SMILES)
-
-    def pick_nature_smile(self):
-        return self.get_button_by_xpath(self.NATURE_SMILE)
-
-    def pick_object_list(self):
-        return self.get_button_by_xpath(self.OBJECT_SMILES)
-
-    def pick_object_smile(self):
-        return self.get_button_by_xpath(self.OBJECT_SMILE)
-
-    def pick_places_list(self):
-        return self.get_button_by_xpath(self.PLACES_SMILES)
-
-    def pick_places_smile(self):
-        return self.get_button_by_xpath(self.PLACES_SMILE)
-
-    def pick_symbols_list(self):
-        return self.get_button_by_xpath(self.SYMBOLS_SMILES)
-
-    def pick_symbols_smile(self):
-        return self.get_button_by_xpath(self.SYMBOLS_SMILE)
+    def get_smile_list(self, name):
+        return self.get_button_by_xpath(self.SMILES_LIST[name])
 
     def get_sticker1_from_bar(self):
         return self.get_button_by_xpath(self.STICKER_IN_BAR1)
