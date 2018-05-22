@@ -261,7 +261,15 @@ class DialogPage(BasePage):
         ActionChains(self.driver).move_to_element(
             report_message_button).perform()
         report_message_button.click()
+
+    def confirm_report(self):
         MessageConfirmPage(self.driver).confirm_report()
+
+    def cancel_report(self):
+        MessageConfirmPage(self.driver).cancel_report()
+
+    def close_report(self):
+        MessageConfirmPage(self.driver).close_report()
 
     def existence_reported_message(self):
         return self.dialog_form.existence_reported_message()

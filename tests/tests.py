@@ -76,13 +76,6 @@ class Tests(unittest.TestCase):
         confirm_page = ConfirmPage(self.driver)
         confirm_page.confirm()
 
-    def send_self_message_from_other_acc(self):
-        self.auth_page.chage_account(self.BOT_2_LOGIN, self.PASSWORD)
-        self.driver.get(self.URL_OF_DIALOG_WITH_ME)
-        self.dialog_page.send_message(self.MESSAGE_TEXT)
-
-        self.auth_page.chage_account(self.BOT_1_LOGIN, self.PASSWORD)
-        self.driver.get(self.CURRENT_DIALOG_URL)
 
     # Во всех тестах где присутвует рефреш - есть два объяснения:
     # 1 - Не динамичнось верстки(без рефреша элементы не меняются)
@@ -123,15 +116,6 @@ class Tests(unittest.TestCase):
         self.dialog_page.switch_do_not_disturbed()
 
 
-    def test_report_message(self):
-        self.dialog_page.unblock_user()
-
-        self.send_self_message_from_other_acc()
-        self.dialog_page.report_message()
-        self.NEED_TO_BLOCK_USER = True
-        self.assertTrue(
-            self.dialog_page.existence_reported_message(),
-            "test_report_message failed")
 
 
     # AndersRichter
