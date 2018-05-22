@@ -36,6 +36,7 @@ class DialogForm(BaseElement):
     FIRST_POSTCARD_IN_LIST = '//div[contains(@class, "comments_smiles_lst")]/div[1]/div'
     SENT_POSTCARD = '//div[contains(@data-module,"LiveSticker")]'
     POSTCARD_SEARCH = '//input[contains(@id, "PostcardsSearch_field_query")]'
+    POSTCARD_SEARCH_SUGGEST = '(//span[contains(@class, "search-input_suggest_i")])[1]'
     POSTCARD_SEARCH_LOADER = '//div[contains(@class, "search-input_process")]'
     USER_AVATAR = '//div[contains(@id, "hook_Block_MessageActionMenu")]/div[1]/div[1]/a/img'
     AVATAR_LOADER = '//div[@class, "photo-layer_process"]'
@@ -110,6 +111,7 @@ class DialogForm(BaseElement):
     ADD_COMPANION_BUTTON = '//span[contains(@class, " ic_add-user")]'
     CONTROL_USERS_BUTTON = '//span[contains(@class, " ic_ffriend")]'
     GROUP_CHAT_CREATED_TITLE = '//a[contains(@data-l,"user1FromSysMsg")]'
+    EMPTY_POSTCARDS_SEARCH = '//div[.="Таких открыток не нашлось "]'
 
     GROUP_CHAT_REMOVED_TITLE = '//a[contains(@data-l,"removedUserFromSysMsg")]'
 
@@ -246,6 +248,9 @@ class DialogForm(BaseElement):
     def search_postcards(self, request):
         self.get_button_by_xpath(self.POSTCARD_SEARCH).send_keys(request)
 
+    def search_postcards_by_suggest(self):
+        self.get_button_by_xpath(self.POSTCARD_SEARCH_SUGGEST).click()
+
     def wait_search_loading(self):
         self.existance_of_element_by_xpath(self.POSTCARD_SEARCH_LOADER)
         self.invisibility_of_element_by_xpath(self.POSTCARD_SEARCH_LOADER)
@@ -330,6 +335,9 @@ class DialogForm(BaseElement):
     def existence_play_again_button(self):
         play_again_button = self.GAME_INVITE_PLAY_AGAIN_TEMPLATE.replace("{AppID}", "")
         return self.existance_of_element_by_xpath(play_again_button)
+
+    def is_empty_postcard_search(self):
+        return self.existance_of_element_by_xpath(self.EMPTY_POSTCARDS_SEARCH)
 
     # AndersRichter
 

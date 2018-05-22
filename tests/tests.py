@@ -39,7 +39,6 @@ class Tests(unittest.TestCase):
         self.URL_OF_DIALOG_WITH_ME = "https://ok.ru/messages/575662066926"
         self.URL_OF_MESSAGES = "https://ok.ru/messages"
 
-        self.SEARCH_REQUEST = "happy birthday"
         self.NEED_TO_BLOCK_USER = False
         self.NEED_TO_CHANGE_ACC = False
 
@@ -123,24 +122,6 @@ class Tests(unittest.TestCase):
         self.NEED_TO_BLOCK_USER = True
         self.dialog_page.switch_do_not_disturbed()
 
-    def test_send_postcard(self):
-        self.dialog_page.send_postcard()
-        self.assertTrue(
-            self.dialog_page.check_sending_postcard(),
-            "test_send_postcard failed")
-
-    def test_postcards_search(self):
-        self.dialog_page.find_and_send_postcard(self.SEARCH_REQUEST)
-        self.assertTrue(
-            self.dialog_page.check_sending_postcard(),
-            "test_postcards_search failed")
-
-    def test_open_avatar(self):
-        self.dialog_page.open_menu()
-        self.dialog_page.open_avatar()
-        self.assertTrue(
-            self.dialog_page.existence_big_avatar(),
-            "test_open_original_photo failed")
 
     def test_report_message(self):
         self.dialog_page.unblock_user()

@@ -210,6 +210,21 @@ class DialogPage(BasePage):
         self.dialog_form.wait_search_loading()
         self.dialog_form.pick_first_postcard()
 
+    def search_postcards(self, search_request):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_postcards_list_button().click()
+        self.dialog_form.search_postcards(search_request)
+        self.dialog_form.wait_search_loading()
+
+    def search_postcards_by_suggest(self):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_postcards_list_button().click()
+        self.dialog_form.search_postcards_by_suggest()
+        self.dialog_form.wait_search_loading()
+
+    def is_empty_postcard_search(self):
+        return self.dialog_form.is_empty_postcard_search()
+
     def check_sending_postcard(self):
         return self.dialog_form.get_sent_postcard()
 
