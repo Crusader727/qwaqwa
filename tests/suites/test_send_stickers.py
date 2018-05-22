@@ -177,44 +177,45 @@ class TestsStickers(unittest.TestCase):
             self.dialog_page.sticker_bar_exists(),
             "test_sticker_bar failed")
 
+    ##
     def test_send_animation_smile(self):
-        self.dialog_page.send_animation_smile()
+        self.dialog_page.send_smile('ANIMATION_SMILES')
         self.assertTrue(
             self.dialog_page.sent_message_exists(),
             "test_send_animation_smile failed")
 
     def test_send_OK_smile(self):
-        self.dialog_page.send_OK_smile()
+        self.dialog_page.send_smile('OK_SMILES')
         self.assertTrue(
             self.dialog_page.sent_message_exists(),
             "test_send_OK_smile failed")
 
     def test_send_people_smile(self):
-        self.dialog_page.send_people_smile()
+        self.dialog_page.send_smile('PEOPLE_SMILES')
         self.assertTrue(
             self.dialog_page.sent_message_exists(),
             "test_send_people_smile failed")
 
     def test_send_nature_smile(self):
-        self.dialog_page.send_nature_smile()
+        self.dialog_page.send_smile('NATURE_SMILES')
         self.assertTrue(
             self.dialog_page.sent_message_exists(),
             "test_send_nature_smile failed")
 
     def test_send_object_smile(self):
-        self.dialog_page.send_object_smile()
+        self.dialog_page.send_smile('OBJECT_SMILES')
         self.assertTrue(
             self.dialog_page.sent_message_exists(),
             "test_send_object_smile failed")
 
     def test_send_places_smile(self):
-        self.dialog_page.send_places_smile()
+        self.dialog_page.send_smile('PLACES_SMILES')
         self.assertTrue(
             self.dialog_page.sent_message_exists(),
             "test_send_places_smile failed")
 
     def test_send_symbols_smile(self):
-        self.dialog_page.send_symbols_smile()
+        self.dialog_page.send_smile('SYMBOLS_SMILES')
         self.assertTrue(
             self.dialog_page.sent_message_exists(),
             "test_send_symbols_smile failed")
