@@ -39,8 +39,6 @@ class Tests(unittest.TestCase):
         self.URL_OF_DIALOG_WITH_ME = "https://ok.ru/messages/575662066926"
         self.URL_OF_MESSAGES = "https://ok.ru/messages"
 
-        self.SEARCH_REQUEST = "happy birthday"
-        self.APPLICATION_ID = "1241398016"
         self.NEED_TO_BLOCK_USER = False
         self.NEED_TO_CHANGE_ACC = False
 
@@ -78,13 +76,6 @@ class Tests(unittest.TestCase):
         confirm_page = ConfirmPage(self.driver)
         confirm_page.confirm()
 
-    def send_self_message_from_other_acc(self):
-        self.auth_page.chage_account(self.BOT_2_LOGIN, self.PASSWORD)
-        self.driver.get(self.URL_OF_DIALOG_WITH_ME)
-        self.dialog_page.send_message(self.MESSAGE_TEXT)
-
-        self.auth_page.chage_account(self.BOT_1_LOGIN, self.PASSWORD)
-        self.driver.get(self.CURRENT_DIALOG_URL)
 
     # Во всех тестах где присутвует рефреш - есть два объяснения:
     # 1 - Не динамичнось верстки(без рефреша элементы не меняются)
@@ -124,40 +115,7 @@ class Tests(unittest.TestCase):
         self.NEED_TO_BLOCK_USER = True
         self.dialog_page.switch_do_not_disturbed()
 
-    def test_send_postcard(self):
-        self.dialog_page.send_postcard()
-        self.assertTrue(
-            self.dialog_page.check_sending_postcard(),
-            "test_send_postcard failed")
 
-    def test_postcards_search(self):
-        self.dialog_page.find_and_send_postcard(self.SEARCH_REQUEST)
-        self.assertTrue(
-            self.dialog_page.check_sending_postcard(),
-            "test_postcards_search failed")
 
-    def test_open_avatar(self):
-        self.dialog_page.open_menu()
-        self.dialog_page.open_avatar()
-        self.assertTrue(
-            self.dialog_page.existence_big_avatar(),
-            "test_open_original_photo failed")
-
-    def test_report_message(self):
-        self.dialog_page.unblock_user()
-
-        self.send_self_message_from_other_acc()
-        self.dialog_page.report_message()
-        self.NEED_TO_BLOCK_USER = True
-        self.assertTrue(
-            self.dialog_page.existence_reported_message(),
-            "test_report_message failed")
-
-    def test_game_invite(self):
-        self.dialog_page.invite_game(self.APPLICATION_ID)
-        self.assertTrue(
-            self.dialog_page.existence_game(
-                self.APPLICATION_ID),
-            "test_game_invite failed")
 
     # AndersRichter
