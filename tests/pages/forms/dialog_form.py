@@ -42,18 +42,37 @@ class DialogForm(BaseElement):
     STICKER_BAR_CLOSE = '//div[contains(@class, "hello-stickers __empty js-hello-stickers __closed")]'
     STICKER_BAR_BUTTON = '//div[contains(@class, "hello-sticker-toggler js-hello-sticker-toggler")]'
     PRESENT_CONTENT = '//div[contains(@class, "gift-front_cnt")]'
-    CLOSE_MONEY_BUTTON = '//a[contains(@class, "ic modal-new_close_ico")]'
     MONEY_WINDOW = '//iframe[contains(@class, "modal-new_payment-frame")]'
     MONEY_TRANSFERS_ICON = '//div[contains(@class,"nav-side")]/a[2]'
     NAV_LOADER = '//div[contains(@id ,"navProgress")]'
     PAYMENT_LOADER = '//div[contains(@class, "new_payment-preloader")]'
     PROFILE_BUTTON = '//a[contains(@title, "Перейти на профиль")]'
     PROFILE_CONTENT = '//div[@class="portlet user-main-page"]'
-    ANIMATION_SMILES = '//ul[@class="comments_smiles_nav_cnt"]/li[8]'
-    SUN_SMILE = '//img[contains(@alt, "#u298cbf40cbs#")]'
-    ANIMATION_SMILE_LOADER = '//li[contains(@class, "comments_smiles_nav_i __active")]'
 
-    STICKER_IN_BAR = '//img[contains(@class, "live-sticker_preview")]'
+    SMILES = {
+        'OK_SMILE': '//img[contains(@alt, ":-)")]',
+        'PEOPLE_SMILE': '//img[contains(@alt, "😄")]',
+        'NATURE_SMILE': '//img[contains(@alt, "🐶")]',
+        'OBJECT_SMILE': '//img[contains(@alt, "🎍")]',
+        'PLACES_SMILE': '//img[contains(@alt, "🏠")]',
+        'SYMBOLS_SMILE': '//img[contains(@alt, "🔟")]',
+        'ANIMATION_SMILE': '//img[contains(@alt, "#u298cbf40cbs#")]',
+    }
+
+    SMILES_LIST = {
+        'OK_SMILES': '//ul[@class="comments_smiles_nav_cnt"]/li[2]',
+        'PEOPLE_SMILES': '//ul[@class="comments_smiles_nav_cnt"]/li[3]',
+        'NATURE_SMILES': '//ul[@class="comments_smiles_nav_cnt"]/li[4]',
+        'OBJECT_SMILES': '//ul[@class="comments_smiles_nav_cnt"]/li[5]',
+        'PLACES_SMILES': '//ul[@class="comments_smiles_nav_cnt"]/li[6]',
+        'SYMBOLS_SMILES': '//ul[@class="comments_smiles_nav_cnt"]/li[7]',
+        'ANIMATION_SMILES': '//ul[@class="comments_smiles_nav_cnt"]/li[8]',
+    }
+
+    SMILE_LOADER = '//li[contains(@class, "comments_smiles_nav_i __active")]'
+
+    STICKER_IN_BAR1 = '//div[contains(@class, "ugrid __xl postcards_3 js-data-holder")]/div/div[1]/div/img'
+    STICKER_IN_BAR2 = '//div[contains(@class, "ugrid __xl postcards_3 js-data-holder")]/div/div[2]/div/img'
 
     STICKERS_SET_INSTALL_BUTTON = '//a[contains(@data-l, "button_install")]'
     STICKERS_SET_UNINSTALL_BUTTON = '//a[contains(@data-l, "button_uninstall")]'
@@ -312,11 +331,8 @@ class DialogForm(BaseElement):
         self.invisibility_of_element_by_xpath(self.PAYMENT_LOADER)
 
     def wait_smile_loader(self):
-        self.existance_of_element_by_xpath(self.ANIMATION_SMILE_LOADER)
-        self.invisibility_of_element_by_xpath(self.ANIMATION_SMILE_LOADER)
-
-    def get_close_money_button(self):
-        return self.get_button_by_xpath(self.CLOSE_MONEY_BUTTON)
+        self.existance_of_element_by_xpath(self.SMILE_LOADER)
+        self.invisibility_of_element_by_xpath(self.SMILE_LOADER)
 
     def get_money_window(self):
         return self.get_button_by_xpath(self.MONEY_WINDOW)
@@ -331,11 +347,17 @@ class DialogForm(BaseElement):
     def get_profile_page(self):
         return self.get_button_by_xpath(self.PROFILE_CONTENT)
 
-    def pick_animation_list(self):
-        return self.get_button_by_xpath(self.ANIMATION_SMILES)
+    def get_smile(self, name):
+        return self.get_button_by_xpath(self.SMILES[name])
 
-    def pick_animation_smile(self):
-        return self.get_button_by_xpath(self.SUN_SMILE)
+    def get_smile_list(self, name):
+        return self.get_button_by_xpath(self.SMILES_LIST[name])
 
-    def get_sticker_from_bar(self):
-        return self.get_button_by_xpath(self.STICKER_IN_BAR)
+    def get_sticker1_from_bar(self):
+        return self.get_button_by_xpath(self.STICKER_IN_BAR1)
+
+    def get_existance_of_sticker1_in_bar(self):
+        return self.existance_of_element_by_xpath(self.STICKER_IN_BAR1)
+
+    def get_sticker2_from_bar(self):
+        return self.get_button_by_xpath(self.STICKER_IN_BAR2)

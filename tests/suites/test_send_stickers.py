@@ -122,3 +122,131 @@ class TestsStickers(unittest.TestCase):
             self.dialog_page.check_stickers_set(set_id),
             "can't add new pay sticker set #" + set_id)
         self.dialog_page.uninstall_stickers_set(set_id)
+
+    def test_delete_sticker_pack(self):
+        set_id = self.STICKERS_NEW_SET_ID
+        self.dialog_page.install_stickers_set(set_id)
+        self.dialog_page.uninstall_stickers_set(set_id)
+        self.assertTrue(
+            not self.dialog_page.check_stickers_set(set_id),
+            "test_delete_sticker_pack failed")
+
+    def test_installx2_deletex2_sticker_pack(self):
+        set_id1 = self.STICKERS_NEW_SET_ID
+        set_id2 = self.STICKERS_OLD_SET_ID
+
+        self.dialog_page.install_stickers_set(set_id1)
+        self.dialog_page.install_stickers_set(set_id2)
+        self.dialog_page.uninstall_stickers_set(set_id1)
+        self.dialog_page.uninstall_stickers_set(set_id2)
+
+        self.assertTrue(
+            not self.dialog_page.check_stickers_set(set_id1),
+            "test_delete_sticker_pack failed")
+        self.assertTrue(
+            not self.dialog_page.check_stickers_set(set_id2),
+            "test_delete_sticker_pack failed")
+
+    def test_install_delete_x2_sticker_pack(self):
+        set_id1 = self.STICKERS_NEW_SET_ID
+        set_id2 = self.STICKERS_OLD_SET_ID
+
+        self.dialog_page.install_stickers_set(set_id1)
+        self.dialog_page.uninstall_stickers_set(set_id1)
+        self.assertTrue(
+            not self.dialog_page.check_stickers_set(set_id1),
+            "test_delete_sticker_pack failed")
+
+        self.dialog_page.install_stickers_set(set_id2)
+        self.dialog_page.uninstall_stickers_set(set_id2)
+        self.assertTrue(
+            not self.dialog_page.check_stickers_set(set_id2),
+            "test_delete_sticker_pack failed")
+
+    def test_sticker_bar(self):
+        self.dialog_page.hide_sticker_bar()
+        self.assertTrue(
+            self.dialog_page.sticker_bar_exists(),
+            "test_sticker_bar failed")
+
+    def test_hidex2_sticker_bar(self):
+        self.dialog_page.hide_sticker_bar()
+        self.dialog_page.open_sticker_bar()
+        self.dialog_page.hide_sticker_bar()
+        self.assertTrue(
+            self.dialog_page.sticker_bar_exists(),
+            "test_sticker_bar failed")
+
+    def test_send_animation_smile(self):
+        self.dialog_page.send_animation_smile()
+        self.assertTrue(
+            self.dialog_page.sent_message_exists(),
+            "test_send_animation_smile failed")
+
+    def test_send_OK_smile(self):
+        self.dialog_page.send_OK_smile()
+        self.assertTrue(
+            self.dialog_page.sent_message_exists(),
+            "test_send_OK_smile failed")
+
+    def test_send_people_smile(self):
+        self.dialog_page.send_people_smile()
+        self.assertTrue(
+            self.dialog_page.sent_message_exists(),
+            "test_send_people_smile failed")
+
+    def test_send_nature_smile(self):
+        self.dialog_page.send_nature_smile()
+        self.assertTrue(
+            self.dialog_page.sent_message_exists(),
+            "test_send_nature_smile failed")
+
+    def test_send_object_smile(self):
+        self.dialog_page.send_object_smile()
+        self.assertTrue(
+            self.dialog_page.sent_message_exists(),
+            "test_send_object_smile failed")
+
+    def test_send_places_smile(self):
+        self.dialog_page.send_places_smile()
+        self.assertTrue(
+            self.dialog_page.sent_message_exists(),
+            "test_send_places_smile failed")
+
+    def test_send_symbols_smile(self):
+        self.dialog_page.send_symbols_smile()
+        self.assertTrue(
+            self.dialog_page.sent_message_exists(),
+            "test_send_symbols_smile failed")
+
+    def test_send_sticker1_from_bar(self):
+        self.dialog_page.send_sticker1_from_bar()
+        self.assertTrue(
+            self.dialog_page.message_with_sticker_exists(),
+            "test_send_sticker1_from_bar failed")
+
+    def test_send_sticker2_from_bar(self):
+        self.dialog_page.send_sticker2_from_bar()
+        self.assertTrue(
+            self.dialog_page.message_with_sticker_exists(),
+            "test_send_sticker2_from_bar failed")
+
+    def test_send_sticker_from_hide_bar(self):
+        self.dialog_page.hide_sticker_bar()
+        self.assertTrue(
+            self.dialog_page.sticker_bar_exists(),
+            "test_send_sticker_from_hide_bar failed")
+        self.assertTrue(
+            not self.dialog_page.sticker_in_bar_exists(),
+            "test_send_sticker_from_hide_bar failed")
+
+    def test_send_sticker_x2_from_bar(self):
+        self.dialog_page.send_sticker1_from_bar()
+        self.assertTrue(
+            self.dialog_page.message_with_sticker_exists(),
+            "test_send_sticker_x2_from_bar failed")
+        self.dialog_page.send_sticker2_from_bar()
+        self.assertTrue(
+            self.dialog_page.message_with_sticker_exists(),
+            "test_send_sticker_x2_from_bar failed")
+

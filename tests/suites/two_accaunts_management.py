@@ -217,3 +217,48 @@ class TwoAccauntsManagement(unittest.TestCase):
             "test_get_message_from_blocked_user failed")
         self.BOT_1_LOGIN = self.BOT_2_LOGIN
         self.NEED_TO_CHANGE_ACC = True
+
+    def test_video_call(self):
+        self.dialog_page.begin_video_call()
+        self.assertTrue(
+            self.dialog_page.video_call_exists(),
+            "test_video_call failed")
+
+    def test_support_window(self):
+        self.dialog_page.open_support()
+        self.assertTrue(
+            self.dialog_page.support_window_exists(),
+            "test_support_window failed")
+
+    def test_present_page(self):
+        self.dialog_page.go_to_present_page()
+        self.dialog_page.wait_for_nav_loader()
+        self.assertTrue(
+            self.dialog_page.present_page_exists(),
+            "test_present_page failed")
+        self.main_page.open_messages()
+
+    def test_money_page(self):
+        self.dialog_page.go_to_money_page()
+        self.dialog_page.wait_for_payment_loader()
+
+        self.assertTrue(
+            self.dialog_page.money_page_exists(),
+            "test_money_page failed")
+
+    def test_money_transfers_page(self):
+        self.dialog_page.go_to_money_page()
+        self.dialog_page.wait_for_payment_loader()
+        self.dialog_page.go_to_transfers_page()
+
+        self.assertTrue(
+            self.dialog_page.money_page_exists(),
+            "test_money_transfers_page failed")
+
+    def test_profile_from_dialog(self):
+        self.dialog_page.go_to_profile()
+        self.dialog_page.wait_for_nav_loader()
+        self.assertTrue(
+            self.dialog_page.profile_page_exists(),
+            "profile_from_dialog failed")
+        self.main_page.open_messages()

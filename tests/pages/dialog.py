@@ -276,6 +276,9 @@ class DialogPage(BasePage):
     def hide_sticker_bar(self):
         return self.dialog_form.get_sticker_bar_button().click()
 
+    def open_sticker_bar(self):
+        return self.dialog_form.get_sticker_bar_close().click()
+
     def sticker_bar_exists(self):
         return self.dialog_form.get_sticker_bar_close()
 
@@ -296,9 +299,6 @@ class DialogPage(BasePage):
         self.dialog_form.get_attach_button().click()
         self.attach_form.get_money_button().click()
 
-    def close_money_page(self):
-        self.dialog_form.get_close_money_button().click()
-
     def money_page_exists(self):
         return self.dialog_form.get_money_window()
 
@@ -316,10 +316,64 @@ class DialogPage(BasePage):
     def send_animation_smile(self):
         self.dialog_form.get_sticker_button().click()
         self.dialog_form.get_smiles_list_button().click()
-        self.dialog_form.pick_animation_list().click()
+        self.dialog_form.get_smile_list('ANIMATION_SMILES').click()
         self.dialog_form.wait_smile_loader()
-        self.dialog_form.pick_animation_smile().click()
+        self.dialog_form.get_smile('ANIMATION_SMILE').click()
         self.dialog_form.get_send_message_button().click()
 
-    def send_sticker_from_bar(self):
-        self.dialog_form.get_sticker_from_bar().click()
+    def send_OK_smile(self):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_smiles_list_button().click()
+        self.dialog_form.get_smile_list('OK_SMILES').click()
+        self.dialog_form.wait_smile_loader()
+        self.dialog_form.get_smile('OK_SMILE').click()
+        self.dialog_form.get_send_message_button().click()
+
+    def send_people_smile(self):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_smiles_list_button().click()
+        self.dialog_form.get_smile_list('PEOPLE_SMILES').click()
+        self.dialog_form.wait_smile_loader()
+        self.dialog_form.get_smile('PEOPLE_SMILE').click()
+        self.dialog_form.get_send_message_button().click()
+
+    def send_nature_smile(self):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_smiles_list_button().click()
+        self.dialog_form.get_smile_list('NATURE_SMILES').click()
+        self.dialog_form.wait_smile_loader()
+        self.dialog_form.get_smile('NATURE_SMILE').click()
+        self.dialog_form.get_send_message_button().click()
+
+    def send_object_smile(self):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_smiles_list_button().click()
+        self.dialog_form.get_smile_list('OBJECT_SMILES').click()
+        self.dialog_form.wait_smile_loader()
+        self.dialog_form.get_smile('OBJECT_SMILE').click()
+        self.dialog_form.get_send_message_button().click()
+
+    def send_places_smile(self):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_smiles_list_button().click()
+        self.dialog_form.get_smile_list('PLACES_SMILES').click()
+        self.dialog_form.wait_smile_loader()
+        self.dialog_form.get_smile('PLACES_SMILE').click()
+        self.dialog_form.get_send_message_button().click()
+
+    def send_symbols_smile(self):
+        self.dialog_form.get_sticker_button().click()
+        self.dialog_form.get_smiles_list_button().click()
+        self.dialog_form.get_smile_list('SYMBOLS_SMILES').click()
+        self.dialog_form.wait_smile_loader()
+        self.dialog_form.get_smile('SYMBOLS_SMILE').click()
+        self.dialog_form.get_send_message_button().click()
+
+    def send_sticker1_from_bar(self):
+        self.dialog_form.get_sticker1_from_bar().click()
+
+    def sticker_in_bar_exists(self):
+        return self.dialog_form.get_existance_of_sticker1_in_bar()
+
+    def send_sticker2_from_bar(self):
+        self.dialog_form.get_sticker2_from_bar().click()
