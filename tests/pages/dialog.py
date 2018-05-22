@@ -256,8 +256,29 @@ class DialogPage(BasePage):
         self.dialog_form.wait_game_list()
         self.dialog_form.pick_game(app_id)
 
+    def close_game(self):
+        self.dialog_form.get_game_close_button().click()
+
     def existence_game(self, app_id):
         return self.dialog_form.existence_game(app_id)
+
+    def apply_game_invite(self, app_id):
+        return self.dialog_form.apply_game_invite(app_id)
+
+    def reject_game_invite(self, app_id):
+        return self.dialog_form.reject_game_invite(app_id)
+
+    def play_again_game_invite(self, app_id):
+        return self.dialog_form.play_again_game_invite(app_id)
+
+    def existence_play_again_button(self):
+        return self.dialog_form.existence_play_again_button()
+
+    def existence_game_invite_in_dialog(self):
+        return self.dialog_form.find_game_invite()
+
+    def find_game_invite_by_id(self, app_id):
+        return self.dialog_form.find_game_invite_by_id(app_id)
 
     # AndersRichter
 

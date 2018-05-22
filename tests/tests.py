@@ -40,7 +40,6 @@ class Tests(unittest.TestCase):
         self.URL_OF_MESSAGES = "https://ok.ru/messages"
 
         self.SEARCH_REQUEST = "happy birthday"
-        self.APPLICATION_ID = "1241398016"
         self.NEED_TO_BLOCK_USER = False
         self.NEED_TO_CHANGE_ACC = False
 
@@ -153,11 +152,5 @@ class Tests(unittest.TestCase):
             self.dialog_page.existence_reported_message(),
             "test_report_message failed")
 
-    def test_game_invite(self):
-        self.dialog_page.invite_game(self.APPLICATION_ID)
-        self.assertTrue(
-            self.dialog_page.existence_game(
-                self.APPLICATION_ID),
-            "test_game_invite failed")
 
     # AndersRichter

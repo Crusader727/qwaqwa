@@ -20,6 +20,12 @@ class DialogForm(BaseElement):
 
     ATTACH_BUTTON = "//div[contains(@class, 'comments_attach')]"
     GAME_BUTTON = '//a[contains(@class, "comments_action_game_trigger")]'
+    GAME_CLOSE_BUTTON = '//span[contains(@class, "media-layer_close_ico")]'
+    GAME_INVITE_MESSAGE = '//div[contains(@class, "msg_game_cnt")]'
+    GAME_INVITE_MESSAGE_TEMPLATE = '//div[contains(@data-app-id, "{AppID}")]'
+    GAME_INVITE_APPLY_TEMPLATE = '//div[contains(@data-app-id, "{AppID}")]/a[1]'
+    GAME_INVITE_REJECT_TEMPLATE = '//div[contains(@data-app-id, "{AppID}")]/a[2]'
+    GAME_INVITE_PLAY_AGAIN_TEMPLATE = '//a[contains(@id, "{AppID}-play-again")]'
     MESSAGE_WITH_STICKER = '//div[contains(@class, "msg_sticker ")]'
     SENT_MESSAGE = '//div[contains(@class,"msg_tx")]'
     SMILES_LIST_BUTTON = '//a[contains(@data-l, "smilesTab")]'
@@ -288,6 +294,16 @@ class DialogForm(BaseElement):
     def get_game_button(self):
         return self.get_button_by_xpath(self.GAME_BUTTON)
 
+    def get_game_close_button(self):
+        return self.get_button_by_xpath(self.GAME_CLOSE_BUTTON)
+
+    def find_game_invite(self):
+        return self.existence_of_game_by_xpath(self.GAME_INVITE_MESSAGE)
+
+    def find_game_invite_by_id(self, app_id):
+        game_invite = self.GAME_INVITE_MESSAGE_TEMPLATE.replace("{AppID}", app_id)
+        return self.existence_of_game_by_xpath(game_invite)
+
     def wait_game_list(self):
         self.existance_of_element_by_xpath(self.GAME_LIST)
 
@@ -298,6 +314,22 @@ class DialogForm(BaseElement):
     def existence_game(self, app_id):
         find_game = self.ACTIVE_GAME_TEMPLATE.replace("{AppID}", app_id)
         return self.existance_of_element_by_xpath(find_game)
+
+    def apply_game_invite(self, app_id):
+        apply_button = self.GAME_INVITE_APPLY_TEMPLATE.replace("{AppID}", app_id)
+        self.get_button_by_xpath(apply_button).click()
+
+    def reject_game_invite(self, app_id):
+        reject_button = self.GAME_INVITE_REJECT_TEMPLATE.replace("{AppID}", app_id)
+        self.get_button_by_xpath(reject_button).click()
+
+    def play_again_game_invite(self, app_id):
+        play_again_button = self.GAME_INVITE_PLAY_AGAIN_TEMPLATE.replace("{AppID}", app_id)
+        self.get_button_by_xpath(play_again_button).click()
+
+    def existence_play_again_button(self):
+        play_again_button = self.GAME_INVITE_PLAY_AGAIN_TEMPLATE.replace("{AppID}", "")
+        return self.existance_of_element_by_xpath(play_again_button)
 
     # AndersRichter
 
