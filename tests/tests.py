@@ -76,7 +76,6 @@ class Tests(unittest.TestCase):
         confirm_page = ConfirmPage(self.driver)
         confirm_page.confirm()
 
-
     # Во всех тестах где присутвует рефреш - есть два объяснения:
     # 1 - Не динамичнось верстки(без рефреша элементы не меняются)
     # 2 - Не найдены признаки подтверждаюшие действие(рефреш гарантирует 100%
@@ -103,19 +102,5 @@ class Tests(unittest.TestCase):
     # 112Nick
 
     # Trubnikov
-
-    def test_not_disturbed(self):
-        self.dialog_page.unblock_user()
-        self.dialog_page.switch_do_not_disturbed()
-
-        self.send_self_message_from_other_acc()
-        self.assertFalse(
-            self.main_page.get_existance_of_new_message(),
-            "test_not_disturbed failed")
-        self.NEED_TO_BLOCK_USER = True
-        self.dialog_page.switch_do_not_disturbed()
-
-
-
 
     # AndersRichter
