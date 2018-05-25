@@ -46,8 +46,8 @@ class DialogForm(BaseElement):
     VIDEO_CALL_WINDOW = '//div[contains(@id, "hook_Block_VideoChatCall")]'
     SUPPORT_BUTTON = '//a[contains(@class, "ic ic_i_support")]'
     SUPPORT_WINDOW = '//div[contains(@id, "hook_Block_HelpFeedbackForm")]'
-    STICKER_BAR_CLOSE = '//div[contains(@class, "hello-stickers __empty js-hello-stickers __closed")]'
-    STICKER_BAR_BUTTON = '//div[contains(@class, "hello-sticker-toggler js-hello-sticker-toggler")]'
+    STICKER_BAR_TOGGLE_BUTTON = '//div[contains(@class, "hello-sticker-toggler")]'
+    CLOSED_STICKER_BAR = '//div[contains(@class, "hello-stickers __closed")]'
     PRESENT_CONTENT = '//div[contains(@class, "gift-front_cnt")]'
     MONEY_WINDOW = '//iframe[contains(@class, "modal-new_payment-frame")]'
     MONEY_TRANSFERS_ICON = '//div[contains(@class,"nav-side")]/a[2]'
@@ -306,7 +306,8 @@ class DialogForm(BaseElement):
         return self.existence_of_game_by_xpath(self.GAME_INVITE_MESSAGE)
 
     def find_game_invite_by_id(self, app_id):
-        game_invite = self.GAME_INVITE_MESSAGE_TEMPLATE.replace("{AppID}", app_id)
+        game_invite = self.GAME_INVITE_MESSAGE_TEMPLATE.replace(
+            "{AppID}", app_id)
         return self.existence_of_game_by_xpath(game_invite)
 
     def wait_game_list(self):
@@ -321,19 +322,23 @@ class DialogForm(BaseElement):
         return self.existance_of_element_by_xpath(find_game)
 
     def apply_game_invite(self, app_id):
-        apply_button = self.GAME_INVITE_APPLY_TEMPLATE.replace("{AppID}", app_id)
+        apply_button = self.GAME_INVITE_APPLY_TEMPLATE.replace(
+            "{AppID}", app_id)
         self.get_button_by_xpath(apply_button).click()
 
     def reject_game_invite(self, app_id):
-        reject_button = self.GAME_INVITE_REJECT_TEMPLATE.replace("{AppID}", app_id)
+        reject_button = self.GAME_INVITE_REJECT_TEMPLATE.replace(
+            "{AppID}", app_id)
         self.get_button_by_xpath(reject_button).click()
 
     def play_again_game_invite(self, app_id):
-        play_again_button = self.GAME_INVITE_PLAY_AGAIN_TEMPLATE.replace("{AppID}", app_id)
+        play_again_button = self.GAME_INVITE_PLAY_AGAIN_TEMPLATE.replace(
+            "{AppID}", app_id)
         self.get_button_by_xpath(play_again_button).click()
 
     def existence_play_again_button(self):
-        play_again_button = self.GAME_INVITE_PLAY_AGAIN_TEMPLATE.replace("{AppID}", "")
+        play_again_button = self.GAME_INVITE_PLAY_AGAIN_TEMPLATE.replace(
+            "{AppID}", "")
         return self.existance_of_element_by_xpath(play_again_button)
 
     def is_empty_postcard_search(self):
@@ -353,11 +358,11 @@ class DialogForm(BaseElement):
     def get_support_window(self):
         return self.get_button_by_xpath(self.SUPPORT_WINDOW)
 
-    def get_sticker_bar_close(self):
-        return self.get_button_by_xpath(self.STICKER_BAR_CLOSE)
+    def get_sticker_bar_toggle(self):
+        return self.get_button_by_xpath(self.STICKER_BAR_TOGGLE_BUTTON)
 
-    def get_sticker_bar_button(self):
-        return self.get_button_by_xpath(self.STICKER_BAR_BUTTON)
+    def is_sticker_bar_closed(self):
+        return self.existance_of_element_by_xpath(self.CLOSED_STICKER_BAR)
 
     def get_present_page(self):
         return self.get_button_by_xpath(self.PRESENT_CONTENT)
@@ -396,8 +401,8 @@ class DialogForm(BaseElement):
     def get_sticker1_from_bar(self):
         return self.get_button_by_xpath(self.STICKER_IN_BAR1)
 
-    def get_existance_of_sticker1_in_bar(self):
-        return self.existance_of_element_by_xpath(self.STICKER_IN_BAR1)
+    def send_sticker_from_bar(self):
+        return self.get_button_by_xpath(self.STICKER_IN_BAR1).click()
 
     def get_sticker2_from_bar(self):
         return self.get_button_by_xpath(self.STICKER_IN_BAR2)
