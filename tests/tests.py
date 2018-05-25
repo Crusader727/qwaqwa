@@ -99,8 +99,3 @@ class Tests(unittest.TestCase):
             self.dialog_page.sent_message_exists(),
             "test_send_music failed")
 
-    # 112Nick
-
-    # Trubnikov
-
-    # AndersRichter
